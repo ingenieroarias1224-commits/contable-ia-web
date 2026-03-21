@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin SaaS — Asistente Contable IA · Ing. Julián Arias</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#111827;--bg2:#1F2937;--bg3:#374151;--bg4:#4B5563;
+  --green:#10B981;--g2:#059669;--g3:rgba(16,185,129,.12);--g4:rgba(16,185,129,.05);
+  --red:#EF4444;--r2:rgba(239,68,68,.12);
+  --amber:#F59E0B;--a2:rgba(245,158,11,.12);
+  --blue:#3B82F6;--b2:rgba(59,130,246,.12);
+  --purple:#8B5CF6;--p2:rgba(139,92,246,.12);
+  --cyan:#06B6D4;--c2:rgba(6,182,212,.12);
+  --txt:#F9FAFB;--t2:#D1D5DB;--t3:#9CA3AF;--t4:#6B7280;
+  --bord:rgba(255,255,255,.07);--bord2:rgba(255,255,255,.12);
+  --r:8px;--rm:14px;--rl:20px;
+}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--txt);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+
+/* ── HEADER ── */
+.hdr{background:var(--bg2);border-bottom:1px solid var(--bord);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:60;gap:16px;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo svg{width:28px;height:28px}
+.logo-text{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;color:var(--green);letter-spacing:.1em;line-height:1.25}
+.logo-text span{display:block;font-size:.52rem;color:var(--t3);font-weight:400;letter-spacing:.06em}
+.hdr-search{flex:1;max-width:380px;position:relative}
+.hdr-search input{width:100%;background:var(--bg3);border:1px solid var(--bord2);border-radius:var(--rm);padding:7px 13px 7px 34px;color:var(--txt);font-size:.82rem;outline:none;transition:border-color .2s;font-family:'DM Sans',sans-serif}
+.hdr-search input:focus{border-color:var(--green)}
+.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--t4);font-size:.8rem;pointer-events:none}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.revenue-badge{display:flex;align-items:center;gap:6px;background:var(--g3);border:1px solid rgba(16,185,129,.25);border-radius:20px;padding:5px 13px;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--green)}
+.rb-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pu 2s ease infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.25}}
+.btn{padding:7px 16px;border-radius:var(--rm);font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--g2);box-shadow:0 4px 14px rgba(16,185,129,.28)}
+.btn-outline{background:transparent;border:1px solid var(--bord2);color:var(--t2)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-danger{background:var(--r2);border:1px solid rgba(239,68,68,.3);color:var(--red)}
+.btn-danger:hover{background:rgba(239,68,68,.22)}
+.btn-sm{padding:5px 12px;font-size:.68rem}
+
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;overflow:hidden;min-height:0}
+.sidebar{width:214px;background:var(--bg2);border-right:1px solid var(--bord);display:flex;flex-direction:column;padding:14px 0;flex-shrink:0;overflow-y:auto}
+.sidebar::-webkit-scrollbar{display:none}
+.main{flex:1;overflow-y:auto;background:var(--bg)}
+.main::-webkit-scrollbar{width:5px}.main::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+.content{padding:22px}
+
+/* ── SIDEBAR ── */
+.nav-grp{padding:0 10px;margin-bottom:18px}
+.nav-grp-title{font-size:.6rem;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;margin-bottom:4px}
+.nav-it{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r);cursor:pointer;transition:all .16s;font-size:.82rem;color:var(--t3);position:relative}
+.nav-it:hover{background:rgba(255,255,255,.04);color:var(--txt)}
+.nav-it.on{background:var(--g3);color:var(--green);font-weight:500}
+.nav-ico{width:17px;text-align:center;font-size:.9rem;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:.54rem;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.nav-badge.g{background:var(--green)}
+.nav-badge.a{background:var(--amber)}
+
+/* ── PAGE ── */
+.page{display:none}.page.on{display:block}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:14px;flex-wrap:wrap}
+.ph-left h1{font-family:'Syne',sans-serif;font-size:1.181rem;font-weight:800}
+.ph-left p{font-size:.8rem;color:var(--t3);margin-top:3px}
+.ph-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* ── KPI ROW ── */
+.kpi-row{display:grid;gap:12px;margin-bottom:20px}
+.kpi-5{grid-template-columns:repeat(5,1fr)}
+.kpi-4{grid-template-columns:repeat(4,1fr)}
+.kpi{background:var(--bg2);border:1px solid var(--bord);border-radius:var(--rm);padding:15px;position:relative;overflow:hidden;transition:border-color .2s}
+.kpi:hover{border-color:var(--bord2)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.k-g::before{background:linear-gradient(90deg,transparent,var(--green),transparent)}
+.k-a::before{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.k-r::before{background:linear-gradient(90deg,transparent,var(--red),transparent)}
+.k-b::before{background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.k-p::before{background:linear-gradient(90deg,transparent,var(--purple),transparent)}
+.k-c::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.kpi-l{font-size:.62rem;color:var(--t4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;font-weight:500}
+.kpi-n{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;line-height:1}
+.kpi-n.g{color:var(--green)}.kpi-n.a{color:var(--amber)}.kpi-n.r{color:var(--red)}.kpi-n.b{color:var(--blue)}.kpi-n.p{color:var(--purple)}.kpi-n.c{color:var(--cyan)}
+.kpi-s{font-size:.62rem;color:var(--t4);margin-top:6px;font-family:'DM Mono',monospace}
+.kpi-trend{display:flex;align-items:center;gap:4px;margin-top:6px;font-size:.64rem}
+.trend-up{color:var(--green)}.trend-dn{color:var(--red)}
+
+/* ── CARD ── */
+.card{background:var(--bg2);border:1px solid var(--bord);border-radius:var(--rm);overflow:hidden}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--bord);gap:10px;flex-wrap:wrap}
+.card-hdr h3{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700}
+.card-body{padding:16px}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+thead th{padding:9px 14px;text-align:left;font-family:'DM Mono',monospace;font-size:.6rem;color:var(--t4);text-transform:uppercase;letter-spacing:.08em;font-weight:400;border-bottom:1px solid var(--bord);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--bord);cursor:pointer;transition:background .14s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+tbody tr.row-selected{background:rgba(16,185,129,.05)}
+td{padding:11px 14px;vertical-align:middle;white-space:nowrap}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:14px;font-size:.62rem;font-weight:600;letter-spacing:.03em;white-space:nowrap}
+.b-active{background:var(--g3);color:var(--green)}
+.b-trial{background:var(--b2);color:var(--blue)}
+.b-suspended{background:var(--a2);color:var(--amber)}
+.b-cancelled{background:var(--r2);color:var(--red)}
+.b-basic{background:rgba(255,255,255,.06);color:var(--t3)}
+.b-pro{background:var(--b2);color:var(--blue)}
+.b-enterprise{background:var(--p2);color:var(--purple)}
+.b-siigo{background:var(--c2);color:var(--cyan)}
+.b-helisa{background:rgba(249,115,22,.12);color:#FB923C}
+.b-siesa{background:var(--p2);color:var(--purple)}
+.b-overdue{background:var(--r2);color:var(--red)}
+.b-paid{background:var(--g3);color:var(--green)}
+.b-pending{background:var(--a2);color:var(--amber)}
+
+/* ── FILTERS ── */
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.fb{padding:4px 11px;border-radius:14px;border:1px solid var(--bord2);background:var(--bg3);color:var(--t3);font-size:.7rem;font-weight:500;cursor:pointer;transition:all .16s;white-space:nowrap}
+.fb:hover{color:var(--txt)}
+.fb.on{background:var(--g3);border-color:rgba(16,185,129,.3);color:var(--green)}
+
+/* ── CLIENT DETAIL PANEL ── */
+.detail-grid{display:grid;grid-template-columns:1fr 300px;gap:16px}
+.detail-section{background:var(--bg2);border:1px solid var(--bord);border-radius:var(--rm);padding:16px;margin-bottom:14px}
+.ds-title{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bord)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.62rem;color:var(--t4);text-transform:uppercase;letter-spacing:.06em}
+.field span{font-size:.82rem;color:var(--txt);font-weight:500}
+.field span.code{font-family:'DM Mono',monospace;font-size:.76rem;color:var(--green)}
+.activity-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--bord);align-items:flex-start}
+.activity-item:last-child{border-bottom:none}
+.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.act-body{flex:1}
+.act-title{font-size:.8rem;font-weight:500}
+.act-time{font-size:.66rem;color:var(--t4);font-family:'DM Mono',monospace;margin-top:2px}
+.usage-bar{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:5px}
+.ub-fill{height:100%;border-radius:3px;transition:width .8s ease}
+
+/* ── REVENUE CHART ── */
+.rev-bars{display:flex;align-items:flex-end;gap:6px;height:80px;padding:0 4px}
+.rev-bar{flex:1;border-radius:3px 3px 0 0;min-width:8px;transition:opacity .2s;cursor:pointer}
+.rev-bar:hover{opacity:.8}
+.rev-labels{display:flex;gap:6px;padding:0 4px;margin-top:5px}
+.rev-label{flex:1;font-size:.6rem;color:var(--t4);text-align:center;font-family:'DM Mono',monospace}
+.rev-total{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--green)}
+.rev-sub{font-size:.7rem;color:var(--t4);margin-top:3px}
+
+/* ── HEATMAP ── */
+.heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px}
+.hm-cell{aspect-ratio:1;border-radius:3px;cursor:pointer;transition:opacity .2s}
+.hm-cell:hover{opacity:.75}
+
+/* ── INVOICE TABLE ── */
+.inv-row{display:grid;grid-template-columns:100px 1fr 100px 100px 80px;gap:8px;padding:9px 14px;border-bottom:1px solid var(--bord);align-items:center;font-size:.78rem}
+.inv-row:last-child{border-bottom:none}
+.inv-hdr{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--t4);text-transform:uppercase;letter-spacing:.07em;background:rgba(255,255,255,.03)}
+
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-bg.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bord2);border-radius:var(--rl);padding:24px;width:min(560px,96vw);max-height:90vh;overflow-y:auto}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--bord)}
+.modal-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800}
+.modal-close{background:var(--bg3);border:none;color:var(--t3);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{color:var(--red);background:var(--r2)}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:.68rem;color:var(--t3);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.form-control{width:100%;background:var(--bg3);border:1px solid var(--bord2);border-radius:var(--r);padding:10px 13px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;transition:border-color .2s}
+.form-control:focus{border-color:var(--green)}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+select.form-control option{background:var(--bg2)}
+textarea.form-control{min-height:80px;resize:vertical}
+
+/* ── SWITCH ── */
+.switch{display:flex;align-items:center;gap:10px;cursor:pointer}
+.sw-track{width:42px;height:22px;border-radius:11px;background:var(--bg3);border:1px solid var(--bord2);position:relative;transition:background .2s;flex-shrink:0}
+.sw-track.on{background:var(--green);border-color:var(--green)}
+.sw-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+.sw-track.on .sw-thumb{left:22px}
+.sw-label{font-size:.82rem;color:var(--t2)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--bg2);border:1px solid rgba(16,185,129,.3);border-radius:var(--rm);padding:11px 16px;display:flex;align-items:center;gap:9px;font-size:.82rem;box-shadow:0 8px 28px rgba(0,0,0,.5);z-index:300;transition:all .3s cubic-bezier(.4,0,.2,1);transform:translateY(70px);opacity:0;max-width:340px}
+.toast.on{transform:translateY(0);opacity:1}
+
+/* ── ONBOARDING WIZARD ── */
+.wizard{background:var(--bg2);border:1px solid var(--bord);border-radius:var(--rm);padding:24px}
+.wizard-steps{display:flex;gap:0;margin-bottom:28px;position:relative}
+.wizard-steps::before{content:'';position:absolute;top:15px;left:15px;right:15px;height:1px;background:var(--bg3)}
+.ws{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;z-index:1}
+.ws-circle{width:30px;height:30px;border-radius:50%;border:2px solid var(--bg3);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;color:var(--t4);transition:all .3s}
+.ws.done .ws-circle{background:var(--green);border-color:var(--green);color:#fff}
+.ws.active .ws-circle{border-color:var(--green);color:var(--green)}
+.ws-label{font-size:.62rem;color:var(--t4);text-align:center;line-height:1.3;font-weight:500}
+.ws.active .ws-label{color:var(--green)}
+.wizard-content{min-height:280px}
+.wiz-step{display:none}.wiz-step.on{display:block}
+.wizard-footer{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--bord)}
+.wiz-progress{height:3px;background:var(--bg3);border-radius:1.5px;overflow:hidden;margin-bottom:20px}
+.wiz-fill{height:100%;background:var(--green);border-radius:1.5px;transition:width .4s ease}
+
+/* ── ALERT ── */
+.alert{padding:10px 14px;border-radius:var(--r);font-size:.8rem;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px}
+.alert-ok{background:var(--g3);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+.alert-err{background:var(--r2);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+.alert-info{background:var(--b2);border:1px solid rgba(59,130,246,.2);color:var(--blue)}
+.alert.hidden{display:none}
+
+/* ── PLAN CARDS ── */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.plan-card{background:var(--bg3);border:2px solid var(--bord2);border-radius:var(--rm);padding:16px;cursor:pointer;transition:all .2s;text-align:center}
+.plan-card:hover{border-color:var(--green)}
+.plan-card.selected{border-color:var(--green);background:var(--g4)}
+.plan-price{font-family:'Syne',sans-serif;font-size:1.137rem;font-weight:800;color:var(--txt);margin:8px 0 4px}
+.plan-period{font-size:.68rem;color:var(--t4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){.kpi-5{grid-template-columns:repeat(3,1fr)}.detail-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.sidebar{width:180px}.kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr)}.plan-grid{grid-template-columns:1fr}}
+@media(max-width:580px){.sidebar{display:none}}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toast-ico">✅</span><span id="toast-msg">Acción completada</span></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="logo" href="#">
+    <svg viewBox="0 0 28 28" fill="none"><polygon points="14,2 25,8 25,20 14,26 3,20 3,8" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.5)" stroke-width="1"/><circle cx="14" cy="14" r="4" fill="#10B981"/></svg>
+    <div class="logo-text">ADMIN SAAS<span>CONTABLE IA · ING. JULIÁN ARIAS</span></div>
+  </a>
+  <div class="hdr-search">
+    <span class="search-ico">🔍</span>
+    <input type="text" id="globalSearch" placeholder="Buscar clientes, NIT, dominio, ERP..." oninput="liveSearch(this.value)">
+  </div>
+  <div class="hdr-right">
+    <div class="revenue-badge"><div class="rb-dot"></div><span id="revenueDisplay">MRR: $0</span></div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('new-client')">+ Nuevo cliente</button>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="nav-grp">
+      <div class="nav-grp-title">Panel</div>
+      <div class="nav-it on" id="nav-dashboard" onclick="goPage('dashboard')"><div class="nav-ico">📊</div>Dashboard</div>
+      <div class="nav-it" id="nav-clientes" onclick="goPage('clientes')"><div class="nav-ico">👥</div>Clientes<div class="nav-badge g" id="badge-clientes">0</div></div>
+      <div class="nav-it" id="nav-onboarding" onclick="goPage('onboarding')"><div class="nav-ico">🚀</div>Onboarding</div>
+      <div class="nav-it" id="nav-facturacion" onclick="goPage('facturacion')"><div class="nav-ico">💳</div>Facturación<div class="nav-badge a" id="badge-facturas">0</div></div>
+    </div>
+    <div class="nav-grp">
+      <div class="nav-grp-title">Análisis</div>
+      <div class="nav-it" id="nav-revenue" onclick="goPage('revenue')"><div class="nav-ico">📈</div>Revenue</div>
+      <div class="nav-it" id="nav-servidores" onclick="goPage('servidores')"><div class="nav-ico">🖥</div>Servidores</div>
+    </div>
+    <div class="nav-grp">
+      <div class="nav-grp-title">Vistas rápidas</div>
+      <div class="nav-it" onclick="filterAndGo('trial')"><div class="nav-ico">🔵</div>En prueba<div class="nav-badge" id="badge-trial">0</div></div>
+      <div class="nav-it" onclick="filterAndGo('suspended')"><div class="nav-ico">🔴</div>Suspendidos<div class="nav-badge" id="badge-suspended">0</div></div>
+      <div class="nav-it" onclick="filterAndGo('overdue')"><div class="nav-ico">🟡</div>Pagos vencidos<div class="nav-badge a" id="badge-overdue">0</div></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="content">
+
+      <!-- ══ DASHBOARD ══ -->
+      <div class="page on" id="page-dashboard">
+        <div class="ph">
+          <div class="ph-left"><h1>Panel de Administración</h1><p>Asistente Contable IA · Colombia 2026 · UVT $52.374</p></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm" onclick="goPage('revenue')">Ver Revenue →</button>
+            <button class="btn btn-primary btn-sm" onclick="openModal('new-client')">+ Nuevo cliente</button>
+          </div>
+        </div>
+        <div class="kpi-row kpi-5" id="dash-kpis"></div>
+        <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="card">
+            <div class="card-hdr"><h3>Clientes activos</h3><button class="btn btn-outline btn-sm" onclick="goPage('clientes')">Ver todos →</button></div>
+            <div class="tbl-wrap"><table><thead><tr><th>Cliente</th><th>Plan</th><th>ERP</th><th>Estado</th><th>MRR</th><th>Desde</th></tr></thead><tbody id="dash-client-rows"></tbody></table></div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Revenue mensual</h3></div>
+            <div class="card-body">
+              <div class="rev-total" id="dash-mrr">$0</div>
+              <div class="rev-sub">MRR total este mes</div>
+              <div style="margin-top:16px">
+                <div class="rev-bars" id="revBars"></div>
+                <div class="rev-labels" id="revLabels"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+          <div class="card">
+            <div class="card-hdr"><h3>Por plan</h3></div>
+            <div class="card-body" id="planBreakdown"></div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Por ERP</h3></div>
+            <div class="card-body" id="erpBreakdown"></div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Próximos cobros</h3></div>
+            <div class="card-body" id="upcomingBilling"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CLIENTES ══ -->
+      <div class="page" id="page-clientes">
+        <div class="ph">
+          <div class="ph-left"><h1>Clientes</h1><p id="client-count-label">0 clientes</p></div>
+          <div class="ph-actions">
+            <div class="filters" id="status-filters">
+              <div class="fb on" onclick="filterClients('all',this)">Todos</div>
+              <div class="fb" onclick="filterClients('active',this)">Activos</div>
+              <div class="fb" onclick="filterClients('trial',this)">Prueba</div>
+              <div class="fb" onclick="filterClients('suspended',this)">Suspendidos</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openModal('new-client')">+ Nuevo</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr">
+            <h3 id="clients-tbl-title">Todos los clientes</h3>
+            <div class="filters">
+              <div class="fb" onclick="filterByPlan('Básico',this)">Básico</div>
+              <div class="fb" onclick="filterByPlan('Profesional',this)">Profesional</div>
+              <div class="fb" onclick="filterByPlan('Empresarial',this)">Empresarial</div>
+              <div class="fb" onclick="filterByErp('Siigo',this)">Siigo</div>
+              <div class="fb" onclick="filterByErp('Helisa',this)">Helisa</div>
+              <div class="fb" onclick="filterByErp('Siesa',this)">Siesa</div>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Cliente</th><th>NIT</th><th>Plan</th><th>ERP</th><th>Estado</th><th>MRR</th><th>Facturas/mes</th><th>Pago</th><th>Desde</th><th>Acciones</th></tr></thead>
+              <tbody id="client-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ DETALLE CLIENTE ══ -->
+      <div class="page" id="page-client-detail">
+        <div class="ph">
+          <div class="ph-left">
+            <button class="btn btn-outline btn-sm" onclick="goPage('clientes')" style="margin-bottom:8px">← Volver</button>
+            <h1 id="detail-client-name">Cliente</h1>
+            <p id="detail-client-meta"></p>
+          </div>
+          <div class="ph-actions" id="detail-actions"></div>
+        </div>
+        <div class="detail-grid">
+          <div>
+            <div class="detail-section" id="detail-info"></div>
+            <div class="detail-section">
+              <div class="ds-title">Uso del sistema este mes</div>
+              <div id="detail-usage"></div>
+            </div>
+            <div class="detail-section">
+              <div class="ds-title">Historial de actividad</div>
+              <div id="detail-activity"></div>
+            </div>
+          </div>
+          <div>
+            <div class="detail-section" id="detail-billing"></div>
+            <div class="detail-section">
+              <div class="ds-title">Acciones rápidas</div>
+              <div style="display:flex;flex-direction:column;gap:8px" id="detail-quick-actions"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ONBOARDING ══ -->
+      <div class="page" id="page-onboarding">
+        <div class="ph">
+          <div class="ph-left"><h1>Onboarding — Nuevo Cliente</h1><p>Asistente guiado · 4 pasos · ~10 minutos</p></div>
+        </div>
+        <div class="alert alert-info"><span>ℹ</span> Complete los 4 pasos para dejar al cliente 100% operativo con acceso al sistema, ERP configurado y credenciales enviadas.</div>
+        <div class="wizard">
+          <div class="wiz-progress"><div class="wiz-fill" id="wizProgress" style="width:25%"></div></div>
+          <div class="wizard-steps" id="wizSteps">
+            <div class="ws active" id="ws-0"><div class="ws-circle">1</div><div class="ws-label">Datos del<br>cliente</div></div>
+            <div class="ws" id="ws-1"><div class="ws-circle">2</div><div class="ws-label">Plan y<br>ERP</div></div>
+            <div class="ws" id="ws-2"><div class="ws-circle">3</div><div class="ws-label">Servidor y<br>acceso</div></div>
+            <div class="ws" id="ws-3"><div class="ws-circle">4</div><div class="ws-label">Confirmar y<br>lanzar</div></div>
+          </div>
+          <div class="wizard-content">
+            <!-- Step 1 -->
+            <div class="wiz-step on" id="wiz-0">
+              <div style="margin-bottom:16px"><h3 style="font-family:'Syne',sans-serif;font-size:0.875rem;font-weight:700;margin-bottom:4px">Información del cliente</h3><p style="font-size:.8rem;color:var(--t3)">Datos de la empresa que contrata el servicio</p></div>
+              <div class="form-2">
+                <div class="form-group"><label class="form-label">Razón social *</label><input class="form-control" id="ob-razon" placeholder="Empresa SAS"></div>
+                <div class="form-group"><label class="form-label">NIT *</label><input class="form-control" id="ob-nit" placeholder="900.123.456-1"></div>
+                <div class="form-group"><label class="form-label">Correo administrador *</label><input class="form-control" id="ob-email" type="email" placeholder="admin@empresa.com"></div>
+                <div class="form-group"><label class="form-label">Teléfono / WhatsApp</label><input class="form-control" id="ob-tel" placeholder="+57 300 000 0000"></div>
+                <div class="form-group"><label class="form-label">Ciudad</label><input class="form-control" id="ob-city" placeholder="Bogotá D.C."></div>
+                <div class="form-group"><label class="form-label">Representante legal</label><input class="form-control" id="ob-rep" placeholder="Nombre del representante"></div>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="wiz-step" id="wiz-1">
+              <div style="margin-bottom:16px"><h3 style="font-family:'Syne',sans-serif;font-size:0.875rem;font-weight:700;margin-bottom:4px">Plan y configuración ERP</h3></div>
+              <div class="plan-grid">
+                <div class="plan-card" onclick="selectPlan('Básico',this)"><div style="font-size:1.137rem">⚡</div><div style="font-size:.78rem;font-weight:700;margin-top:4px">Básico</div><div class="plan-price">$299K</div><div class="plan-period">COP / mes · hasta 100 facturas</div></div>
+                <div class="plan-card selected" onclick="selectPlan('Profesional',this)"><div style="font-size:1.137rem">🚀</div><div style="font-size:.78rem;font-weight:700;margin-top:4px">Profesional</div><div class="plan-price">$599K</div><div class="plan-period">COP / mes · hasta 500 facturas</div></div>
+                <div class="plan-card" onclick="selectPlan('Empresarial',this)"><div style="font-size:1.137rem">🏢</div><div style="font-size:.78rem;font-weight:700;margin-top:4px">Empresarial</div><div class="plan-price">$1.2M</div><div class="plan-period">COP / mes · ilimitado</div></div>
+              </div>
+              <div class="form-2" style="margin-top:12px">
+                <div class="form-group"><label class="form-label">ERP principal</label><select class="form-control" id="ob-erp"><option>Siigo Nube</option><option>Helisa</option><option>Siesa Enterprise</option></select></div>
+                <div class="form-group"><label class="form-label">Puerto en servidor</label><input class="form-control" id="ob-port" placeholder="8501" value="8501"></div>
+                <div class="form-group"><label class="form-label">Subdominio</label><input class="form-control" id="ob-domain" placeholder="empresa.contable.co"></div>
+                <div class="form-group"><label class="form-label">Periodo de prueba</label><select class="form-control" id="ob-trial"><option>30 días gratis</option><option>15 días gratis</option><option>Sin prueba (cobro inmediato)</option></select></div>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="wiz-step" id="wiz-2">
+              <div style="margin-bottom:16px"><h3 style="font-family:'Syne',sans-serif;font-size:0.875rem;font-weight:700;margin-bottom:4px">Configuración del servidor</h3></div>
+              <div class="alert alert-info"><span>ℹ</span> Al completar este paso, el sistema generará el script bash de instalación automática.</div>
+              <div class="form-2">
+                <div class="form-group"><label class="form-label">Servidor (IP o hostname)</label><input class="form-control" id="ob-server" value="157.230.100.25" placeholder="IP del servidor"></div>
+                <div class="form-group"><label class="form-label">Directorio base</label><input class="form-control" id="ob-dir" value="/opt/contable/clientes/" placeholder="/opt/contable/clientes/"></div>
+                <div class="form-group"><label class="form-label">IMAP host correo</label><input class="form-control" id="ob-imap" placeholder="imap.gmail.com"></div>
+                <div class="form-group"><label class="form-label">Notificaciones</label><select class="form-control" id="ob-notif"><option>Email + WhatsApp</option><option>Solo Email</option><option>Solo WhatsApp</option><option>Sin notificaciones</option></select></div>
+              </div>
+              <div id="ob-script-preview" style="background:var(--bg);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;margin-top:12px;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--green);line-height:2;display:none"></div>
+              <button class="btn btn-outline btn-sm" style="margin-top:10px" onclick="previewScript()">👁 Previsualizar script</button>
+            </div>
+            <!-- Step 4 -->
+            <div class="wiz-step" id="wiz-3">
+              <div style="margin-bottom:16px"><h3 style="font-family:'Syne',sans-serif;font-size:0.875rem;font-weight:700;margin-bottom:4px">Confirmar y lanzar</h3></div>
+              <div id="ob-summary" style="background:var(--bg);border-radius:var(--r);padding:16px;font-size:.82rem;line-height:2"></div>
+              <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px">
+                <label class="switch"><div class="sw-track on" id="sw-contract" onclick="toggleSw('sw-contract')"><div class="sw-thumb"></div></div><span class="sw-label">Contrato de licencia firmado y registrado</span></label>
+                <label class="switch"><div class="sw-track on" id="sw-email" onclick="toggleSw('sw-email')"><div class="sw-thumb"></div></div><span class="sw-label">Enviar credenciales de acceso por correo</span></label>
+                <label class="switch"><div class="sw-track on" id="sw-wp" onclick="toggleSw('sw-wp')"><div class="sw-thumb"></div></div><span class="sw-label">Enviar bienvenida por WhatsApp</span></label>
+                <label class="switch"><div class="sw-track" id="sw-invoice" onclick="toggleSw('sw-invoice')"><div class="sw-thumb"></div></div><span class="sw-label">Emitir factura electrónica DIAN de servicio</span></label>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-outline" id="wizBack" onclick="wizNav(-1)" style="visibility:hidden">← Anterior</button>
+            <div style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--t4)" id="wizProgress-label">Paso 1 de 4</div>
+            <button class="btn btn-primary" id="wizNext" onclick="wizNav(1)">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ FACTURACIÓN ══ -->
+      <div class="page" id="page-facturacion">
+        <div class="ph">
+          <div class="ph-left"><h1>Facturación</h1><p>Gestión de cobros y pagos de suscripciones</p></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm" onclick="generarCobros()">🔄 Generar cobros del mes</button>
+            <button class="btn btn-primary btn-sm" onclick="exportarFacturas()">📊 Exportar a Excel</button>
+          </div>
+        </div>
+        <div class="kpi-row kpi-4" id="billing-kpis"></div>
+        <div class="card">
+          <div class="card-hdr"><h3>Facturas emitidas — Marzo 2026</h3>
+            <div class="filters">
+              <div class="fb on" onclick="filterInvoices('all',this)">Todas</div>
+              <div class="fb" onclick="filterInvoices('paid',this)">Pagadas</div>
+              <div class="fb" onclick="filterInvoices('pending',this)">Pendientes</div>
+              <div class="fb" onclick="filterInvoices('overdue',this)">Vencidas</div>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <div class="inv-row inv-hdr"><div>No. Factura</div><div>Cliente</div><div>Valor</div><div>Vencimiento</div><div>Estado</div></div>
+            <div id="invoice-rows"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ REVENUE ══ -->
+      <div class="page" id="page-revenue">
+        <div class="ph"><div class="ph-left"><h1>Revenue Analytics</h1><p>Métricas de ingresos · MRR · Churn · LTV</p></div></div>
+        <div class="kpi-row kpi-4" id="rev-kpis"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="card">
+            <div class="card-hdr"><h3>MRR por mes (2026)</h3></div>
+            <div class="card-body">
+              <div class="rev-bars" style="height:120px" id="mrrBars"></div>
+              <div class="rev-labels" id="mrrLabels"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><h3>Distribución por plan</h3></div>
+            <div class="card-body">
+              <div style="display:flex;flex-direction:column;gap:12px" id="planRevDist"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><h3>Proyección a 12 meses (base actual)</h3></div>
+          <div class="card-body" id="projection-table"></div>
+        </div>
+      </div>
+
+      <!-- ══ SERVIDORES ══ -->
+      <div class="page" id="page-servidores">
+        <div class="ph"><div class="ph-left"><h1>Monitoreo de Servidores</h1><p>Estado en tiempo real · DigitalOcean · UVT $52.374</p></div></div>
+        <div class="kpi-row kpi-4" id="server-kpis"></div>
+        <div class="card">
+          <div class="card-hdr"><h3>Instancias activas</h3></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Servidor</th><th>IP</th><th>Proveedor</th><th>Clientes</th><th>CPU</th><th>RAM</th><th>Disco</th><th>Estado</th><th>Uptime</th></tr></thead>
+              <tbody id="server-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div><!-- /layout -->
+
+<!-- MODAL: Nuevo cliente -->
+<div class="modal-bg" id="modal-new-client">
+  <div class="modal">
+    <div class="modal-hdr"><div class="modal-title">Agregar Nuevo Cliente</div><button class="modal-close" onclick="closeModal('new-client')">✕</button></div>
+    <div class="alert hidden" id="modal-alert"></div>
+    <div class="form-2">
+      <div class="form-group"><label class="form-label">Razón social *</label><input class="form-control" id="nc-razon" placeholder="Empresa SAS"></div>
+      <div class="form-group"><label class="form-label">NIT *</label><input class="form-control" id="nc-nit" placeholder="900.123.456-1"></div>
+      <div class="form-group"><label class="form-label">Correo *</label><input class="form-control" id="nc-email" type="email" placeholder="admin@empresa.com"></div>
+      <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-control" id="nc-tel" placeholder="+57 300 000 0000"></div>
+      <div class="form-group"><label class="form-label">Plan</label><select class="form-control" id="nc-plan"><option>Básico</option><option selected>Profesional</option><option>Empresarial</option></select></div>
+      <div class="form-group"><label class="form-label">ERP</label><select class="form-control" id="nc-erp"><option>Siigo</option><option>Helisa</option><option>Siesa</option></select></div>
+      <div class="form-group"><label class="form-label">Ciudad</label><input class="form-control" id="nc-city" value="Bogotá D.C."></div>
+      <div class="form-group"><label class="form-label">Periodo de prueba</label><select class="form-control" id="nc-trial"><option value="30">30 días gratis</option><option value="0">Cobro inmediato</option></select></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:9px;margin-top:8px">
+      <button class="btn btn-outline" onclick="closeModal('new-client')">Cancelar</button>
+      <button class="btn btn-primary" onclick="addClient()">Crear cliente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Acciones cliente -->
+<div class="modal-bg" id="modal-action">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-hdr"><div class="modal-title" id="action-title">Acción</div><button class="modal-close" onclick="closeModal('action')">✕</button></div>
+    <div id="action-body"></div>
+  </div>
+</div>
+
+<script>
+// ─── DATOS CLIENTES ──────────────────────────────────────────────
+var PLAN_MRR = {Básico:299000, Profesional:599000, Empresarial:1200000};
+var PLAN_BADGE = {Básico:'b-basic', Profesional:'b-pro', Empresarial:'b-enterprise'};
+var ERP_BADGE  = {Siigo:'b-siigo', Helisa:'b-helisa', Siesa:'b-siesa'};
+var STATUS_BADGE = {active:'b-active',trial:'b-trial',suspended:'b-suspended',cancelled:'b-cancelled'};
+var STATUS_LABEL = {active:'ACTIVO',trial:'PRUEBA',suspended:'SUSPENDIDO',cancelled:'CANCELADO'};
+var ob_plan = 'Profesional', ob_step = 0;
+
+var CLIENTS = [
+  {id:'C001',name:'Papelería y Suministros del Norte SAS',nit:'900456789',email:'contadora@papeleria.com',tel:'+57 310 222 3344',city:'Bogotá D.C.',plan:'Profesional',erp:'Siigo',status:'active',since:'2026-01-15',invoices_mo:120,port:8501,domain:'papeleria.contable.co',pago:'PAGADO',next_billing:'2026-04-01',rep:'Claudia M.'},
+  {id:'C002',name:'Consultoría Estratégica Ltda',nit:'800111222',email:'gerencia@consultoria.com',tel:'+57 311 555 6677',city:'Bogotá D.C.',plan:'Empresarial',erp:'Siigo',status:'active',since:'2025-11-01',invoices_mo:45,port:8502,domain:'consultoria.contable.co',pago:'PAGADO',next_billing:'2026-04-01',rep:'Jorge M.'},
+  {id:'C003',name:'Servicios Generales Torres SAS',nit:'830045601',email:'admin@torres.com',tel:'+57 312 888 9900',city:'Medellín',plan:'Básico',erp:'Helisa',status:'active',since:'2026-02-01',invoices_mo:38,port:8503,domain:'torres.contable.co',pago:'PAGADO',next_billing:'2026-04-01',rep:'Patricia V.'},
+  {id:'C004',name:'Arrendamientos Bogotá SA',nit:'900321000',email:'contabilidad@arrendamientos.com',tel:'+57 313 111 2233',city:'Bogotá D.C.',plan:'Profesional',erp:'Helisa',status:'active',since:'2026-01-20',invoices_mo:82,port:8504,domain:'arrendamientos.contable.co',pago:'VENCIDO',next_billing:'2026-03-01',rep:'Luis F.'},
+  {id:'C005',name:'Avianca SA',nit:'890900810',email:'proveedores@avianca.com',tel:'+57 314 444 5566',city:'Bogotá D.C.',plan:'Empresarial',erp:'Siesa',status:'active',since:'2025-09-01',invoices_mo:340,port:8505,domain:'avianca.contable.co',pago:'PAGADO',next_billing:'2026-04-01',rep:'Ana G.'},
+  {id:'C006',name:'Ferretería Industrial SAS',nit:'901234567',email:'admin@ferreteria.com',tel:'+57 315 777 8899',city:'Cali',plan:'Básico',erp:'Helisa',status:'trial',since:'2026-03-01',invoices_mo:15,port:8506,domain:'ferreteria.contable.co',pago:'PRUEBA',next_billing:'2026-03-31',rep:'Mauricio T.'},
+  {id:'C007',name:'Grupo Empresarial XYZ',nit:'900888777',email:'cfo@grupoxyz.com',tel:'+57 316 000 1122',city:'Barranquilla',plan:'Empresarial',erp:'Siigo',status:'trial',since:'2026-03-10',invoices_mo:0,port:8507,domain:'grupoxyz.contable.co',pago:'PRUEBA',next_billing:'2026-04-09',rep:'Carlos R.'},
+  {id:'C008',name:'Distribuidora Nacional SA',nit:'800999111',email:'finanzas@distribuidora.com',tel:'+57 317 333 4455',city:'Bogotá D.C.',plan:'Profesional',erp:'Siigo',status:'suspended',since:'2025-08-01',invoices_mo:0,port:8508,domain:'distribuidora.contable.co',pago:'VENCIDO',next_billing:'2026-02-01',rep:'Sandra P.'},
+];
+
+var INVOICES = CLIENTS.filter(function(c){return c.status==='active';}).map(function(c,i){
+  return {id:'FE-2026-0'+(i+1).toString().padStart(3,'0'),client:c.name,amount:PLAN_MRR[c.plan],due:'2026-03-'+String(5+i).padStart(2,'0'),status:c.pago==='VENCIDO'?'overdue':c.pago==='PRUEBA'?'pending':'paid'};
+});
+
+var SERVER_DATA = [
+  {name:'DO-NYC-01',ip:'157.230.100.25',provider:'DigitalOcean',clients:5,cpu:42,ram:68,disk:34,status:'ok',uptime:'99.97%'},
+  {name:'DO-NYC-02',ip:'157.230.100.26',provider:'DigitalOcean',clients:3,cpu:28,ram:45,disk:21,status:'ok',uptime:'99.99%'},
+];
+
+var clientFilter = 'all', planFilter = null, erpFilter2 = null, invFilter = 'all';
+
+// ─── UTILS ───────────────────────────────────────────────────────
+var fmt = function(n){ return '$'+Math.round(n).toLocaleString('es-CO'); };
+function erpColor(e){ return e==='Siigo'?'#22D3EE':e==='Helisa'?'#FB923C':'#A78BFA'; }
+function statusDot(s){ var c={active:var_green(),trial:'#3B82F6',suspended:'#F59E0B',cancelled:'#EF4444'}; return '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+((c[s])||'#6B7280')+';margin-right:5px"></span>'; }
+function var_green(){ return '#10B981'; }
+function badge(cls,txt){ return '<span class="badge '+cls+'">'+txt+'</span>'; }
+
+// ─── TOAST ───────────────────────────────────────────────────────
+function toast(msg,ico){ var t=document.getElementById('toast'); document.getElementById('toast-ico').textContent=ico||'✅'; document.getElementById('toast-msg').textContent=msg; t.classList.add('on'); setTimeout(function(){t.classList.remove('on');},2800); }
+
+// ─── MODAL ───────────────────────────────────────────────────────
+function openModal(id){ var m=document.getElementById('modal-'+id); if(m) m.classList.add('on'); }
+function closeModal(id){ var m=document.getElementById('modal-'+id); if(m) m.classList.remove('on'); }
+document.querySelectorAll('.modal-bg').forEach(function(m){ m.addEventListener('click',function(e){ if(e.target===m) m.classList.remove('on'); }); });
+
+// ─── NAVIGATION ──────────────────────────────────────────────────
+function goPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.nav-it').forEach(function(n){n.classList.remove('on');});
+  var p=document.getElementById('page-'+id); if(p) p.classList.add('on');
+  var n=document.getElementById('nav-'+id); if(n) n.classList.add('on');
+  if(id==='clientes') renderClients();
+  if(id==='dashboard') renderDashboard();
+  if(id==='facturacion') renderBilling();
+  if(id==='revenue') renderRevenue();
+  if(id==='servidores') renderServers();
+}
+
+function filterAndGo(status){ clientFilter=status; goPage('clientes'); }
+
+// ─── BADGES ──────────────────────────────────────────────────────
+function updateBadges(){
+  var active=CLIENTS.filter(function(c){return c.status==='active';}).length;
+  var trial=CLIENTS.filter(function(c){return c.status==='trial';}).length;
+  var susp=CLIENTS.filter(function(c){return c.status==='suspended';}).length;
+  var overdue=CLIENTS.filter(function(c){return c.pago==='VENCIDO';}).length;
+  var invoicePending=INVOICES.filter(function(i){return i.status!=='paid';}).length;
+  var setB=function(id,n){ var el=document.getElementById(id); if(!el)return; el.textContent=n; el.style.display=n>0?'flex':'none'; };
+  setB('badge-clientes',active+trial);
+  setB('badge-trial',trial);
+  setB('badge-suspended',susp);
+  setB('badge-overdue',overdue);
+  setB('badge-facturas',invoicePending);
+  // Revenue
+  var mrr=CLIENTS.filter(function(c){return c.status==='active';}).reduce(function(s,c){return s+PLAN_MRR[c.plan];},0);
+  var rd=document.getElementById('revenueDisplay'); if(rd) rd.textContent='MRR: '+fmt(mrr);
+}
+
+// ─── DASHBOARD ───────────────────────────────────────────────────
+function renderDashboard(){
+  var active=CLIENTS.filter(function(c){return c.status==='active';});
+  var trial=CLIENTS.filter(function(c){return c.status==='trial';});
+  var susp=CLIENTS.filter(function(c){return c.status==='suspended';});
+  var mrr=active.reduce(function(s,c){return s+PLAN_MRR[c.plan];},0);
+  var arr=mrr*12;
+
+  var kpiEl=document.getElementById('dash-kpis');
+  if(!kpiEl)return;
+  kpiEl.innerHTML=
+    kpi('Clientes activos',active.length,'g','k-g','+'+trial.length+' en prueba')+
+    kpi('MRR',fmt(mrr),'g','k-g','Ingresos recurrentes')+
+    kpi('ARR',fmt(arr),'b','k-b','Proyección anual')+
+    kpi('En prueba',trial.length,'b','k-b','Próx. a convertir')+
+    kpi('Suspendidos',susp.length,'r','k-r','Requieren atención');
+
+  function kpi(l,n,nc,kc,s){ return '<div class="kpi '+kc+'"><div class="kpi-l">'+l+'</div><div class="kpi-n '+nc+'">'+n+'</div><div class="kpi-s">'+s+'</div></div>'; }
+
+  var rows=document.getElementById('dash-client-rows');
+  if(rows){
+    rows.innerHTML=active.slice(0,6).map(function(c){
+      return '<tr onclick="openClientDetail(\''+c.id+'\')">' +
+        '<td><div style="font-weight:600;font-size:.82rem">'+c.name.substring(0,26)+'</div><div style="font-size:.68rem;color:var(--t4)">'+c.city+'</div></td>'+
+        '<td>'+badge(PLAN_BADGE[c.plan]||'b-basic',c.plan)+'</td>'+
+        '<td style="color:'+erpColor(c.erp)+';font-size:.76rem;font-weight:600">'+c.erp+'</td>'+
+        '<td>'+badge(STATUS_BADGE[c.status]||'b-active',STATUS_LABEL[c.status]||c.status)+'</td>'+
+        '<td style="font-family:\'DM Mono\',monospace;font-size:.76rem;color:var(--green)">'+fmt(PLAN_MRR[c.plan])+'</td>'+
+        '<td style="font-size:.72rem;color:var(--t4);font-family:\'DM Mono\',monospace">'+c.since+'</td>'+
+      '</tr>';
+    }).join('');
+  }
+
+  // Revenue bars (last 6 months)
+  var months=['Oct','Nov','Dic','Ene','Feb','Mar'];
+  var base=mrr;
+  var vals=[base*.5,base*.6,base*.72,base*.8,base*.9,base];
+  var max=Math.max.apply(null,vals);
+  var bars=document.getElementById('revBars'); var lbls=document.getElementById('revLabels');
+  if(bars){bars.innerHTML=vals.map(function(v,i){var h=Math.round((v/max)*76)+4;return '<div class="rev-bar" style="height:'+h+'px;background:'+(i===vals.length-1?'var(--green)':'rgba(16,185,129,.35)')+'"></div>';}).join('');}
+  if(lbls){lbls.innerHTML=months.map(function(m){return '<div class="rev-label">'+m+'</div>';}).join('');}
+
+  var mrrEl=document.getElementById('dash-mrr'); if(mrrEl) mrrEl.textContent=fmt(mrr);
+
+  // Plan breakdown
+  var pb=document.getElementById('planBreakdown');
+  if(pb){
+    var plans={Básico:0,Profesional:0,Empresarial:0};
+    active.forEach(function(c){if(plans[c.plan]!==undefined)plans[c.plan]++;});
+    pb.innerHTML=Object.keys(plans).map(function(p){
+      var pct=active.length>0?Math.round((plans[p]/active.length)*100):0;
+      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:5px"><span>'+p+'</span><span style="color:var(--t4);font-family:\'DM Mono\',monospace">'+plans[p]+' · '+pct+'%</span></div><div class="usage-bar"><div class="ub-fill" style="width:'+pct+'%;background:var(--green)"></div></div></div>';
+    }).join('');
+  }
+
+  // ERP breakdown
+  var eb=document.getElementById('erpBreakdown');
+  if(eb){
+    var erps={Siigo:0,Helisa:0,Siesa:0};
+    active.forEach(function(c){if(erps[c.erp]!==undefined)erps[c.erp]++;});
+    eb.innerHTML=Object.keys(erps).map(function(e){
+      var pct=active.length>0?Math.round((erps[e]/active.length)*100):0;
+      var clr=erpColor(e);
+      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:5px"><span style="color:'+clr+'">'+e+'</span><span style="color:var(--t4);font-family:\'DM Mono\',monospace">'+erps[e]+' · '+pct+'%</span></div><div class="usage-bar"><div class="ub-fill" style="width:'+pct+'%;background:'+clr+'"></div></div></div>';
+    }).join('');
+  }
+
+  // Upcoming billing
+  var ub=document.getElementById('upcomingBilling');
+  if(ub){
+    var upcoming=CLIENTS.filter(function(c){return c.status==='active';}).slice(0,4);
+    ub.innerHTML=upcoming.map(function(c){
+      var ovd=c.pago==='VENCIDO';
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bord);font-size:.78rem"><div><div style="font-weight:500">'+c.name.substring(0,20)+'</div><div style="font-size:.66rem;color:var(--t4);font-family:\'DM Mono\',monospace">'+c.next_billing+'</div></div><div style="text-align:right"><div style="font-family:\'DM Mono\',monospace;color:'+(ovd?'var(--red)':'var(--green)')+'">'+fmt(PLAN_MRR[c.plan])+'</div><div style="font-size:.62rem;color:'+(ovd?'var(--red)':'var(--t4)')+'">'+c.pago+'</div></div></div>';
+    }).join('');
+  }
+}
+
+// ─── CLIENTS TABLE ────────────────────────────────────────────────
+function renderClients(){
+  var list=CLIENTS.filter(function(c){
+    if(clientFilter!=='all'&&c.status!==clientFilter) return false;
+    if(planFilter&&c.plan!==planFilter) return false;
+    if(erpFilter2&&c.erp!==erpFilter2) return false;
+    return true;
+  });
+  var rows=document.getElementById('client-rows'); if(!rows)return;
+  var lbl=document.getElementById('client-count-label'); if(lbl) lbl.textContent=list.length+' clientes';
+  if(!list.length){
+    rows.innerHTML='<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--t4)">Sin clientes para este filtro</td></tr>';
+    return;
+  }
+  rows.innerHTML=list.map(function(c){
+    var ovd=c.pago==='VENCIDO';
+    return '<tr onclick="openClientDetail(\''+c.id+'\')" id="row-'+c.id+'">' +
+      '<td><div style="font-weight:600;font-size:.82rem">'+c.name.substring(0,28)+'</div><div style="font-size:.68rem;color:var(--t4)">'+c.email+'</div></td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+c.nit+'</td>'+
+      '<td>'+badge(PLAN_BADGE[c.plan]||'b-basic',c.plan)+'</td>'+
+      '<td style="color:'+erpColor(c.erp)+';font-size:.76rem;font-weight:600">'+c.erp+'</td>'+
+      '<td>'+statusDot(c.status)+badge(STATUS_BADGE[c.status]||'b-active',STATUS_LABEL[c.status]||c.status)+'</td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.76rem;color:var(--green)">'+fmt(PLAN_MRR[c.plan])+'</td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+c.invoices_mo+'</td>'+
+      '<td>'+badge(ovd?'b-overdue':c.pago==='PRUEBA'?'b-trial':'b-paid',c.pago)+'</td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.68rem;color:var(--t4)">'+c.since+'</td>'+
+      '<td onclick="event.stopPropagation()"><div style="display:flex;gap:5px">'+
+        '<button class="btn btn-outline btn-sm" onclick="openClientDetail(\''+c.id+'\')">Ver</button>'+
+        (c.status==='active'?'<button class="btn btn-sm" style="background:var(--a2);border:1px solid rgba(245,158,11,.3);color:var(--amber)" onclick="suspendClient(\''+c.id+'\')">Suspender</button>':'<button class="btn btn-primary btn-sm" onclick="activateClient(\''+c.id+'\')">Activar</button>')+
+      '</div></td>'+
+    '</tr>';
+  }).join('');
+}
+
+function filterClients(f,btn){
+  clientFilter=f;
+  document.querySelectorAll('#status-filters .fb').forEach(function(b){b.classList.remove('on');});
+  if(btn) btn.classList.add('on');
+  renderClients();
+}
+function filterByPlan(p,btn){
+  var was=btn&&btn.classList.contains('on');
+  document.querySelectorAll('#page-clientes .card-hdr .filters .fb').forEach(function(b){if(['Básico','Profesional','Empresarial'].includes(b.textContent))b.classList.remove('on');});
+  planFilter=was?null:p;
+  if(!was&&btn) btn.classList.add('on');
+  renderClients();
+}
+function filterByErp(e,btn){
+  var was=btn&&btn.classList.contains('on');
+  document.querySelectorAll('#page-clientes .card-hdr .filters .fb').forEach(function(b){if(['Siigo','Helisa','Siesa'].includes(b.textContent))b.classList.remove('on');});
+  erpFilter2=was?null:e;
+  if(!was&&btn) btn.classList.add('on');
+  renderClients();
+}
+
+// ─── CLIENT DETAIL ────────────────────────────────────────────────
+function openClientDetail(id){
+  var c=CLIENTS.find(function(x){return x.id===id;}); if(!c)return;
+  document.getElementById('detail-client-name').textContent=c.name;
+  document.getElementById('detail-client-meta').textContent='NIT '+c.nit+' · '+c.city+' · '+c.erp+' · '+c.plan;
+
+  document.getElementById('detail-actions').innerHTML=
+    '<button class="btn btn-outline btn-sm" onclick="editClient(\''+id+'\')">✏️ Editar</button>'+
+    (c.status==='active'?'<button class="btn btn-danger btn-sm" onclick="suspendClient(\''+id+'\')">⏸ Suspender</button>':'<button class="btn btn-primary btn-sm" onclick="activateClient(\''+id+'\')">▶ Activar</button>');
+
+  document.getElementById('detail-info').innerHTML=
+    '<div class="ds-title">Información del cliente</div>'+
+    '<div class="field-row">'+
+      '<div class="field"><label>Correo</label><span class="code">'+c.email+'</span></div>'+
+      '<div class="field"><label>Teléfono</label><span>'+c.tel+'</span></div>'+
+      '<div class="field"><label>Plan</label><span>'+badge(PLAN_BADGE[c.plan]||'b-basic',c.plan)+'</span></div>'+
+      '<div class="field"><label>ERP</label><span style="color:'+erpColor(c.erp)+';font-weight:700">'+c.erp+'</span></div>'+
+      '<div class="field"><label>Estado</label><span>'+badge(STATUS_BADGE[c.status]||'b-active',STATUS_LABEL[c.status])+'</span></div>'+
+      '<div class="field"><label>Cliente desde</label><span>'+c.since+'</span></div>'+
+      '<div class="field"><label>Dominio</label><span class="code">'+c.domain+'</span></div>'+
+      '<div class="field"><label>Puerto</label><span class="code">:'+c.port+'</span></div>'+
+    '</div>';
+
+  var mo=c.invoices_mo;var max=500;var pct=Math.min(100,Math.round((mo/max)*100));
+  document.getElementById('detail-usage').innerHTML=
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'+
+      usageItem('Facturas este mes',mo+'/'+(c.plan==='Básico'?'100':c.plan==='Profesional'?'500':'∞'),pct,'var(--green)')+
+      usageItem('MRR',fmt(PLAN_MRR[c.plan]),'100','var(--blue)')+
+      usageItem('Retenciones calculadas',(mo*3)+'',Math.min(100,pct),'var(--amber)')+
+      usageItem('Asientos generados',(mo)+'',pct,'var(--purple)')+
+    '</div>';
+
+  function usageItem(l,v,pct,col){
+    return '<div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:5px"><span style="color:var(--t3)">'+l+'</span><span style="font-family:\'DM Mono\',monospace">'+v+'</span></div><div class="usage-bar"><div class="ub-fill" style="width:'+pct+'%;background:'+col+'"></div></div></div>';
+  }
+
+  var acts=[
+    {c:'var(--green)',t:'Factura '+c.id+'-MAR pagada '+fmt(PLAN_MRR[c.plan]),time:'01 Mar 2026'},
+    {c:'var(--blue)',t:'5 facturas DIAN importadas por IMAP',time:'14 Mar 2026'},
+    {c:'var(--amber)',t:'Retenciones 2026 actualizadas: UVT $52.374',time:'10 Mar 2026'},
+    {c:'var(--green)',t:'Asientos aprobados y enviados a '+c.erp,time:'15 Mar 2026'},
+  ];
+  document.getElementById('detail-activity').innerHTML=acts.map(function(a){
+    return '<div class="activity-item"><div class="act-dot" style="background:'+a.c+'"></div><div class="act-body"><div class="act-title">'+a.t+'</div><div class="act-time">'+a.time+'</div></div></div>';
+  }).join('');
+
+  var ovd=c.pago==='VENCIDO';
+  document.getElementById('detail-billing').innerHTML=
+    '<div class="ds-title">Facturación</div>'+
+    '<div class="field-row">'+
+      '<div class="field"><label>MRR</label><span style="color:var(--green);font-size:0.963rem;font-weight:800;font-family:\'Syne\',sans-serif">'+fmt(PLAN_MRR[c.plan])+'</span></div>'+
+      '<div class="field"><label>Estado pago</label><span>'+badge(ovd?'b-overdue':c.pago==='PRUEBA'?'b-trial':'b-paid',c.pago)+'</span></div>'+
+      '<div class="field"><label>Próximo cobro</label><span style="color:'+(ovd?'var(--red)':'var(--t2)')+'">'+c.next_billing+'</span></div>'+
+      '<div class="field"><label>LTV estimado</label><span style="font-family:\'DM Mono\',monospace">'+fmt(PLAN_MRR[c.plan]*24)+'</span></div>'+
+    '</div>';
+
+  document.getElementById('detail-quick-actions').innerHTML=
+    '<button class="btn btn-outline" style="width:100%;text-align:left" onclick="actionModal(\''+id+'\',\'invoice\')">💳 Emitir factura manual</button>'+
+    '<button class="btn btn-outline" style="width:100%;text-align:left" onclick="actionModal(\''+id+'\',\'upgrade\')">⬆ Cambiar de plan</button>'+
+    '<button class="btn btn-outline" style="width:100%;text-align:left" onclick="copyScript(\''+id+'\')">📋 Copiar script servidor</button>'+
+    '<button class="btn btn-outline" style="width:100%;text-align:left" onclick="actionModal(\''+id+'\',\'reset\')">🔑 Restablecer contraseña</button>';
+
+  goPage('client-detail');
+}
+
+function suspendClient(id){
+  var c=CLIENTS.find(function(x){return x.id===id;}); if(!c)return;
+  if(!confirm('¿Suspender el cliente '+c.name+'? Perderá acceso inmediatamente.'))return;
+  c.status='suspended'; c.invoices_mo=0;
+  toast('Cliente '+c.name.substring(0,20)+' suspendido','⏸');
+  updateBadges(); renderClients();
+}
+function activateClient(id){
+  var c=CLIENTS.find(function(x){return x.id===id;}); if(!c)return;
+  c.status='active'; c.pago='PAGADO';
+  toast('Cliente '+c.name.substring(0,20)+' reactivado','✅');
+  updateBadges(); renderClients();
+}
+
+function actionModal(id, type){
+  var c=CLIENTS.find(function(x){return x.id===id;}); if(!c)return;
+  var titles={invoice:'Emitir Factura Manual',upgrade:'Cambiar Plan',reset:'Restablecer Contraseña'};
+  document.getElementById('action-title').textContent=titles[type]||'Acción';
+  var body='';
+  if(type==='invoice') body='<p style="font-size:.84rem;margin-bottom:14px">Emitir factura a <strong>'+c.name+'</strong> por <span style="color:var(--green)">'+fmt(PLAN_MRR[c.plan])+'</span></p><button class="btn btn-primary" style="width:100%" onclick="closeModal(\'action\');toast(\'Factura emitida y enviada a '+c.email+'\')">Emitir y enviar por correo</button>';
+  else if(type==='upgrade') body='<p style="font-size:.84rem;margin-bottom:14px">Plan actual: '+badge(PLAN_BADGE[c.plan]||'b-basic',c.plan)+'</p><div style="display:flex;flex-direction:column;gap:8px">'+Object.keys(PLAN_MRR).filter(function(p){return p!==c.plan;}).map(function(p){return '<button class="btn btn-outline" onclick="changePlan(\''+id+'\',\''+p+'\')">Cambiar a '+p+' — '+fmt(PLAN_MRR[p])+'/mes</button>';}).join('')+'</div>';
+  else if(type==='reset') body='<p style="font-size:.84rem;margin-bottom:14px">Nueva contraseña temporal para <strong>'+c.name+'</strong></p><input class="form-control" id="new-pass" value="Contable2026!" style="margin-bottom:12px"><button class="btn btn-primary" style="width:100%" onclick="closeModal(\'action\');toast(\'Contraseña restablecida y enviada a '+c.email+'\')">Enviar nueva contraseña</button>';
+  document.getElementById('action-body').innerHTML=body;
+  openModal('action');
+}
+
+function changePlan(id,plan){
+  var c=CLIENTS.find(function(x){return x.id===id;}); if(!c)return;
+  c.plan=plan;
+  closeModal('action');
+  toast('Plan cambiado a '+plan+' — '+fmt(PLAN_MRR[plan])+'/mes','🚀');
+  updateBadges(); renderDashboard();
+}
+
+function copyScript(id){
+  var c=CLIENTS.find(function(x){return x.id===id;}); if(!c)return;
+  var script='#!/bin/bash\n# Onboarding '+c.name+'\n./nuevo_cliente.sh '+c.name.toLowerCase().replace(/ /g,'_')+' '+c.port;
+  if(navigator.clipboard) navigator.clipboard.writeText(script);
+  toast('Script copiado al portapapeles 📋');
+}
+
+// ─── ADD CLIENT ───────────────────────────────────────────────────
+function addClient(){
+  var razon=document.getElementById('nc-razon').value.trim();
+  var nit=document.getElementById('nc-nit').value.trim();
+  var email=document.getElementById('nc-email').value.trim();
+  var al=document.getElementById('modal-alert');
+  if(!razon||!nit||!email){al.className='alert alert-err';al.textContent='⚠ Complete razón social, NIT y correo.';return;}
+  var plan=document.getElementById('nc-plan').value;
+  var erp=document.getElementById('nc-erp').value;
+  var city=document.getElementById('nc-city').value||'Bogotá D.C.';
+  var trial=parseInt(document.getElementById('nc-trial').value)||30;
+  var port=8500+CLIENTS.length+1;
+  var slug=razon.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,12);
+  CLIENTS.push({id:'C'+String(CLIENTS.length+1).padStart(3,'0'),name:razon,nit:nit,email:email,tel:'',city:city,plan:plan,erp:erp,status:trial>0?'trial':'active',since:new Date().toISOString().slice(0,10),invoices_mo:0,port:port,domain:slug+'.contable.co',pago:trial>0?'PRUEBA':'PENDIENTE',next_billing:new Date(Date.now()+trial*86400000).toISOString().slice(0,10),rep:''});
+  ['nc-razon','nc-nit','nc-email','nc-tel'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  al.className='alert hidden';
+  closeModal('new-client');
+  toast('Cliente '+razon.substring(0,22)+' creado ✅');
+  updateBadges(); renderDashboard();
+}
+
+// ─── BILLING ─────────────────────────────────────────────────────
+function renderBilling(){
+  var active=CLIENTS.filter(function(c){return c.status==='active';});
+  var mrr=active.reduce(function(s,c){return s+PLAN_MRR[c.plan];},0);
+  var paid=INVOICES.filter(function(i){return i.status==='paid';}).reduce(function(s,i){return s+i.amount;},0);
+  var pend=INVOICES.filter(function(i){return i.status!=='paid';}).length;
+  var overdue=INVOICES.filter(function(i){return i.status==='overdue';}).length;
+  var kpiEl=document.getElementById('billing-kpis'); if(!kpiEl)return;
+  kpiEl.innerHTML=
+    '<div class="kpi k-g"><div class="kpi-l">MRR</div><div class="kpi-n g">'+fmt(mrr)+'</div><div class="kpi-s">Ingresos recurrentes</div></div>'+
+    '<div class="kpi k-b"><div class="kpi-l">Cobrado este mes</div><div class="kpi-n b">'+fmt(paid)+'</div><div class="kpi-s">Facturas pagadas</div></div>'+
+    '<div class="kpi k-a"><div class="kpi-l">Por cobrar</div><div class="kpi-n a">'+pend+'</div><div class="kpi-s">Facturas pendientes</div></div>'+
+    '<div class="kpi k-r"><div class="kpi-l">Vencidas</div><div class="kpi-n r">'+overdue+'</div><div class="kpi-s">Requieren seguimiento</div></div>';
+  renderInvoices('all');
+}
+
+function renderInvoices(filter){
+  var list=filter==='all'?INVOICES:INVOICES.filter(function(i){return i.status===filter;});
+  var el=document.getElementById('invoice-rows'); if(!el)return;
+  var sMap={paid:'b-paid',pending:'b-pending',overdue:'b-overdue'};
+  var sLabel={paid:'PAGADA',pending:'PENDIENTE',overdue:'VENCIDA'};
+  el.innerHTML=list.map(function(inv){
+    return '<div class="inv-row"><div style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+inv.id+'</div><div style="font-size:.8rem;font-weight:500">'+inv.client.substring(0,30)+'</div><div style="font-family:\'DM Mono\',monospace;font-size:.78rem;color:var(--green)">'+fmt(inv.amount)+'</div><div style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+inv.due+'</div><div>'+badge(sMap[inv.status]||'b-pending',sLabel[inv.status]||inv.status)+'</div></div>';
+  }).join('') || '<div style="text-align:center;padding:30px;color:var(--t4)">Sin facturas para este filtro</div>';
+}
+
+function filterInvoices(f,btn){ invFilter=f; document.querySelectorAll('#page-facturacion .card-hdr .fb').forEach(function(b){b.classList.remove('on');}); if(btn)btn.classList.add('on'); renderInvoices(f); }
+function generarCobros(){ toast('Cobros de Abril 2026 generados — '+CLIENTS.filter(function(c){return c.status==='active';}).length+' facturas DIAN emitidas','💳'); }
+function exportarFacturas(){ toast('Exportando a Excel: Facturación_Marzo_2026_JulianArias.xlsx','📊'); }
+
+// ─── REVENUE ─────────────────────────────────────────────────────
+function renderRevenue(){
+  var active=CLIENTS.filter(function(c){return c.status==='active';});
+  var mrr=active.reduce(function(s,c){return s+PLAN_MRR[c.plan];},0);
+  var kpiEl=document.getElementById('rev-kpis'); if(!kpiEl)return;
+  kpiEl.innerHTML=
+    '<div class="kpi k-g"><div class="kpi-l">MRR</div><div class="kpi-n g">'+fmt(mrr)+'</div><div class="kpi-s">+12% vs mes anterior</div></div>'+
+    '<div class="kpi k-b"><div class="kpi-l">ARR</div><div class="kpi-n b">'+fmt(mrr*12)+'</div><div class="kpi-s">Proyección anual</div></div>'+
+    '<div class="kpi k-a"><div class="kpi-l">Churn rate</div><div class="kpi-n a">3.2%</div><div class="kpi-s">Meta: &lt;5%</div></div>'+
+    '<div class="kpi k-p"><div class="kpi-l">LTV promedio</div><div class="kpi-n p">'+fmt(mrr/active.length*18)+'</div><div class="kpi-s">18 meses promedio</div></div>';
+
+  // MRR bars
+  var months=['Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep'];
+  var baseArr=[mrr*.42,mrr*.52,mrr*.63,mrr*.72,mrr*.83,mrr,mrr*1.1,mrr*1.18,mrr*1.24,mrr*1.3,mrr*1.35,mrr*1.4];
+  var maxV=Math.max.apply(null,baseArr);
+  var bars=document.getElementById('mrrBars'); var lbls=document.getElementById('mrrLabels');
+  if(bars) bars.innerHTML=baseArr.map(function(v,i){var h=Math.round((v/maxV)*115)+5;var past=i<6;return '<div class="rev-bar" style="height:'+h+'px;background:'+(past?'var(--green)':'rgba(16,185,129,.25)')+'"></div>';}).join('');
+  if(lbls) lbls.innerHTML=months.map(function(m){return '<div class="rev-label">'+m+'</div>';}).join('');
+
+  // Plan dist
+  var pd=document.getElementById('planRevDist'); if(!pd)return;
+  var plans={Básico:0,Profesional:0,Empresarial:0};
+  active.forEach(function(c){if(plans[c.plan]!==undefined)plans[c.plan]+=PLAN_MRR[c.plan];});
+  pd.innerHTML=Object.keys(plans).map(function(p){
+    var pct=mrr>0?Math.round((plans[p]/mrr)*100):0;
+    return '<div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:6px"><span>'+badge(PLAN_BADGE[p]||'b-basic',p)+'</span><span style="font-family:\'DM Mono\',monospace;color:var(--green)">'+fmt(plans[p])+' ('+pct+'%)</span></div><div class="usage-bar"><div class="ub-fill" style="width:'+pct+'%;background:var(--green)"></div></div></div>';
+  }).join('<div style="margin:10px 0;border-top:1px solid var(--bord)"></div>');
+
+  // Projection
+  var proj=document.getElementById('projection-table'); if(!proj)return;
+  var rows='';
+  for(var i=1;i<=12;i++){
+    var m=months[(5+i)%12];var v=Math.round(mrr*Math.pow(1.05,i));
+    rows+='<div style="display:grid;grid-template-columns:80px 1fr 120px 120px;gap:8px;padding:8px 0;border-bottom:1px solid var(--bord);font-size:.78px;align-items:center"><div style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+m+' '+(i<4?'2026':'2027')+'</div><div class="usage-bar" style="margin:0"><div class="ub-fill" style="width:'+Math.min(100,Math.round((v/Math.round(mrr*Math.pow(1.05,12)))*100))+'%;background:var(--green)"></div></div><div style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--green);text-align:right">'+fmt(v)+'</div><div style="font-size:.68rem;color:var(--t4);text-align:right">+'+Math.round((v/mrr-1)*100)+'% vs hoy</div></div>';
+  }
+  proj.innerHTML='<div style="display:grid;grid-template-columns:80px 1fr 120px 120px;gap:8px;padding:8px 0;border-bottom:1px solid var(--bord)"><div style="font-family:\'DM Mono\',monospace;font-size:.6rem;color:var(--t4);text-transform:uppercase">Mes</div><div></div><div style="font-family:\'DM Mono\',monospace;font-size:.6rem;color:var(--t4);text-transform:uppercase;text-align:right">MRR proj.</div><div style="font-family:\'DM Mono\',monospace;font-size:.6rem;color:var(--t4);text-transform:uppercase;text-align:right">Crecimiento</div></div>'+rows;
+}
+
+// ─── SERVERS ─────────────────────────────────────────────────────
+function renderServers(){
+  var kpiEl=document.getElementById('server-kpis'); if(!kpiEl)return;
+  var totalClients=SERVER_DATA.reduce(function(s,sv){return s+sv.clients;},0);
+  kpiEl.innerHTML=
+    '<div class="kpi k-g"><div class="kpi-l">Servidores</div><div class="kpi-n g">'+SERVER_DATA.length+'</div><div class="kpi-s">DigitalOcean NYC</div></div>'+
+    '<div class="kpi k-b"><div class="kpi-l">Clientes activos</div><div class="kpi-n b">'+totalClients+'</div><div class="kpi-s">Distribuidos</div></div>'+
+    '<div class="kpi k-g"><div class="kpi-l">Uptime global</div><div class="kpi-n g">99.98%</div><div class="kpi-s">Últimos 30 días</div></div>'+
+    '<div class="kpi k-a"><div class="kpi-l">Próxima factura</div><div class="kpi-n a">$34 USD</div><div class="kpi-s">01 Abr 2026</div></div>';
+
+  function statusBar(pct,col){return '<div style="display:flex;align-items:center;gap:7px"><div class="usage-bar" style="width:80px;margin:0"><div class="ub-fill" style="width:'+pct+'%;background:'+col+'"></div></div><span style="font-family:\'DM Mono\',monospace;font-size:.68rem;color:var(--t4)">'+pct+'%</span></div>';}
+  var rows=document.getElementById('server-rows'); if(!rows)return;
+  rows.innerHTML=SERVER_DATA.map(function(sv){
+    var cpuColor=sv.cpu>80?'var(--red)':sv.cpu>60?'var(--amber)':'var(--green)';
+    var ramColor=sv.ram>85?'var(--red)':sv.ram>65?'var(--amber)':'var(--green)';
+    return '<tr>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.78rem;font-weight:600;color:var(--green)">'+sv.name+'</td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+sv.ip+'</td>'+
+      '<td style="font-size:.78rem">'+sv.provider+'</td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.76rem;text-align:center">'+sv.clients+'</td>'+
+      '<td>'+statusBar(sv.cpu,cpuColor)+'</td>'+
+      '<td>'+statusBar(sv.ram,ramColor)+'</td>'+
+      '<td>'+statusBar(sv.disk,'var(--blue)')+'</td>'+
+      '<td>'+badge('b-active','EN LÍNEA')+'</td>'+
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--green)">'+sv.uptime+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+// ─── ONBOARDING WIZARD ───────────────────────────────────────────
+function wizNav(dir){
+  ob_step=Math.max(0,Math.min(3,ob_step+dir));
+  for(var i=0;i<4;i++){
+    var s=document.getElementById('wiz-'+i); if(s){s.className='wiz-step'+(i===ob_step?' on':'');}
+    var ws=document.getElementById('ws-'+i); if(!ws)continue;
+    ws.className='ws'+(i<ob_step?' done':i===ob_step?' active':'');
+  }
+  var fill=document.getElementById('wizProgress'); if(fill) fill.style.width=((ob_step+1)/4*100)+'%';
+  var lbl=document.getElementById('wizProgress-label'); if(lbl) lbl.textContent='Paso '+(ob_step+1)+' de 4';
+  var back=document.getElementById('wizBack'); if(back) back.style.visibility=ob_step>0?'visible':'hidden';
+  var next=document.getElementById('wizNext');
+  if(next){
+    if(ob_step===2) buildSummary();
+    if(ob_step===3){ next.textContent='🚀 Lanzar cliente'; next.onclick=function(){launchClient();}; }
+    else{ next.textContent='Siguiente →'; next.onclick=function(){wizNav(1);}; }
+  }
+}
+
+function selectPlan(plan,btn){
+  ob_plan=plan;
+  document.querySelectorAll('.plan-card').forEach(function(c){c.classList.remove('selected');});
+  if(btn) btn.classList.add('selected');
+}
+
+function previewScript(){
+  var razon=document.getElementById('ob-razon').value||'empresa';
+  var port=document.getElementById('ob-port').value||'8501';
+  var slug=razon.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,14);
+  var script='# Ejecutar en el servidor:\nchmod +x /opt/contable/nuevo_cliente.sh\n./nuevo_cliente.sh '+slug+' '+port+'\n\n# Verificar:\nsystemctl status contable-'+slug+'\n# URL: https://'+slug+'.contable.co';
+  var el=document.getElementById('ob-script-preview'); if(!el)return;
+  el.style.display='block'; el.textContent=script;
+}
+
+function buildSummary(){
+  var razon=document.getElementById('ob-razon')&&document.getElementById('ob-razon').value||'—';
+  var erp=document.getElementById('ob-erp')&&document.getElementById('ob-erp').value||'—';
+  var domain=document.getElementById('ob-domain')&&document.getElementById('ob-domain').value||'—';
+  var s=document.getElementById('ob-summary'); if(!s)return;
+  s.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.82rem">'+
+    '<div><label style="font-size:.62rem;color:var(--t4);text-transform:uppercase">Empresa</label><div style="font-weight:600;margin-top:2px">'+razon+'</div></div>'+
+    '<div><label style="font-size:.62rem;color:var(--t4);text-transform:uppercase">Plan</label><div style="margin-top:2px">'+badge(PLAN_BADGE[ob_plan]||'b-basic',ob_plan)+' — '+fmt(PLAN_MRR[ob_plan])+'/mes</div></div>'+
+    '<div><label style="font-size:.62rem;color:var(--t4);text-transform:uppercase">ERP</label><div style="font-weight:600;margin-top:2px;color:'+erpColor(erp)+'">'+erp+'</div></div>'+
+    '<div><label style="font-size:.62rem;color:var(--t4);text-transform:uppercase">Dominio</label><div style="font-family:\'DM Mono\',monospace;font-size:.76rem;color:var(--green);margin-top:2px">'+domain+'</div></div>'+
+  '</div>';
+}
+
+function launchClient(){
+  var razon=document.getElementById('ob-razon')&&document.getElementById('ob-razon').value.trim();
+  if(!razon){ toast('Complete los datos del cliente primero','⚠'); ob_step=0; wizNav(0); return; }
+  toast('🚀 Cliente '+razon.substring(0,22)+' lanzado exitosamente','🚀');
+  // Reset wizard
+  ob_step=0; wizNav(0);
+  var next=document.getElementById('wizNext'); if(next){next.textContent='Siguiente →';next.onclick=function(){wizNav(1);};}
+  ['ob-razon','ob-nit','ob-email','ob-tel','ob-city','ob-rep','ob-domain'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  goPage('clientes');
+}
+
+function toggleSw(id){ var el=document.getElementById(id); if(el) el.classList.toggle('on'); }
+
+// ─── SEARCH ──────────────────────────────────────────────────────
+function liveSearch(q){
+  if(!q.trim()){renderClients();return;}
+  q=q.toLowerCase();
+  var list=CLIENTS.filter(function(c){return c.name.toLowerCase().includes(q)||c.nit.includes(q)||c.email.toLowerCase().includes(q)||c.erp.toLowerCase().includes(q)||c.domain.toLowerCase().includes(q);});
+  var rows=document.getElementById('client-rows');
+  if(rows) rows.innerHTML=list.length
+    ? list.map(function(c){
+        var ovd=c.pago==='VENCIDO';
+        return '<tr onclick="openClientDetail(\''+c.id+'\')">' +
+          '<td><div style="font-weight:600;font-size:.82rem">'+c.name.substring(0,28)+'</div><div style="font-size:.68rem;color:var(--t4)">'+c.email+'</div></td>'+
+          '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem;color:var(--t4)">'+c.nit+'</td>'+
+          '<td>'+badge(PLAN_BADGE[c.plan]||'b-basic',c.plan)+'</td>'+
+          '<td style="color:'+erpColor(c.erp)+';font-size:.76rem;font-weight:600">'+c.erp+'</td>'+
+          '<td>'+statusDot(c.status)+badge(STATUS_BADGE[c.status]||'b-active',STATUS_LABEL[c.status]||c.status)+'</td>'+
+          '<td style="font-family:\'DM Mono\',monospace;font-size:.76rem;color:var(--green)">'+fmt(PLAN_MRR[c.plan])+'</td>'+
+          '<td style="font-family:\'DM Mono\',monospace;font-size:.68rem;color:var(--t4)">'+c.since+'</td>'+
+        '</tr>';
+      }).join('')
+    : '<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--t4)">Sin resultados para "'+q+'"</td></tr>';
+  goPage('clientes');
+}
+
+// ─── INIT ────────────────────────────────────────────────────────
+updateBadges();
+renderDashboard();
+</script>
+</body>
+</html>

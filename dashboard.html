@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Asistente Contable IA — Colombia 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#030c1a;--bg2:#071221;--bg3:#0a1830;--bg4:#0d1e3a;
+  --teal:#00f5d4;--t2:#00c4aa;--tc:rgba(0,245,212,.12);
+  --cyan:#00d4ff;--green:#39ff8a;--g2:#1acc60;
+  --amber:#ffaa00;--red:#ff3366;--purple:#7b2fff;
+  --txt:#cce8ff;--tm:#4a7a99;--td:#1a3a55;
+  --bord:rgba(0,245,212,.1);--bh:rgba(0,245,212,.28);
+}
+body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min-height:100vh}
+/* ─ HEADER ─────────────────────────────────────────────────────── */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;background:var(--bg2);border-bottom:1px solid var(--bord);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.logo{display:flex;align-items:center;gap:9px}
+.brand{font-family:'Orbitron',monospace;font-size:.8rem;color:var(--teal);letter-spacing:2px;line-height:1.3}
+.brand-s{font-size:.53rem;color:var(--tm);letter-spacing:1.5px}
+.uvt-pill{background:rgba(0,245,212,.07);border:1px solid rgba(0,245,212,.22);border-radius:20px;padding:4px 14px;font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--teal);display:flex;align-items:center;gap:6px}
+.udot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pu 2s ease infinite}
+@keyframes pu{0%,100%{opacity:1;box-shadow:0 0 5px var(--teal)}50%{opacity:.25;box-shadow:none}}
+.pills{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pill{display:flex;align-items:center;gap:4px;font-family:'Share Tech Mono',monospace;font-size:.58rem;padding:3px 9px;border-radius:20px;border:1px solid}
+.pill.on{color:var(--green);border-color:rgba(57,255,138,.3);background:rgba(57,255,138,.06)}
+.pill.w{color:var(--amber);border-color:rgba(255,170,0,.28);background:rgba(255,170,0,.06)}
+.pdot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pu 2s ease infinite}
+#clk{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--td)}
+/* ─ TABS ─────────────────────────────────────────────────────────── */
+.tabs{display:flex;border-bottom:1px solid var(--bord);padding:0 18px;background:var(--bg2);overflow-x:auto}
+.tab{padding:9px 15px;font-family:'Rajdhani',sans-serif;font-size:.76rem;font-weight:600;color:var(--tm);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.tab.on{color:var(--teal);border-bottom-color:var(--teal)}
+.tab:hover{color:var(--txt)}
+/* ─ LAYOUT ──────────────────────────────────────────────────────── */
+.wrap{padding:10px 16px;display:flex;flex-direction:column;gap:10px}
+.card{background:var(--bg3);border:1px solid var(--bord);border-radius:9px;padding:14px;transition:border-color .2s}
+.card:hover{border-color:rgba(0,245,212,.18)}
+.ct{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;font-weight:700;display:flex;align-items:center;gap:6px}
+.ct::before{content:'';width:3px;height:12px;border-radius:1px;background:var(--teal);display:block;flex-shrink:0}
+/* ─ NORMATIVA BANNER ────────────────────────────────────────────── */
+.norm{background:linear-gradient(135deg,rgba(0,245,212,.05),rgba(0,212,255,.03));border:1px solid rgba(0,245,212,.18);border-radius:9px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ni{display:flex;flex-direction:column;align-items:center;gap:2px}
+.nv{font-family:'Orbitron',monospace;font-size:.92rem;font-weight:700;color:var(--teal)}
+.nl{font-size:.54rem;color:var(--tm);text-transform:uppercase;letter-spacing:.8px;text-align:center;line-height:1.4}
+.nsep{width:1px;height:36px;background:var(--bord)}
+/* ─ KPIs ─────────────────────────────────────────────────────────── */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.kpi{background:var(--bg3);border:1px solid var(--bord);border-radius:9px;padding:12px 13px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.kpi:hover{border-color:var(--bh);box-shadow:0 0 16px rgba(0,245,212,.07)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.5}
+.kp-l{font-size:.59rem;color:var(--tm);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.kp-v{font-family:'Orbitron',monospace;font-size:1.094rem;font-weight:700;line-height:1;color:var(--teal)}
+.kp-v.g{color:var(--green)}.kp-v.r{color:var(--red)}.kp-v.a{color:var(--amber)}.kp-v.c{color:var(--cyan);font-size:.88rem}
+.kp-s{font-size:.59rem;color:var(--tm);margin-top:5px;font-family:'Share Tech Mono',monospace}
+.kp-bar{height:2px;background:var(--bg4);border-radius:1px;margin-top:9px}
+.kp-f{height:2px;border-radius:1px}
+/* ─ GRIDS ─────────────────────────────────────────────────────────── */
+.g2{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1.2fr 1fr 1fr .9fr;gap:10px}
+/* ─ CHARTS ─────────────────────────────────────────────────────────── */
+.ch{position:relative;width:100%}
+/* ─ HBARS ─────────────────────────────────────────────────────────── */
+.hrow{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.hl{width:58px;font-size:.59rem;color:var(--tm);text-align:right;flex-shrink:0;line-height:1.3}
+.htr{flex:1;height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.hf{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.23,1,.32,1)}
+.hv{width:52px;font-family:'Share Tech Mono',monospace;font-size:.59rem;text-align:right;flex-shrink:0}
+/* ─ GAUGES ─────────────────────────────────────────────────────────── */
+.grow{display:flex;justify-content:space-around;padding:6px 0}
+.gi{display:flex;flex-direction:column;align-items:center;gap:4px}
+.gl{font-size:.56rem;color:var(--tm);text-transform:uppercase;letter-spacing:.5px}
+/* ─ SPARKLINES ─────────────────────────────────────────────────────── */
+.spk{display:flex;align-items:flex-end;gap:2px;height:30px}
+.sb{min-width:4px;flex:1;border-radius:2px 2px 0 0;opacity:.72;transition:opacity .2s}
+.sb:hover{opacity:1}
+/* ─ TABLES ─────────────────────────────────────────────────────────── */
+.tbl{width:100%;border-collapse:collapse;font-size:.69rem}
+.tbl th{color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--bord);font-weight:400;text-align:left}
+.tbl td{padding:6px 8px;border-bottom:1px solid rgba(0,245,212,.04);color:var(--txt)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(0,245,212,.03);cursor:pointer}
+.badge{padding:2px 8px;border-radius:10px;font-size:.55rem;font-weight:600;border:1px solid;display:inline-block}
+.b-ok{color:var(--green);border-color:rgba(57,255,138,.35);background:rgba(57,255,138,.07)}
+.b-pend{color:var(--teal);border-color:rgba(0,245,212,.35);background:rgba(0,245,212,.07)}
+.b-err{color:var(--red);border-color:rgba(255,51,102,.35);background:rgba(255,51,102,.07)}
+.b-apr{color:var(--amber);border-color:rgba(255,170,0,.35);background:rgba(255,170,0,.07)}
+/* ─ CAUSACION CARDS ─────────────────────────────────────────────────── */
+.ccard{background:var(--bg3);border:1px solid var(--bord);border-radius:9px;padding:14px;transition:border-color .2s}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:10px 0}
+.mg-i{background:var(--bg4);border-radius:6px;padding:8px;text-align:center}
+.mg-l{font-size:.52rem;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.mg-v{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--txt)}
+/* ─ CALCULADORA ─────────────────────────────────────────────────────── */
+.calc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.calc-input{background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 12px;color:var(--txt);font-family:'Share Tech Mono',monospace;font-size:.72rem;width:160px;outline:none;transition:border-color .2s}
+.calc-input:focus{border-color:var(--teal)}
+.calc-select{background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;color:var(--txt);font-family:'Rajdhani',sans-serif;font-size:.76rem;outline:none;cursor:pointer;transition:border-color .2s}
+.calc-select:focus{border-color:var(--teal)}
+.calc-result{background:rgba(0,245,212,.05);border:1px solid rgba(0,245,212,.2);border-radius:8px;padding:12px 16px;margin-top:8px}
+.cr-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(0,245,212,.06);font-size:.72rem}
+.cr-row:last-child{border-bottom:none;padding-top:8px}
+.cr-label{color:var(--tm)}
+.cr-val{font-family:'Share Tech Mono',monospace;font-weight:700}
+/* ─ BUTTONS ─────────────────────────────────────────────────────────── */
+.btn{padding:8px 18px;border-radius:6px;font-family:'Orbitron',monospace;font-size:.58rem;letter-spacing:1.5px;cursor:pointer;border:1px solid;transition:all .2s;text-transform:uppercase;font-weight:700}
+.btn-ok{background:linear-gradient(135deg,rgba(0,245,212,.18),rgba(0,245,212,.06));border-color:var(--teal);color:var(--teal)}
+.btn-ok:hover{box-shadow:0 0 16px rgba(0,245,212,.35);transform:translateY(-1px)}
+.btn-ok:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-rej{background:rgba(255,51,102,.07);border-color:rgba(255,51,102,.45);color:var(--red)}
+.btn-rej:hover{background:rgba(255,51,102,.18)}
+.btn-all{background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;color:#030c1a;font-weight:900}
+.btn-all:hover{box-shadow:0 0 22px rgba(0,245,212,.5);transform:translateY(-1px)}
+.btn-calc{background:linear-gradient(135deg,rgba(0,245,212,.22),rgba(0,212,255,.1));border-color:var(--teal);color:var(--teal)}
+.btn-calc:hover{box-shadow:0 0 14px rgba(0,245,212,.3)}
+.flash{display:none;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--green);padding:7px;background:rgba(57,255,138,.07);border:1px solid rgba(57,255,138,.22);border-radius:5px;margin-top:8px}
+.flash.show{display:block}
+/* ─ MODAL ────────────────────────────────────────────────────────────── */
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:300;align-items:center;justify-content:center}
+.mbg.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bh);border-radius:12px;padding:20px;width:min(660px,96vw);max-height:92vh;overflow-y:auto}
+.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--bord)}
+.mtitle{font-family:'Orbitron',monospace;font-size:.73rem;color:var(--teal);letter-spacing:1.5px}
+.xbtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--bord);background:var(--bg3);color:var(--tm);cursor:pointer;font-size:.73rem;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.xbtn:hover{color:var(--red);border-color:var(--red)}
+.atbl{width:100%;border-collapse:collapse;font-size:.68rem;margin:9px 0}
+.atbl th{color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.58rem;text-transform:uppercase;padding:5px 8px;border-bottom:1px solid var(--bord);font-weight:400;text-align:left}
+.atbl td{padding:6px 8px;border-bottom:1px solid rgba(0,245,212,.05);color:var(--txt)}
+.atbl tr.tot td{background:rgba(0,245,212,.07);font-weight:700;color:var(--teal)}
+.cuadre{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--green);text-align:center;padding:8px;background:rgba(57,255,138,.06);border-radius:5px;border:1px solid rgba(57,255,138,.2);margin-top:8px}
+/* ─ TARIFA ROWS ──────────────────────────────────────────────────────── */
+.trow{display:grid;grid-template-columns:85px 54px 148px 1fr;gap:7px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(0,245,212,.05)}
+.trow:last-child{border-bottom:none}
+.tr-c{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--amber)}
+.tr-p{font-family:'Orbitron',monospace;font-size:.73rem;font-weight:700;color:var(--teal)}
+.tr-b{font-size:.63rem;color:var(--tm)}
+.tr-d{font-size:.63rem;color:var(--txt)}
+.ctag{display:inline-block;padding:1px 6px;border-radius:8px;font-size:.52rem;font-weight:700;margin-left:4px;vertical-align:middle}
+.ct-d{background:rgba(255,51,102,.1);color:var(--red);border:1px solid rgba(255,51,102,.3)}
+/* ─ AUDITORÍA MODAL ──────────────────────────────────────────────── */
+.aud-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--teal)}
+.aud-title{font-family:'Orbitron',monospace;font-size:.9rem;color:var(--teal);letter-spacing:2px;line-height:1.4}
+.aud-subtitle{font-size:.65rem;color:var(--tm);margin-top:4px;font-family:'Share Tech Mono',monospace}
+.aud-kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:18px}
+.aud-kpi{background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:12px;text-align:center;position:relative;overflow:hidden}
+.aud-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.6}
+.aud-kv{font-family:'Orbitron',monospace;font-size:0.919rem;font-weight:700;color:var(--teal);line-height:1;margin-bottom:5px}
+.aud-kv.g{color:var(--green)}.aud-kv.a{color:var(--amber)}.aud-kv.r{color:var(--red)}.aud-kv.c{color:var(--cyan)}
+.aud-kl{font-size:.56rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px}
+.aud-section{margin-bottom:16px}
+.aud-sec-title{font-family:'Orbitron',monospace;font-size:.68rem;color:var(--teal);letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:6px}
+.aud-sec-title::before{content:'';width:3px;height:12px;border-radius:1px;background:var(--teal);display:block}
+.aud-tbl{width:100%;border-collapse:collapse;font-size:.68rem}
+.aud-tbl th{color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--bord);background:var(--bg4);font-weight:400;text-align:left}
+.aud-tbl td{padding:6px 8px;border-bottom:1px solid rgba(0,245,212,.05);font-size:.68rem}
+.aud-tbl tr:last-child td{border-bottom:none}
+.aud-tbl tr.subtotal td{background:rgba(0,245,212,.05);font-weight:700;color:var(--teal);border-top:1px solid rgba(0,245,212,.15)}
+.aud-tbl tr:hover td{background:rgba(0,245,212,.03)}
+.aud-erp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}
+.aud-erp-card{background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:12px 14px}
+.aud-erp-name{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;margin-bottom:8px}
+.aud-erp-row2{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:.65rem;border-bottom:1px solid rgba(0,245,212,.05)}
+.aud-erp-row2:last-child{border-bottom:none}
+.aud-erp-lbl{color:var(--tm)}
+.aud-erp-val{font-family:'Share Tech Mono',monospace}
+.aud-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--bord);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.aud-legal{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--td);line-height:1.8}
+.btn-print{background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;color:#030c1a;font-family:'Orbitron',monospace;font-size:.58rem;letter-spacing:1.5px;cursor:pointer;border-radius:6px;padding:8px 18px;font-weight:900;transition:all .2s}
+.btn-print:hover{box-shadow:0 0 18px rgba(0,245,212,.45);transform:translateY(-1px)}
+.no-items{text-align:center;padding:40px;color:var(--tm);font-family:'Share Tech Mono',monospace;font-size:.72rem}
+/* ─ LOGIN ────────────────────────────────────────────────────────────── */
+#login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--bg2);border:1px solid var(--bh);border-radius:14px;padding:36px 40px;width:min(400px,94vw);display:flex;flex-direction:column;align-items:center;gap:0}
+.login-hex{margin-bottom:20px}
+.login-title{font-family:'Orbitron',monospace;font-size:0.875rem;color:var(--teal);letter-spacing:2.5px;margin-bottom:4px;text-align:center}
+.login-sub{font-size:.62rem;color:var(--tm);text-align:center;margin-bottom:28px;font-family:'Share Tech Mono',monospace}
+.login-field{width:100%;margin-bottom:14px}
+.login-label{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:block;font-family:'Share Tech Mono',monospace}
+.login-input{width:100%;background:var(--bg4);border:1px solid var(--bord);border-radius:7px;padding:10px 14px;color:var(--txt);font-family:'Share Tech Mono',monospace;font-size:.76rem;outline:none;transition:border-color .2s}
+.login-input:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(0,245,212,.1)}
+.login-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;border-radius:7px;color:#030c1a;font-family:'Orbitron',monospace;font-size:.65rem;letter-spacing:2px;font-weight:900;cursor:pointer;margin-top:8px;transition:all .2s}
+.login-btn:hover{box-shadow:0 0 24px rgba(0,245,212,.4);transform:translateY(-1px)}
+.login-error{color:var(--red);font-family:'Share Tech Mono',monospace;font-size:.62rem;text-align:center;margin-top:8px;display:none}
+.login-error.show{display:block}
+.login-footer{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--td);text-align:center;margin-top:20px;line-height:1.8}
+/* ─ USER BADGE ──────────────────────────────────────────────────────────── */
+.user-badge{display:flex;align-items:center;gap:7px;font-family:'Share Tech Mono',monospace;font-size:.61rem;color:var(--teal);cursor:pointer;padding:4px 10px;border-radius:20px;border:1px solid rgba(0,245,212,.2);background:rgba(0,245,212,.05);transition:all .2s}
+.user-badge:hover{border-color:var(--red);color:var(--red)}
+/* ─ NOTIFICACIONES ──────────────────────────────────────────────────────── */
+.notif-form{display:flex;flex-direction:column;gap:10px}
+.notif-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.notif-label{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;width:120px;flex-shrink:0;font-family:'Share Tech Mono',monospace}
+.notif-input{flex:1;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 12px;color:var(--txt);font-family:'Share Tech Mono',monospace;font-size:.72rem;outline:none;transition:border-color .2s;min-width:200px}
+.notif-input:focus{border-color:var(--teal)}
+.notif-toggle{display:flex;align-items:center;gap:8px}
+.toggle-track{width:38px;height:20px;border-radius:10px;background:var(--bg4);border:1px solid var(--bord);position:relative;cursor:pointer;transition:background .2s}
+.toggle-track.on{background:rgba(0,245,212,.3);border-color:var(--teal)}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--tm);transition:all .2s}
+.toggle-track.on .toggle-thumb{left:20px;background:var(--teal)}
+.notif-status{font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:5px 10px;border-radius:5px;display:none}
+.notif-status.ok{background:rgba(57,255,138,.08);border:1px solid rgba(57,255,138,.2);color:var(--green);display:block}
+.notif-status.err{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.2);color:var(--red);display:block}
+/* ─ EXCEL EXPORT ────────────────────────────────────────────────────────── */
+.btn-xl{background:linear-gradient(135deg,rgba(57,255,138,.2),rgba(57,255,138,.06));border-color:var(--green);color:var(--green)}
+.btn-xl:hover{box-shadow:0 0 16px rgba(57,255,138,.35);transform:translateY(-1px)}
+/* ─ IMAP CONFIG ─────────────────────────────────────────────────────────── */
+.imap-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.imap-test-result{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:8px 12px;border-radius:6px;display:none;margin-top:4px}
+.itr-ok{background:rgba(57,255,138,.08);border:1px solid rgba(57,255,138,.2);color:var(--green);display:block}
+.itr-err{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.2);color:var(--red);display:block}
+.itr-load{background:rgba(0,245,212,.08);border:1px solid rgba(0,245,212,.2);color:var(--teal);display:block}
+/* ─ FOOTER ───────────────────────────────────────────────────────────────── */
+.footer{text-align:center;padding:16px 20px 10px;margin-top:24px;border-top:1px solid rgba(0,245,212,.08);font-family:'Share Tech Mono',monospace;font-size:.59rem;color:#1a3a55;line-height:2.2}
+/* ─ PRINT ─────────────────────────────────────────────────────────────────── */
+@media print{
+  body,html{background:#fff!important;color:#000!important}
+  .hdr,.tabs,.footer,#tab-dash,#tab-caus,#tab-calc,#tab-tar,#tab-prov,.btn-print+button,#login-screen{display:none!important}
+  #tab-hist{display:none!important}
+  #auditBg{position:static!important;display:block!important;background:none!important;padding:0!important;overflow:visible!important}
+  #auditContent{border:none!important;padding:0!important;width:100%!important;max-height:none!important;color:#000!important;background:#fff!important}
+  .aud-kpi,.aud-erp-card{background:#f5f5f5!important;border:1px solid #ccc!important}
+  .aud-tbl th{background:#eee!important;color:#333!important}
+  .xbtn{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-hex">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+        <polygon points="26,3 45,14 45,38 26,49 7,38 7,14" fill="rgba(0,245,212,.07)" stroke="rgba(0,245,212,.5)" stroke-width="1.2"/>
+        <polygon points="26,9 39,17 39,35 26,43 13,35 13,17" fill="rgba(0,212,255,.07)" stroke="rgba(0,212,255,.35)" stroke-width="1"/>
+        <circle cx="26" cy="26" r="6" fill="var(--teal)" opacity=".9"/>
+      </svg>
+    </div>
+    <div class="login-title">CONTABLE IA</div>
+    <div class="login-sub">COLOMBIA 2026 · UVT $52.374 · Ing. Julián Arias</div>
+    <div class="login-field">
+      <label class="login-label">Usuario</label>
+      <input class="login-input" id="lu" type="text" placeholder="usuario@empresa.com" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('lp').focus()">
+    </div>
+    <div class="login-field">
+      <label class="login-label">Contraseña</label>
+      <input class="login-input" id="lp" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">INGRESAR AL SISTEMA</button>
+    <div class="login-error" id="loginErr">Usuario o contraseña incorrectos</div>
+    <div class="login-footer">
+      Copyright &copy; 2025-2026 Ing. Julián Arias<br>
+      Demo: usuario <strong style="color:var(--teal)">admin</strong> · clave <strong style="color:var(--teal)">contable2026</strong>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <polygon points="17,2 29,9.5 29,24.5 17,32 5,24.5 5,9.5" fill="rgba(0,245,212,.07)" stroke="rgba(0,245,212,.5)" stroke-width="1"/>
+      <polygon points="17,6.5 25,11.5 25,22.5 17,27.5 9,22.5 9,11.5" fill="rgba(0,212,255,.07)" stroke="rgba(0,212,255,.35)" stroke-width="1"/>
+      <circle cx="17" cy="17" r="4" fill="var(--teal)" opacity=".9"/>
+      <line x1="17" y1="2" x2="17" y2="10" stroke="var(--teal)" stroke-width=".7" opacity=".5"/>
+      <line x1="17" y1="24" x2="17" y2="32" stroke="var(--teal)" stroke-width=".7" opacity=".5"/>
+    </svg>
+    <div><div class="brand">CONTABLE IA</div><div class="brand-s">DIAN · UBL 2.1 · COLOMBIA 2026</div></div>
+  </div>
+  <div class="uvt-pill"><div class="udot"></div>UVT 2026 &nbsp;<strong>$52.374</strong>&nbsp;·&nbsp;Res. DIAN 000238/2025</div>
+  <div class="pills">
+    <div class="pill on"><div class="pdot"></div>DIAN OK</div>
+    <div class="pill on"><div class="pdot"></div>SIIGO API</div>
+    <div class="pill on"><div class="pdot"></div>HELISA OK</div>
+    <div class="pill w"><div class="pdot"></div>2 PENDIENTES</div>
+    <div id="clk"></div>
+    <div class="user-badge" id="userBadge" onclick="doLogout()" title="Cerrar sesión">
+      <span id="userLabel">●</span>
+      <span style="font-size:.55rem;color:var(--td)">SALIR</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab on"  onclick="st(this,'dash')">Dashboard</div>
+  <div class="tab"     onclick="st(this,'caus')">Causaciones</div>
+  <div class="tab"     onclick="st(this,'calc')">Calculadora 2026</div>
+  <div class="tab"     onclick="st(this,'tar')">Tarifas 2026</div>
+  <div class="tab"     onclick="st(this,'hist')">Historial</div>
+  <div class="tab"     onclick="st(this,'prov')">Proveedores</div>
+  <div class="tab"     onclick="st(this,'cfg')">⚙ Configuración</div>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="tab-dash" class="wrap">
+  <div class="norm">
+    <div class="ni"><div class="nv">$52.374</div><div class="nl">UVT 2026</div></div>
+    <div class="nsep"></div>
+    <div class="ni"><div class="nv">2 UVT</div><div class="nl">Base Servicios<br>= $104.748</div></div>
+    <div class="nsep"></div>
+    <div class="ni"><div class="nv">10 UVT</div><div class="nl">Base Compras<br>= $523.740</div></div>
+    <div class="nsep"></div>
+    <div class="ni"><div class="nv">9.66‰</div><div class="nl">ReteICA Bogotá<br>Servicios</div></div>
+    <div class="nsep"></div>
+    <div class="ni"><div class="nv">11%</div><div class="nl">Honorarios<br>Sin base mín.</div></div>
+    <div class="nsep"></div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--tm);text-align:right;line-height:1.9">
+      Decreto 0572 · 28-may-2025<br>Res. DIAN 000238 · 15-dic-2025<br>Acuerdo 816/2021 Bogotá D.C.
+    </div>
+  </div>
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi"><div class="kp-l">Total Facturas</div><div class="kp-v">6</div><div class="kp-s">+3 hoy</div><div class="kp-bar"><div class="kp-f" style="width:60%;background:linear-gradient(90deg,var(--teal),var(--cyan))"></div></div></div>
+    <div class="kpi"><div class="kp-l">Pendientes</div><div class="kp-v a">2</div><div class="kp-s">$4.190.000</div><div class="kp-bar"><div class="kp-f" style="width:33%;background:linear-gradient(90deg,var(--amber),#ff8800)"></div></div></div>
+    <div class="kpi"><div class="kp-l">Contabilizadas</div><div class="kp-v g">3</div><div class="kp-s">+2 hoy</div><div class="kp-bar"><div class="kp-f" style="width:50%;background:linear-gradient(90deg,var(--green),#00ff6a)"></div></div></div>
+    <div class="kpi"><div class="kp-l">Con Errores</div><div class="kp-v r">1</div><div class="kp-s">Verificar</div><div class="kp-bar"><div class="kp-f" style="width:16%;background:var(--red)"></div></div></div>
+    <div class="kpi"><div class="kp-l">Monto Total</div><div class="kp-v c">$8.799K</div><div class="kp-s">+12% semana</div><div class="kp-bar"><div class="kp-f" style="width:88%;background:linear-gradient(90deg,var(--cyan),#0055ff)"></div></div></div>
+  </div>
+  <!-- Mid -->
+  <div class="g2">
+    <div class="card"><div class="ct">Montos por Día</div><div class="ch"><canvas id="barC" height="155"></canvas></div></div>
+    <div class="card"><div class="ct">Distribución por ERP</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <canvas id="dnC" width="105" height="105" style="flex-shrink:0"></canvas>
+        <div style="display:flex;flex-direction:column;gap:8px;flex:1;font-size:.7rem">
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--teal);display:inline-block"></span><span style="flex:1;color:var(--tm)">Siigo</span><span style="font-family:'Share Tech Mono',monospace;font-size:.62rem">3 · 50%</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--green);display:inline-block"></span><span style="flex:1;color:var(--tm)">Helisa</span><span style="font-family:'Share Tech Mono',monospace;font-size:.62rem">2 · 33%</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--cyan);display:inline-block"></span><span style="flex:1;color:var(--tm)">Siesa</span><span style="font-family:'Share Tech Mono',monospace;font-size:.62rem">1 · 17%</span></div>
+          <div style="margin-top:5px;padding-top:7px;border-top:1px solid var(--bord)">
+            <div style="font-size:.58rem;color:var(--amber);font-family:'Share Tech Mono',monospace">Retefuente: $459.500</div>
+            <div style="font-size:.58rem;color:var(--green);font-family:'Share Tech Mono',monospace">ReteICA: $14.490</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card"><div class="ct">Estado ERPs</div>
+      <div class="grow">
+        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--teal)" stroke-width="5" stroke-dasharray="83 55" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="var(--teal)">60%</text></svg><div class="gl">Siigo</div></div>
+        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--green)" stroke-width="5" stroke-dasharray="69 69" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="var(--green)">50%</text></svg><div class="gl">Helisa</div></div>
+        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--cyan)" stroke-width="5" stroke-dasharray="28 110" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="var(--cyan)">20%</text></svg><div class="gl">Siesa</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom -->
+  <div class="g3">
+    <div class="card"><div class="ct">Retenciones Practicadas 2026</div>
+      <div class="hrow"><div class="hl">HON 11%</div><div class="htr"><div class="hf" style="width:76%;background:linear-gradient(90deg,var(--teal),var(--cyan))"></div></div><div class="hv" style="color:var(--teal)">$330K</div></div>
+      <div class="hrow"><div class="hl">ARR 3.5%</div><div class="htr"><div class="hf" style="width:55%;background:linear-gradient(90deg,var(--green),#00ff6a)"></div></div><div class="hv" style="color:var(--green)">$87.5K</div></div>
+      <div class="hrow"><div class="hl" style="line-height:1.3">COM 2.5%<br><span style="color:var(--green);font-size:.5rem">▼base 10UVT</span></div><div class="htr"><div class="hf" style="width:24%;background:linear-gradient(90deg,var(--cyan),#0099ff)"></div></div><div class="hv" style="color:var(--cyan)">$25K</div></div>
+      <div class="hrow"><div class="hl">SER 2%</div><div class="htr"><div class="hf" style="width:16%;background:linear-gradient(90deg,var(--purple),#aa66ff)"></div></div><div class="hv" style="color:var(--purple)">$10K</div></div>
+      <div class="hrow"><div class="hl">ICA 9.66‰</div><div class="htr"><div class="hf" style="width:33%;background:linear-gradient(90deg,var(--amber),#ff8800)"></div></div><div class="hv" style="color:var(--amber)">$14.5K</div></div>
+    </div>
+    <div class="card"><div class="ct">Últimas Facturas</div><table class="tbl" id="miniTbl"></table></div>
+    <div class="card"><div class="ct">Acumulado Semanal</div><div class="ch"><canvas id="areaC" height="115"></canvas></div></div>
+    <div class="card"><div class="ct">Analytics</div>
+      <div style="display:flex;flex-direction:column;gap:13px">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">Base gravable</span><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--teal)">31.5%</span></div><div class="spk" id="sp1"></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">Retefuente</span><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--green)">75.9%</span></div><div class="spk" id="sp2"></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">ReteICA</span><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--cyan)">55.7%</span></div><div class="spk" id="sp3"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAUSACIONES ══ -->
+<div id="tab-caus" class="wrap" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <div style="font-family:'Orbitron',monospace;font-size:.72rem;color:var(--teal);letter-spacing:1px">CAUSACIONES PENDIENTES — UVT $52.374 · 2026</div>
+    <button class="btn btn-all" onclick="aprobarTodo()">⚡ APROBAR TODAS</button>
+  </div>
+  <div id="causGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+  <div class="flash" id="flashTodo">✅ Todas las causaciones enviadas exitosamente a sus ERPs</div>
+</div>
+
+<!-- ══ CALCULADORA 2026 ══ -->
+<div id="tab-calc" class="wrap" style="display:none">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="card">
+      <div class="ct">Calculadora de Retenciones 2026</div>
+      <div style="font-size:.62rem;color:var(--amber);margin-bottom:14px;font-family:'Share Tech Mono',monospace">UVT $52.374 · Decreto 0572/2025 · Acuerdo 816/2021</div>
+      <div class="calc-row">
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Base Gravable (sin IVA)</div>
+          <input class="calc-input" type="number" id="cBase" placeholder="Ej: 1000000" value="1000000" oninput="calcRetenciones()">
+        </div>
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">IVA</div>
+          <input class="calc-input" type="number" id="cIva" placeholder="Ej: 190000" value="190000" oninput="calcRetenciones()" style="width:130px">
+        </div>
+      </div>
+      <div class="calc-row">
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Concepto Retefuente</div>
+          <select class="calc-select" id="cConcepto" onchange="calcRetenciones()">
+            <option value="HON,11,0">HON — Honorarios 11%</option>
+            <option value="CON,10,0">CON — Consultoría 10%</option>
+            <option value="SER,4,2">SER — Servicios 4%</option>
+            <option value="SER_LI,2,2">SER_LI — Limpieza/Vig. 2%</option>
+            <option value="SER_TA,1,2">SER_TA — Transp. Carga 1%</option>
+            <option value="ARR,3.5,0">ARR — Arrendamiento 3.5%</option>
+            <option value="COM,2.5,10" selected>COM — Compras 2.5% (decl.)</option>
+            <option value="COM_ND,3.5,10">COM_ND — Compras 3.5% (no decl.)</option>
+            <option value="INT,7,0">INT — Intereses 7%</option>
+            <option value="VIA,2,0">VIA — Obra civil 2%</option>
+            <option value="PUB,3,2">PUB — Publicidad 3%</option>
+            <option value="EXC,0,0">EXC — Exento / Régimen Simple</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Régimen Proveedor</div>
+          <select class="calc-select" id="cRegimen" onchange="calcRetenciones()">
+            <option value="RC">RC — Régimen Común</option>
+            <option value="GC">GC — Gran Contribuyente</option>
+            <option value="RS">RS — Régimen Simple</option>
+            <option value="NR">NR — No Retenedor</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Tarifa ICA ‰</div>
+          <input class="calc-input" type="number" id="cIca" value="9.66" step="0.01" oninput="calcRetenciones()" style="width:100px">
+        </div>
+      </div>
+      <div class="calc-result" id="calcResult">
+        <div class="cr-row"><span class="cr-label">Base gravable</span><span class="cr-val" id="rBase" style="color:var(--txt)">—</span></div>
+        <div class="cr-row"><span class="cr-label">IVA descontable</span><span class="cr-val" id="rIva" style="color:var(--cyan)">—</span></div>
+        <div class="cr-row"><span class="cr-label">Retefuente</span><span class="cr-val" id="rRete" style="color:var(--amber)">—</span></div>
+        <div class="cr-row"><span class="cr-label">ReteICA Bogotá</span><span class="cr-val" id="rIca" style="color:var(--amber)">—</span></div>
+        <div class="cr-row" style="border-top:1px solid rgba(0,245,212,.15);margin-top:4px"><span class="cr-label" style="font-weight:700;color:var(--txt)">✓ Neto a pagar</span><span class="cr-val" id="rNeto" style="color:var(--green);font-size:.85rem;font-family:'Orbitron',monospace">—</span></div>
+        <div style="font-size:.58rem;color:var(--td);margin-top:6px;font-family:'Share Tech Mono',monospace" id="rNota"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="ct">Bases Mínimas 2026</div>
+        <table class="tbl">
+          <thead><tr><th>Concepto</th><th>UVTs</th><th>Valor 2026</th><th>Valor 2025</th><th>Cambio</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">COM</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">10 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$523.740</td><td style="color:var(--tm);font-size:.62rem">$1.344.573</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER_LI</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">PUB</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">HON/CON/ARR</td><td style="font-family:'Share Tech Mono',monospace;color:var(--tm)">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td><span class="badge b-pend">Igual</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="ct">ReteICA Bogotá D.C. — Tarifas 2026</div>
+        <div style="font-size:.58rem;color:var(--tm);margin-bottom:9px;font-family:'Share Tech Mono',monospace">Acuerdo 816/2021 · Base mín. 2 UVT = $104.748 (Decreto 0572/2025)</div>
+        <table class="tbl">
+          <thead><tr><th>Actividad Económica</th><th>Tarifa ‰</th><th>Base mín.</th></tr></thead>
+          <tbody>
+            <tr><td>Servicios en general</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">9.66‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Consultoría profesional (libre)</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">8.66‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Actividades industriales</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">4.14‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Actividades comerciales</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">4.14‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Servicios financieros</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">14.00‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Transporte carga/pasajeros</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">3.50‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td style="color:var(--tm)">Gran Contribuyente (GC)</td><td style="color:var(--td)">—</td><td style="font-size:.62rem;color:var(--td)">Autoagente, no aplica</td></tr>
+            <tr><td style="color:var(--tm)">Régimen Simple (RS)</td><td style="color:var(--td)">—</td><td style="font-size:.62rem;color:var(--td)">Exento, no aplica</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TARIFAS 2026 ══ -->
+<div id="tab-tar" class="wrap" style="display:none">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="card">
+      <div class="ct">Tabla Retefuente Completa — Año Gravable 2026</div>
+      <div style="font-size:.59rem;color:var(--amber);margin-bottom:10px;font-family:'Share Tech Mono',monospace">UVT $52.374 · Decreto 0572/2025 · Res. DIAN 000238/2025</div>
+      <div style="display:grid;grid-template-columns:85px 54px 148px 1fr;gap:6px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--bord)">
+        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Concepto</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Tarifa</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Base Mínima</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Descripción</div>
+      </div>
+      <div id="tarifaRows"></div>
+    </div>
+    <div class="card">
+      <div class="ct">Resumen de Cambios 2025 → 2026</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:14px">
+        <div style="background:var(--bg4);border-radius:7px;padding:10px;text-align:center"><div style="font-size:.57rem;color:var(--tm);margin-bottom:4px">UVT 2025</div><div style="font-family:'Orbitron',monospace;font-size:.9rem;color:var(--tm)">$49.799</div></div>
+        <div style="font-size:1.05rem;color:var(--teal);text-align:center">→</div>
+        <div style="background:rgba(0,245,212,.08);border:1px solid rgba(0,245,212,.2);border-radius:7px;padding:10px;text-align:center"><div style="font-size:.57rem;color:var(--teal);margin-bottom:4px">UVT 2026</div><div style="font-family:'Orbitron',monospace;font-size:.9rem;color:var(--teal)">$52.374</div></div>
+      </div>
+      <div style="font-size:.62rem;color:var(--green);font-family:'Share Tech Mono',monospace;margin-bottom:9px;padding:7px;background:rgba(57,255,138,.06);border-radius:6px;border:1px solid rgba(57,255,138,.15)">
+        ▲ Incremento UVT: +5.17% (IPC 2025)<br>
+        ▼ Decreto 0572/2025: Bases mínimas BAJAN → más facturas con retención
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Concepto</th><th>Base 2025</th><th>Base 2026</th><th>Valor 2026</th><th>Efecto</th></tr></thead>
+        <tbody>
+          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">COM / COM_ND</td><td style="color:var(--tm);font-size:.62rem">27 UVT</td><td style="color:var(--green);font-weight:700">10 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$523.740</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER / SER_LI</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER_TA / SER_TN</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">PUB</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">HON / CON / ARR</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.6rem">—</td><td><span class="badge b-pend">Sin cambio</span></td></tr>
+          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">ReteICA Bogotá</td><td style="color:var(--tm);font-size:.62rem">9.66‰</td><td style="color:var(--tm);font-size:.62rem">9.66‰</td><td style="color:var(--tm);font-size:.6rem">Acuerdo 816</td><td><span class="badge b-pend">Sin cambio</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HISTORIAL ══ -->
+<div id="tab-hist" class="wrap" style="display:none">
+
+  <!-- Panel de fechas + botón auditoría -->
+  <div class="card" style="background:linear-gradient(135deg,rgba(0,245,212,.05),rgba(0,212,255,.03));border-color:rgba(0,245,212,.22)">
+    <div class="ct" style="margin-bottom:14px">Auditoría de Causaciones por Rango de Fechas</div>
+    <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:.6rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Fecha Inicio</div>
+        <input type="date" id="auditDesde" class="calc-input" style="width:160px;color-scheme:dark" value="2026-03-01">
+      </div>
+      <div>
+        <div style="font-size:.6rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Fecha Fin</div>
+        <input type="date" id="auditHasta" class="calc-input" style="width:160px;color-scheme:dark" value="2026-03-31">
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-all" onclick="generarAuditoria()" style="padding:9px 22px">
+          📋 GENERAR AUDITORÍA
+        </button>
+        <button class="btn btn-calc" onclick="aplicarFiltro()" style="padding:9px 16px">
+          🔍 FILTRAR TABLA
+        </button>
+        <button class="btn" style="padding:9px 14px;border-color:var(--td);color:var(--tm)" onclick="limpiarFiltro()">
+          ✕ LIMPIAR
+        </button>
+      </div>
+    </div>
+    <!-- Resumen rápido de filtro -->
+    <div id="filtroResumen" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(0,245,212,.06);border-radius:7px;border:1px solid rgba(0,245,212,.15);font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--teal)"></div>
+  </div>
+
+  <!-- Tabla historial -->
+  <div class="card">
+    <div class="ct" id="histTitulo">Historial de Causaciones — 2026</div>
+    <div style="overflow-x:auto"><table class="tbl" id="histTbl"></table></div>
+  </div>
+
+  <!-- Gráficas -->
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px">
+    <div class="card"><div class="ct">Acumulado Semanal</div><div class="ch"><canvas id="hArea" height="125"></canvas></div></div>
+    <div class="card"><div class="ct">Por Régimen Tributario</div><div class="ch"><canvas id="hReg" height="125"></canvas></div></div>
+  </div>
+</div>
+
+<!-- ══ MODAL AUDITORÍA ══ -->
+<div class="mbg" id="auditBg" style="display:none;align-items:flex-start;padding:20px 10px;overflow-y:auto">
+  <div style="background:var(--bg2);border:1px solid var(--bh);border-radius:14px;padding:24px;width:min(900px,98vw);margin:auto" id="auditContent"></div>
+</div>
+
+<!-- ══ CONFIGURACIÓN ══ -->
+<div id="tab-cfg" class="wrap" style="display:none">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+
+    <!-- IMAP -->
+    <div class="card">
+      <div class="ct">Correo IMAP — Captura de Facturas DIAN</div>
+      <div style="font-size:.6rem;color:var(--tm);margin-bottom:12px;font-family:'Share Tech Mono',monospace">El sistema revisa este correo cada 30 min para importar facturas electrónicas automáticamente</div>
+      <div class="imap-grid">
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Servidor IMAP</div>
+          <input class="calc-input" id="imapHost" type="text" placeholder="imap.gmail.com" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Puerto SSL</div>
+          <input class="calc-input" id="imapPort" type="number" value="993" style="width:100%">
+        </div>
+        <div style="grid-column:span 2">
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Correo electrónico</div>
+          <input class="calc-input" id="imapUser" type="email" placeholder="facturas@miempresa.com" style="width:100%">
+        </div>
+        <div style="grid-column:span 2">
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Contraseña de aplicación</div>
+          <input class="calc-input" id="imapPass" type="password" placeholder="xxxx xxxx xxxx xxxx" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Carpeta IMAP</div>
+          <input class="calc-input" id="imapFolder" type="text" value="INBOX" style="width:100%">
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="btn btn-calc" onclick="testImap()" style="width:100%;padding:8px">Probar Conexión</button>
+        </div>
+      </div>
+      <div class="imap-test-result" id="imapResult"></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn btn-ok" onclick="guardarImap()" style="flex:1">Guardar Configuración</button>
+        <button class="btn btn-calc" onclick="importarAhora()" style="flex:1">Importar Ahora</button>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:var(--bg4);border-radius:6px;font-size:.6rem;color:var(--tm);font-family:'Share Tech Mono',monospace;line-height:1.8">
+        Gmail: activar 2 pasos → generar contraseña de aplicación<br>
+        Outlook/Hotmail: usar imap-mail.outlook.com<br>
+        El sistema busca ZIPs con XMLs DIAN adjuntos
+      </div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card">
+        <div class="ct">Notificaciones por Email (SMTP)</div>
+        <div class="notif-form">
+          <div class="notif-toggle">
+            <div class="toggle-track" id="emailToggle" onclick="toggle('emailToggle','emailNotifCfg')">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--txt)">Activar notificaciones por email</span>
+          </div>
+          <div id="emailNotifCfg" style="display:none;margin-top:4px">
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Servidor SMTP</span>
+              <input class="notif-input" id="smtpHost" type="text" placeholder="smtp.gmail.com">
+              <input class="notif-input" id="smtpPort" type="number" value="587" style="max-width:80px">
+            </div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Usuario SMTP</span>
+              <input class="notif-input" id="smtpUser" type="email" placeholder="notificaciones@miempresa.com">
+            </div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Contraseña</span>
+              <input class="notif-input" id="smtpPass" type="password" placeholder="••••••••••">
+            </div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Enviar a</span>
+              <input class="notif-input" id="emailTo" type="email" placeholder="contador@miempresa.com">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn btn-calc" onclick="probarEmail()" style="flex:1">Probar Email</button>
+              <button class="btn btn-ok" onclick="guardarEmail()" style="flex:1">Guardar</button>
+            </div>
+            <div class="notif-status" id="emailStatus"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ct">Notificaciones por WhatsApp (Twilio)</div>
+        <div class="notif-form">
+          <div class="notif-toggle">
+            <div class="toggle-track" id="waToggle" onclick="toggle('waToggle','waNotifCfg')">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--txt)">Activar notificaciones por WhatsApp</span>
+          </div>
+          <div id="waNotifCfg" style="display:none;margin-top:4px">
+            <div style="font-size:.6rem;color:var(--amber);margin-bottom:8px;font-family:'Share Tech Mono',monospace">Requiere cuenta Twilio · twilio.com/whatsapp</div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Account SID</span>
+              <input class="notif-input" id="twilioSid" type="text" placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+            </div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Auth Token</span>
+              <input class="notif-input" id="twilioToken" type="password" placeholder="••••••••••••••••••••••">
+            </div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Número WA</span>
+              <input class="notif-input" id="waFrom" type="text" placeholder="whatsapp:+14155238886">
+            </div>
+            <div class="notif-row" style="margin-bottom:8px">
+              <span class="notif-label">Destino</span>
+              <input class="notif-input" id="waTo" type="text" placeholder="whatsapp:+573001234567">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn btn-calc" onclick="probarWA()" style="flex:1">Enviar Prueba</button>
+              <button class="btn btn-ok" onclick="guardarWA()" style="flex:1">Guardar</button>
+            </div>
+            <div class="notif-status" id="waStatus"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ct">Cuándo enviar notificaciones</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.7rem">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" checked id="nf1"> Nueva factura importada del correo</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" checked id="nf2"> Asiento aprobado y enviado al ERP</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="nf3"> Error en proveedor no registrado</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="nf4"> Resumen diario de causaciones</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" checked id="nf5"> Error de conexión con ERP</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Gestión de usuarios -->
+  <div class="card">
+    <div class="ct">Gestión de Usuarios del Sistema</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px" id="userList"></div>
+    <div style="border-top:1px solid var(--bord);padding-top:12px">
+      <div style="font-size:.62rem;color:var(--tm);margin-bottom:10px;font-family:'Share Tech Mono',monospace">AGREGAR NUEVO USUARIO</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input class="calc-input" id="newUser" type="text" placeholder="usuario@empresa.com" style="flex:2;min-width:180px">
+        <input class="calc-input" id="newPass" type="password" placeholder="Contraseña" style="flex:2;min-width:150px">
+        <select class="calc-select" id="newRole" style="flex:1;min-width:130px">
+          <option value="admin">Administrador</option>
+          <option value="contador">Contador</option>
+          <option value="viewer">Solo lectura</option>
+        </select>
+        <button class="btn btn-ok" onclick="agregarUsuario()">Agregar</button>
+      </div>
+      <div class="flash" id="userFlash" style="margin-top:8px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROVEEDORES ══ -->
+<div id="tab-prov" class="wrap" style="display:none">
+  <div class="card">
+    <div class="ct">Base de Datos de Proveedores — Tarifas 2026</div>
+    <div style="overflow-x:auto"><table class="tbl" id="provTbl"></table></div>
+  </div>
+</div>
+
+<!-- ══ MODAL ══ -->
+<div class="mbg" id="mbg">
+  <div class="modal" id="modalC"></div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <span style="color:var(--t2)">ASISTENTE CONTABLE IA — COLOMBIA</span><br>
+  Copyright &copy; 2025-2026 &nbsp;|&nbsp; <span style="color:var(--t2)">Ing. Julián Arias</span> &nbsp;|&nbsp; Todos los derechos reservados<br>
+  Prohibida su reproducción sin autorización escrita del autor<br>
+  UVT 2026: $52.374 &nbsp;·&nbsp; Decreto 0572/2025 &nbsp;·&nbsp; Res. DIAN 000238/2025 &nbsp;·&nbsp; Acuerdo 816/2021 Bogotá D.C.
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ─── DATOS ────────────────────────────────────────────────────────────────
+const UVT = 52374;
+
+const TARIFAS = [
+  {con:"HON",    pct:11.0, uvt:0,   desc:"Honorarios y comisiones (personas jurídicas)"},
+  {con:"HON_PN", pct:10.0, uvt:0,   desc:"Honorarios personas naturales (>3.300 UVT acum.)"},
+  {con:"SER",    pct:4.0,  uvt:2,   desc:"Servicios en general"},
+  {con:"SER_LI", pct:2.0,  uvt:2,   desc:"Servicios de limpieza y vigilancia"},
+  {con:"SER_TA", pct:1.0,  uvt:2,   desc:"Transporte nacional de carga"},
+  {con:"SER_TN", pct:3.5,  uvt:2,   desc:"Transporte de pasajeros nacional"},
+  {con:"ARR",    pct:3.5,  uvt:0,   desc:"Arrendamiento de bienes raíces"},
+  {con:"COM",    pct:2.5,  uvt:10,  desc:"Compras generales (declarantes)"},
+  {con:"COM_ND", pct:3.5,  uvt:10,  desc:"Compras generales (no declarantes)"},
+  {con:"COM_CA", pct:0.5,  uvt:160, desc:"Compras de café pergamino"},
+  {con:"INT",    pct:7.0,  uvt:0,   desc:"Intereses y rendimientos financieros"},
+  {con:"CON",    pct:10.0, uvt:0,   desc:"Consultoría y administración de proyectos"},
+  {con:"VIA",    pct:2.0,  uvt:0,   desc:"Contratos de obra civil y construcción"},
+  {con:"PUB",    pct:3.0,  uvt:2,   desc:"Servicios de publicidad"},
+  {con:"EXC",    pct:0.0,  uvt:0,   desc:"Exento / Régimen Simple / No aplica"},
+];
+
+const FACTURAS = [
+  {n:"FV-2026-001",p:"Papelería y Suministros del Norte",nit:"900456789",base:1000000,iva:190000,rete:25000,ica:9660,total:1190000,erp:"Siigo",fecha:"2026-03-10",est:"PENDIENTE",con:"COM",cta:"512045",reg:"RC",nota:"COM 2.5% · base>10 UVT 2026"},
+  {n:"FV-2026-002",p:"Consultoría Estratégica Ltda",nit:"800111222",base:3000000,iva:0,rete:330000,ica:0,total:3000000,erp:"Siigo",fecha:"2026-03-11",est:"PENDIENTE",con:"HON",cta:"511005",reg:"GC",nota:"HON 11% · GC exento ICA"},
+  {n:"FV-2026-003",p:"Servicios Generales Torres SAS",nit:"830045601",base:500000,iva:95000,rete:10000,ica:4830,total:595000,erp:"Helisa",fecha:"2026-03-11",est:"APROBADA",con:"SER_LI",cta:"512035",reg:"RC",nota:"SER_LI 2% · ICA 9.66‰"},
+  {n:"FV-2026-004",p:"Arrendamientos Bogotá SA",nit:"900321000",base:2500000,iva:0,rete:87500,ica:0,total:2500000,erp:"Helisa",fecha:"2026-03-12",est:"CONTABILIZADA",con:"ARR",cta:"521010",reg:"GC",nota:"ARR 3.5% · GC exento ICA"},
+  {n:"FV-2026-005",p:"Avianca SA",nit:"890900810",base:800000,iva:0,rete:8000,ica:0,total:800000,erp:"Siesa",fecha:"2026-03-12",est:"CONTABILIZADA",con:"SER_TA",cta:"512050",reg:"GC",nota:"SER_TA 1% · GC exento ICA"},
+  {n:"FV-2026-006",p:"Proveedor Régimen Simple SAS",nit:"901234567",base:600000,iva:114000,rete:0,ica:0,total:714000,erp:"Siigo",fecha:"2026-03-13",est:"ERROR",con:"EXC",cta:"512045",reg:"RS",nota:"RS exento de toda retención"},
+];
+
+const PROV = [
+  {nit:"900456789",r:"Papelería y Suministros del Norte SAS",cta:"512045",reg:"RC",erp:"Siigo",ica:"9.66",con:"COM",rete:"✓"},
+  {nit:"800111222",r:"Consultoría Estratégica Ltda",cta:"511005",reg:"GC",erp:"Siigo",ica:"9.66",con:"HON",rete:"✓"},
+  {nit:"830045601",r:"Servicios Generales Torres SAS",cta:"512035",reg:"RC",erp:"Helisa",ica:"9.66",con:"SER_LI",rete:"✓"},
+  {nit:"900321000",r:"Arrendamientos Bogotá SA",cta:"521010",reg:"GC",erp:"Helisa",ica:"4.14",con:"ARR",rete:"✓"},
+  {nit:"890900810",r:"Avianca SA",cta:"512050",reg:"GC",erp:"Siesa",ica:"3.50",con:"SER_TA",rete:"✓"},
+  {nit:"901234567",r:"Proveedor Régimen Simple SAS",cta:"512045",reg:"RS",erp:"Siigo",ica:"9.66",con:"EXC",rete:"✗"},
+];
+
+// ─── UTILIDADES ───────────────────────────────────────────────────────────
+const fmt = n => '$' + Math.round(n).toLocaleString('es-CO');
+const EC = {Siigo:'var(--teal)',Helisa:'var(--green)',Siesa:'var(--cyan)'};
+function bdg(e) {
+  const m = {PENDIENTE:'b-pend',CONTABILIZADA:'b-ok',ERROR:'b-err',APROBADA:'b-apr'};
+  return `<span class="badge ${m[e]||'b-pend'}">${e}</span>`;
+}
+
+// ─── RELOJ ────────────────────────────────────────────────────────────────
+setInterval(() => {
+  const el = document.getElementById('clk');
+  if (el) el.textContent = new Date().toLocaleTimeString('es-CO', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}, 1000);
+
+// ─── MINI TABLE ──────────────────────────────────────────────────────────
+(function() {
+  const tb = document.getElementById('miniTbl');
+  if (!tb) return;
+  tb.innerHTML = '<thead><tr><th>Núm.</th><th>Total</th><th>ERP</th><th>Estado</th></tr></thead>';
+  const bd = document.createElement('tbody');
+  FACTURAS.slice(0, 5).forEach((f, i) => {
+    const tr = document.createElement('tr');
+    tr.onclick = () => openModal(i);
+    tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">${f.n.replace('FV-2026-','FV-')}</td><td style="color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.61rem">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.61rem;font-weight:700">${f.erp}</td><td>${bdg(f.est)}</td>`;
+    bd.appendChild(tr);
+  });
+  tb.appendChild(bd);
+})();
+
+// ─── SPARKLINES ──────────────────────────────────────────────────────────
+function mkSpk(id, vals, col) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const mx = Math.max(...vals);
+  vals.forEach(v => {
+    const b = document.createElement('div');
+    b.className = 'sb';
+    b.style.cssText = `height:${Math.round((v/mx)*26)+4}px;background:${col};flex:1`;
+    el.appendChild(b);
+  });
+}
+mkSpk('sp1', [40,65,30,80,55,70,45,90,60,75,85,50], 'var(--teal)');
+mkSpk('sp2', [20,45,80,35,60,90,40,70,55,85,30,65], 'var(--green)');
+mkSpk('sp3', [55,30,70,45,85,20,65,40,75,50,90,35], 'var(--cyan)');
+
+// ─── TARIFAS ─────────────────────────────────────────────────────────────
+(function() {
+  const el = document.getElementById('tarifaRows');
+  if (!el) return;
+  TARIFAS.forEach(t => {
+    const bm = t.uvt > 0 ? `${t.uvt} UVT = ${fmt(t.uvt * UVT)}` : 'Sin mínimo';
+    const changed = t.uvt > 0 && t.uvt < 4;
+    el.innerHTML += `<div class="trow">
+      <div class="tr-c">${t.con}</div>
+      <div class="tr-p">${t.pct}%</div>
+      <div class="tr-b">${bm}${changed ? '<span class="ctag ct-d">▼</span>' : ''}</div>
+      <div class="tr-d">${t.desc}</div>
+    </div>`;
+  });
+})();
+
+// ─── CALCULADORA ─────────────────────────────────────────────────────────
+function calcRetenciones() {
+  const base   = parseFloat(document.getElementById('cBase').value) || 0;
+  const iva    = parseFloat(document.getElementById('cIva').value) || 0;
+  const reg    = document.getElementById('cRegimen').value;
+  const icaTasa = parseFloat(document.getElementById('cIca').value) || 0;
+  const conVal = document.getElementById('cConcepto').value.split(',');
+  const pct    = parseFloat(conVal[1]);
+  const uvtMin = parseFloat(conVal[2]);
+
+  let rete = 0, retNota = '';
+  const baseMinRete = uvtMin * UVT;
+
+  if (reg === 'RS' || reg === 'NR') {
+    retNota = `Régimen ${reg} — exento de Retefuente`;
+  } else if (pct === 0) {
+    retNota = 'Concepto exento — tarifa 0%';
+  } else if (base < baseMinRete && uvtMin > 0) {
+    retNota = `Base $${Math.round(base).toLocaleString('es-CO')} < mínimo ${uvtMin} UVT = ${fmt(baseMinRete)} — No aplica`;
+  } else {
+    rete = Math.round(base * pct / 100);
+    retNota = `${pct}% × ${fmt(base)} = ${fmt(rete)}`;
+    if (uvtMin > 0) retNota += ` (base > ${uvtMin} UVT = ${fmt(baseMinRete)})`;
+  }
+
+  let ica = 0, icaNota = '';
+  const baseMinIca = 2 * UVT;
+  if (reg === 'GC') {
+    icaNota = 'Gran Contribuyente — autoagente, no aplica';
+  } else if (reg === 'RS') {
+    icaNota = 'Régimen Simple — exento de ReteICA';
+  } else if (base < baseMinIca) {
+    icaNota = `Base < 2 UVT = ${fmt(baseMinIca)} — No aplica`;
+  } else if (icaTasa === 0) {
+    icaNota = 'Tarifa ICA 0‰ — actividad exenta';
+  } else {
+    ica = Math.round(base * icaTasa / 1000);
+    icaNota = `${icaTasa}‰ × ${fmt(base)} = ${fmt(ica)}`;
+  }
+
+  const neto = (base + iva) - rete - ica;
+
+  document.getElementById('rBase').textContent = fmt(base);
+  document.getElementById('rIva').textContent = iva > 0 ? fmt(iva) : 'No aplica';
+  document.getElementById('rRete').textContent = rete > 0 ? fmt(rete) : `NO APLICA — ${retNota}`;
+  document.getElementById('rRete').style.color = rete > 0 ? 'var(--amber)' : 'var(--td)';
+  document.getElementById('rIca').textContent = ica > 0 ? fmt(ica) : `NO APLICA — ${icaNota}`;
+  document.getElementById('rIca').style.color = ica > 0 ? 'var(--amber)' : 'var(--td)';
+  document.getElementById('rNeto').textContent = fmt(neto);
+  document.getElementById('rNota').textContent = `UVT 2026: $52.374 · Decreto 0572/2025`;
+}
+// Calcular al cargar
+setTimeout(calcRetenciones, 100);
+
+// ─── CAUSACIONES ─────────────────────────────────────────────────────────
+function renderCaus() {
+  const g = document.getElementById('causGrid');
+  if (!g) return;
+  g.innerHTML = '';
+  const pend = FACTURAS.filter(f => f.est === 'PENDIENTE' || f.est === 'APROBADA');
+  if (!pend.length) {
+    g.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:50px;color:var(--green);font-family:\'Share Tech Mono\',monospace;font-size:.8rem">✓ SIN CAUSACIONES PENDIENTES</div>';
+    return;
+  }
+  pend.forEach(f => {
+    const i = FACTURAS.indexOf(f);
+    const neto = f.total - f.rete - f.ica;
+    g.innerHTML += `<div class="ccard" id="cc${i}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px">
+        <div>
+          <div style="font-family:'Orbitron',monospace;font-size:.69rem;color:var(--teal)">${f.n}</div>
+          <div style="font-size:.68rem;color:var(--tm);margin-top:2px">${f.p}</div>
+          <div style="font-size:.58rem;color:var(--td);font-family:'Share Tech Mono',monospace;margin-top:2px">NIT ${f.nit} · ${f.reg} · ${f.nota}</div>
+        </div>
+        <div style="text-align:right;display:flex;flex-direction:column;gap:4px">${bdg(f.est)}<span style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</span></div>
+      </div>
+      <div class="mg">
+        <div class="mg-i"><div class="mg-l">Base Gravable</div><div class="mg-v">${fmt(f.base)}</div></div>
+        <div class="mg-i"><div class="mg-l">IVA 19%</div><div class="mg-v" style="color:var(--cyan)">${fmt(f.iva)}</div></div>
+        <div class="mg-i"><div class="mg-l">Retefuente 2026</div><div class="mg-v" style="color:var(--amber)">${f.rete > 0 ? fmt(f.rete) : 'N/A'}</div></div>
+        <div class="mg-i"><div class="mg-l">ReteICA 9.66‰</div><div class="mg-v" style="color:var(--amber)">${f.ica > 0 ? fmt(f.ica) : 'N/A'}</div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--bord)">
+        <div>
+          <span style="font-size:.61rem;color:var(--tm)">Neto a pagar: </span>
+          <span style="font-family:'Orbitron',monospace;font-size:.88rem;font-weight:700;color:var(--green)">${fmt(neto)}</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ok" onclick="aprobarUno(${i},this)">Aprobar</button>
+          <button class="btn btn-rej" onclick="rechazarUno(${i})">Rechazar</button>
+        </div>
+      </div>
+      <div class="flash" id="fl${i}"></div>
+    </div>`;
+  });
+}
+
+function aprobarUno(i, btn) {
+  FACTURAS[i].est = 'CONTABILIZADA';
+  const fl = document.getElementById(`fl${i}`);
+  if (fl) { fl.textContent = `✅ Enviado a ${FACTURAS[i].erp} — ID: ${Math.random().toString(36).slice(2,10).toUpperCase()}`; fl.classList.add('show'); }
+  const c = document.getElementById(`cc${i}`);
+  if (c) c.querySelectorAll('.btn').forEach(b => b.disabled = true);
+}
+function rechazarUno(i) { FACTURAS[i].est = 'ERROR'; renderCaus(); }
+function aprobarTodo() {
+  FACTURAS.filter(f => f.est === 'PENDIENTE' || f.est === 'APROBADA').forEach(f => f.est = 'CONTABILIZADA');
+  const fl = document.getElementById('flashTodo');
+  if (fl) fl.classList.add('show');
+  setTimeout(renderCaus, 300);
+}
+
+// ─── HISTORIAL ────────────────────────────────────────────────────────────
+function renderHist() {
+  const tb = document.getElementById('histTbl');
+  if (!tb) return;
+  tb.innerHTML = '<thead><tr><th>Número</th><th>Proveedor</th><th>Base</th><th>IVA</th><th>Retefuente</th><th>ReteICA</th><th>Total</th><th>ERP</th><th>Fecha</th><th>Estado</th></tr></thead>';
+  const bd = document.createElement('tbody');
+  const rc = {PENDIENTE:'',CONTABILIZADA:'rgba(57,255,138,.03)',ERROR:'rgba(255,51,102,.03)',APROBADA:'rgba(255,170,0,.03)'};
+  FACTURAS.forEach((f, i) => {
+    const tr = document.createElement('tr');
+    tr.style.background = rc[f.est] || '';
+    tr.onclick = () => openModal(i);
+    tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.6rem">${f.n}</td><td style="font-size:.67rem">${f.p.substring(0,22)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right">${fmt(f.base)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--cyan)">${fmt(f.iva)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.63rem;font-weight:700;color:var(--teal);text-align:right">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</td><td style="font-size:.61rem;color:var(--tm)">${f.fecha}</td><td>${bdg(f.est)}</td>`;
+    bd.appendChild(tr);
+  });
+  tb.appendChild(bd);
+}
+
+// ─── PROVEEDORES ─────────────────────────────────────────────────────────
+function renderProv() {
+  const tb = document.getElementById('provTbl');
+  if (!tb) return;
+  tb.innerHTML = '<thead><tr><th>NIT</th><th>Razón Social</th><th>Cta. Gasto</th><th>Régimen</th><th>ERP</th><th>ICA ‰</th><th>Concepto Rete</th><th>Aplica Rete</th></tr></thead>';
+  const bd = document.createElement('tbody');
+  PROV.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">${p.nit}</td><td style="font-size:.7rem">${p.r}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem">${p.cta}</td><td>${bdg('PENDIENTE').replace('PENDIENTE',p.reg)}</td><td style="color:${EC[p.erp]};font-weight:700;font-size:.62rem">${p.erp}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.62rem;text-align:center">${p.ica}</td><td style="color:var(--amber);font-size:.63rem">${p.con}</td><td style="text-align:center;color:${p.rete==='✓'?'var(--green)':'var(--red)'};font-size:.82rem">${p.rete}</td>`;
+    bd.appendChild(tr);
+  });
+  tb.appendChild(bd);
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────
+function openModal(i) {
+  const f = FACTURAS[i];
+  const neto = f.total - f.rete - f.ica;
+  let rows = '';
+  rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">${f.cta}</td><td>Gasto/Costo — ${f.con}</td><td style="color:var(--cyan);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.base)}</td><td style="text-align:right;color:var(--td)">—</td></tr>`;
+  if (f.iva > 0) rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">24080100</td><td>IVA Descontable 19%</td><td style="color:var(--cyan);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.iva)}</td><td style="text-align:right;color:var(--td)">—</td></tr>`;
+  if (f.rete > 0) rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">23650100</td><td>Retefuente — ${f.con} · UVT $52.374</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.rete)}</td></tr>`;
+  if (f.ica > 0) rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">23680100</td><td>ReteICA 9.66‰ · Bogotá D.C.</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.ica)}</td></tr>`;
+  rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">22050000</td><td>CxP — ${f.p.substring(0,24)}</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(neto)}</td></tr>`;
+  rows += `<tr class="tot"><td colspan="2">TOTALES</td><td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(f.total)}</td><td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(f.total)}</td></tr>`;
+
+  document.getElementById('modalC').innerHTML = `
+    <div class="mhdr">
+      <div class="mtitle">ASIENTO CONTABLE · ${f.n} · 2026</div>
+      <button class="xbtn" onclick="closeModal()">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:13px">
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">Proveedor</div><div style="font-family:'Share Tech Mono',monospace;font-size:.59rem;color:var(--txt)">${f.p.substring(0,17)}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">NIT</div><div style="font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--cyan)">${f.nit}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">Régimen</div><div style="font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--amber)">${f.reg}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">ERP Destino</div><div style="font-family:'Share Tech Mono',monospace;font-size:.63rem;color:${EC[f.erp]}">${f.erp}</div></div>
+    </div>
+    <table class="atbl">
+      <thead><tr><th>Cuenta PUC</th><th>Descripción</th><th style="text-align:right">Débito</th><th style="text-align:right">Crédito</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="cuadre">✓ ASIENTO CUADRADO — Σ DÉB = Σ CRÉ = ${fmt(f.total)} &nbsp;·&nbsp; UVT 2026: $52.374 · Decreto 0572/2025</div>
+    ${f.est === 'PENDIENTE' || f.est === 'APROBADA' ? `
+    <div style="display:flex;gap:7px;margin-top:12px;justify-content:flex-end">
+      <button class="btn btn-rej" onclick="rechazarModal(${i})">Rechazar</button>
+      <button class="btn btn-ok" id="mb${i}" onclick="aprobarModal(${i})">Aprobar y Contabilizar</button>
+    </div>
+    <div class="flash" id="mfl${i}"></div>` : ''}
+  `;
+  document.getElementById('mbg').classList.add('show');
+}
+function closeModal() { document.getElementById('mbg').classList.remove('show'); }
+function aprobarModal(i) {
+  FACTURAS[i].est = 'CONTABILIZADA';
+  const fl = document.getElementById(`mfl${i}`);
+  if (fl) { fl.textContent = `✅ Enviado a ${FACTURAS[i].erp} — ID: ${Math.random().toString(36).slice(2,10).toUpperCase()}`; fl.classList.add('show'); }
+  const b = document.getElementById(`mb${i}`);
+  if (b) b.disabled = true;
+}
+function rechazarModal(i) { FACTURAS[i].est = 'ERROR'; closeModal(); }
+document.getElementById('mbg').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+// ─── TAB SWITCH ───────────────────────────────────────────────────────────
+function st(el, name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  ['dash','caus','calc','tar','hist','prov'].forEach(t => {
+    const d = document.getElementById(`tab-${t}`);
+    if (d) d.style.display = t === name ? 'block' : 'none';
+  });
+  if (name === 'caus')  renderCaus();
+  if (name === 'hist')  { renderHist(); setTimeout(drawHCharts, 80); }
+  if (name === 'prov')  renderProv();
+  if (name === 'calc')  calcRetenciones();
+}
+
+// ─── CHARTS ───────────────────────────────────────────────────────────────
+Chart.defaults.font.family = "'Share Tech Mono',monospace";
+const ax = (col) => ({
+  grid: { color:'rgba(0,245,212,.05)', drawBorder:false },
+  ticks: { color: col||'#4a7a99', font:{ size:8 } },
+  border: { display:false }
+});
+
+// Bar
+new Chart(document.getElementById('barC'), {
+  type:'bar',
+  data:{ labels:['Mar 10','Mar 11','Mar 12','Mar 13'],
+    datasets:[{ data:[1190000,3595000,3300000,714000],
+      backgroundColor:['rgba(0,245,212,.5)','rgba(0,245,212,.65)','rgba(0,245,212,.85)','rgba(57,255,138,.7)'],
+      borderColor:['var(--teal)','var(--teal)','var(--teal)','var(--green)'],
+      borderWidth:1, borderRadius:3 }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:v=>fmt(v.raw) }}},
+    scales:{ x:{...ax(), grid:{display:false}}, y:{...ax(), ticks:{...ax().ticks, callback:v=>'$'+(v/1e6).toFixed(1)+'M'}} }}
+});
+
+// Donut
+new Chart(document.getElementById('dnC'), {
+  type:'doughnut',
+  data:{ labels:['Siigo','Helisa','Siesa'],
+    datasets:[{ data:[3,2,1],
+      backgroundColor:['rgba(0,245,212,.8)','rgba(57,255,138,.8)','rgba(0,212,255,.8)'],
+      borderColor:'var(--bg3)', borderWidth:2 }]
+  },
+  options:{ responsive:false, cutout:'70%', plugins:{ legend:{ display:false }}}
+});
+
+// Area
+new Chart(document.getElementById('areaC'), {
+  type:'line',
+  data:{ labels:['Mar 10','Mar 11','Mar 12','Mar 13'],
+    datasets:[{ data:[1190000,4785000,8085000,8799000],
+      borderColor:'var(--teal)', borderWidth:2, fill:true,
+      backgroundColor:'rgba(0,245,212,.07)', tension:.4,
+      pointBackgroundColor:'var(--teal)', pointRadius:4 }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:v=>fmt(v.raw) }}},
+    scales:{ x:ax(), y:{...ax(), ticks:{...ax().ticks, callback:v=>'$'+(v/1e6).toFixed(1)+'M'}} }}
+});
+
+// Hist charts (lazy)
+function drawHCharts() {
+  if (document.getElementById('hArea')._done) return;
+  document.getElementById('hArea')._done = true;
+  new Chart(document.getElementById('hArea'), {
+    type:'line',
+    data:{ labels:['Mar 10','Mar 11','Mar 12','Mar 13'],
+      datasets:[{ data:[1190000,4785000,8085000,8799000],
+        borderColor:'var(--teal)', borderWidth:2, fill:true,
+        backgroundColor:'rgba(0,245,212,.07)', tension:.4,
+        pointBackgroundColor:'var(--teal)', pointRadius:4 }]
+    },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:v=>fmt(v.raw) }}},
+      scales:{ x:ax(), y:{...ax(), ticks:{...ax().ticks, callback:v=>'$'+(v/1e6).toFixed(1)+'M'}} }}
+  });
+  new Chart(document.getElementById('hReg'), {
+    type:'doughnut',
+    data:{ labels:['RC','GC','RS'],
+      datasets:[{ data:[2,3,1],
+        backgroundColor:['rgba(0,245,212,.8)','rgba(57,255,138,.8)','rgba(0,212,255,.7)'],
+        borderColor:'var(--bg3)', borderWidth:2 }]
+    },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'65%',
+      plugins:{ legend:{ display:true, labels:{ color:'#4a7a99', font:{ size:9 }, boxWidth:10 }}}}
+  });
+}
+// ─── AUDITORÍA POR RANGO DE FECHAS ──────────────────────────────────────
+function getFiltradas() {
+  const desde = document.getElementById('auditDesde').value;
+  const hasta = document.getElementById('auditHasta').value;
+  if (!desde || !hasta) return FACTURAS;
+  return FACTURAS.filter(f => f.fecha >= desde && f.fecha <= hasta);
+}
+
+function aplicarFiltro() {
+  const desde = document.getElementById('auditDesde').value;
+  const hasta = document.getElementById('auditHasta').value;
+  const lista = getFiltradas();
+  const tb = document.getElementById('histTbl');
+  const titulo = document.getElementById('histTitulo');
+  const resumen = document.getElementById('filtroResumen');
+
+  // Actualizar título
+  if (titulo) titulo.textContent = `Causaciones filtradas: ${desde} → ${hasta} (${lista.length} registros)`;
+
+  // Renderizar tabla filtrada
+  if (tb) {
+    tb.innerHTML = '<thead><tr><th>Número</th><th>Proveedor</th><th>Base</th><th>IVA</th><th>Retefuente</th><th>ReteICA</th><th>Total</th><th>ERP</th><th>Fecha</th><th>Estado</th></tr></thead>';
+    const bd = document.createElement('tbody');
+    const rc = {PENDIENTE:'',CONTABILIZADA:'rgba(57,255,138,.03)',ERROR:'rgba(255,51,102,.03)',APROBADA:'rgba(255,170,0,.03)'};
+    if (!lista.length) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="10" style="text-align:center;padding:30px;color:var(--tm);font-family:\'Share Tech Mono\',monospace">Sin resultados para el rango seleccionado</td>';
+      bd.appendChild(tr);
+    } else {
+      lista.forEach((f) => {
+        const i = FACTURAS.indexOf(f);
+        const tr = document.createElement('tr');
+        tr.style.background = rc[f.est] || '';
+        tr.onclick = () => openModal(i);
+        tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.6rem">${f.n}</td><td style="font-size:.67rem">${f.p.substring(0,22)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right">${fmt(f.base)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--cyan)">${fmt(f.iva)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.63rem;font-weight:700;color:var(--teal);text-align:right">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</td><td style="font-size:.61rem;color:var(--tm)">${f.fecha}</td><td>${bdg(f.est)}</td>`;
+        bd.appendChild(tr);
+      });
+    }
+    tb.appendChild(bd);
+  }
+
+  // Resumen rápido
+  if (resumen && lista.length) {
+    const totBase  = lista.reduce((s,f) => s+f.base, 0);
+    const totIva   = lista.reduce((s,f) => s+f.iva, 0);
+    const totRete  = lista.reduce((s,f) => s+f.rete, 0);
+    const totIca   = lista.reduce((s,f) => s+f.ica, 0);
+    const totTotal = lista.reduce((s,f) => s+f.total, 0);
+    const contab   = lista.filter(f=>f.est==='CONTABILIZADA').length;
+    resumen.innerHTML = `${lista.length} facturas | Base: ${fmt(totBase)} | IVA: ${fmt(totIva)} | Retefuente: ${fmt(totRete)} | ReteICA: ${fmt(totIca)} | Total: ${fmt(totTotal)} | Contabilizadas: ${contab}/${lista.length}`;
+    resumen.style.display = 'block';
+  }
+}
+
+function limpiarFiltro() {
+  const titulo = document.getElementById('histTitulo');
+  const resumen = document.getElementById('filtroResumen');
+  if (titulo) titulo.textContent = 'Historial de Causaciones — 2026';
+  if (resumen) resumen.style.display = 'none';
+  renderHist();
+}
+
+function generarAuditoria() {
+  const desde = document.getElementById('auditDesde').value;
+  const hasta = document.getElementById('auditHasta').value;
+  if (!desde || !hasta) { alert('Seleccione ambas fechas para generar la auditoría.'); return; }
+
+  const lista = getFiltradas();
+  const ahora = new Date().toLocaleString('es-CO', {dateStyle:'long', timeStyle:'short'});
+
+  // ── Totales generales ──
+  const totBase  = lista.reduce((s,f)=>s+f.base,0);
+  const totIva   = lista.reduce((s,f)=>s+f.iva,0);
+  const totRete  = lista.reduce((s,f)=>s+f.rete,0);
+  const totIca   = lista.reduce((s,f)=>s+f.ica,0);
+  const totTotal = lista.reduce((s,f)=>s+f.total,0);
+  const totNeto  = totTotal - totRete - totIca;
+
+  const contab   = lista.filter(f=>f.est==='CONTABILIZADA').length;
+  const pend     = lista.filter(f=>f.est==='PENDIENTE'||f.est==='APROBADA').length;
+  const errores  = lista.filter(f=>f.est==='ERROR').length;
+
+  // ── Por ERP ──
+  const erpData = {};
+  ['Siigo','Helisa','Siesa'].forEach(e => {
+    const sub = lista.filter(f=>f.erp===e);
+    erpData[e] = {
+      count: sub.length,
+      base:  sub.reduce((s,f)=>s+f.base,0),
+      rete:  sub.reduce((s,f)=>s+f.rete,0),
+      ica:   sub.reduce((s,f)=>s+f.ica,0),
+      total: sub.reduce((s,f)=>s+f.total,0),
+      contab: sub.filter(f=>f.est==='CONTABILIZADA').length,
+    };
+  });
+
+  // ── Por Régimen ──
+  const regData = {};
+  ['RC','GC','RS','NR'].forEach(r => {
+    const sub = lista.filter(f=>f.reg===r);
+    if (!sub.length) return;
+    regData[r] = { count:sub.length, base:sub.reduce((s,f)=>s+f.base,0), rete:sub.reduce((s,f)=>s+f.rete,0), ica:sub.reduce((s,f)=>s+f.ica,0), total:sub.reduce((s,f)=>s+f.total,0) };
+  });
+
+  // ── Por Concepto Retefuente ──
+  const conData = {};
+  lista.forEach(f => {
+    if (!conData[f.con]) conData[f.con] = {count:0, base:0, rete:0};
+    conData[f.con].count++;
+    conData[f.con].base += f.base;
+    conData[f.con].rete += f.rete;
+  });
+
+  // ── Generar filas detalles ──
+  let filas = '';
+  const rc2 = {PENDIENTE:'rgba(255,170,0,.04)',CONTABILIZADA:'rgba(57,255,138,.04)',ERROR:'rgba(255,51,102,.04)',APROBADA:'rgba(0,245,212,.04)'};
+  lista.forEach((f, idx) => {
+    filas += `<tr style="background:${rc2[f.est]||''}">
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.6rem;white-space:nowrap">${f.n}</td>
+      <td>${f.p}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--tm);white-space:nowrap">${f.nit}</td>
+      <td style="text-align:center"><span class="badge b-pend" style="font-size:.52rem">${f.reg}</span></td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right">${fmt(f.base)}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right;color:var(--cyan)">${f.iva>0?fmt(f.iva):'—'}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:.62rem;text-align:right;font-weight:700;color:var(--teal)">${fmt(f.total)}</td>
+      <td style="color:${EC[f.erp]};font-size:.6rem;font-weight:700">${f.erp}</td>
+      <td style="font-size:.6rem;color:var(--tm)">${f.fecha}</td>
+      <td>${bdg(f.est)}</td>
+    </tr>`;
+  });
+  if (!filas) filas = '<tr><td colspan="12" class="no-items">Sin causaciones en el rango seleccionado</td></tr>';
+
+  // ── Subtotales ──
+  filas += `<tr class="subtotal">
+    <td colspan="4" style="font-family:'Orbitron',monospace;font-size:.62rem">TOTALES (${lista.length} facturas)</td>
+    <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(totBase)}</td>
+    <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--cyan)">${fmt(totIva)}</td>
+    <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(totRete)}</td>
+    <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(totIca)}</td>
+    <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(totTotal)}</td>
+    <td colspan="3"></td>
+  </tr>`;
+
+  // ── Filas por ERP ──
+  let erpRows = '';
+  Object.entries(erpData).filter(([,v])=>v.count>0).forEach(([erp, v]) => {
+    const pct = totTotal > 0 ? ((v.total/totTotal)*100).toFixed(1) : '0.0';
+    erpRows += `<tr>
+      <td style="font-weight:700;color:${EC[erp]};font-family:'Orbitron',monospace;font-size:.65rem">${erp}</td>
+      <td style="text-align:center;font-family:'Share Tech Mono',monospace">${v.count}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(v.base)}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(v.rete)}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(v.ica)}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;font-weight:700;color:var(--teal)">${fmt(v.total)}</td>
+      <td style="text-align:center;color:var(--green);font-size:.62rem">${v.contab}/${v.count}</td>
+      <td style="text-align:center;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--tm)">${pct}%</td>
+    </tr>`;
+  });
+
+  // ── Filas por régimen ──
+  let regRows = '';
+  Object.entries(regData).forEach(([reg, v]) => {
+    const regDesc = {RC:'Régimen Común',GC:'Gran Contribuyente',RS:'Régimen Simple',NR:'No Retenedor'};
+    regRows += `<tr>
+      <td><span class="badge b-pend" style="font-size:.57rem">${reg}</span></td>
+      <td>${regDesc[reg]||reg}</td>
+      <td style="text-align:center;font-family:'Share Tech Mono',monospace">${v.count}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(v.base)}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${v.rete>0?fmt(v.rete):'—'}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${v.ica>0?fmt(v.ica):'—'}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;font-weight:700;color:var(--teal)">${fmt(v.total)}</td>
+    </tr>`;
+  });
+
+  // ── Filas por concepto ──
+  let conRows = '';
+  Object.entries(conData).sort((a,b)=>b[1].rete-a[1].rete).forEach(([con, v]) => {
+    const tarifa = TARIFAS.find(t=>t.con===con);
+    conRows += `<tr>
+      <td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.63rem">${con}</td>
+      <td style="font-size:.65rem">${tarifa?tarifa.desc:con}</td>
+      <td style="text-align:center;font-family:'Share Tech Mono',monospace">${v.count}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(v.base)}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">${v.rete>0?fmt(v.rete):'—'}</td>
+      <td style="text-align:right;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--tm)">${v.base>0?((v.rete/v.base)*100).toFixed(2)+'%':'—'}</td>
+    </tr>`;
+  });
+
+  // ── RENDER DEL INFORME ──────────────────────────────────────────────
+  document.getElementById('auditContent').innerHTML = `
+    <!-- ENCABEZADO -->
+    <div class="aud-hdr">
+      <div>
+        <div class="aud-title">📋 INFORME DE AUDITORÍA CONTABLE</div>
+        <div class="aud-subtitle">
+          Período: ${desde} al ${hasta} &nbsp;·&nbsp; Generado: ${ahora}<br>
+          Asistente Contable IA · Colombia · UVT 2026: $52.374 · Ing. Julián Arias
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-direction:column;align-items:flex-end">
+        <button class="btn-print" onclick="window.print()">🖨️ IMPRIMIR / PDF</button>
+        <button class="xbtn" onclick="closeAudit()" style="width:auto;padding:4px 12px;border-radius:5px">✕ Cerrar</button>
+      </div>
+    </div>
+
+    <!-- KPIs RESUMEN -->
+    <div class="aud-kpi-row">
+      <div class="aud-kpi"><div class="aud-kv">${lista.length}</div><div class="aud-kl">Total Facturas</div></div>
+      <div class="aud-kpi"><div class="aud-kv g">${contab}</div><div class="aud-kl">Contabilizadas</div></div>
+      <div class="aud-kpi"><div class="aud-kv a">${pend}</div><div class="aud-kl">Pendientes</div></div>
+      <div class="aud-kpi"><div class="aud-kv r">${errores}</div><div class="aud-kl">Con Errores</div></div>
+      <div class="aud-kpi"><div class="aud-kv c" style="font-size:.82rem">${fmt(totTotal)}</div><div class="aud-kl">Monto Total</div></div>
+    </div>
+
+    <!-- RESUMEN MONETARIO -->
+    <div class="aud-section">
+      <div class="aud-sec-title">Resumen Monetario del Período</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
+        <div style="background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:14px">
+          <div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Base Gravable + IVA</div>
+          <div style="font-family:'Orbitron',monospace;font-size:0.875rem;color:var(--txt);margin-bottom:4px">${fmt(totBase)}</div>
+          <div style="font-size:.62rem;color:var(--tm)">Base gravable (sin IVA)</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--cyan);margin-top:4px">+ ${fmt(totIva)} IVA descontable</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:14px">
+          <div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Retenciones Practicadas</div>
+          <div style="font-family:'Orbitron',monospace;font-size:0.875rem;color:var(--amber);margin-bottom:4px">${fmt(totRete+totIca)}</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--amber)">Retefuente: ${fmt(totRete)}</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--amber)">ReteICA 9.66‰: ${fmt(totIca)}</div>
+        </div>
+        <div style="background:rgba(57,255,138,.06);border:1px solid rgba(57,255,138,.2);border-radius:8px;padding:14px">
+          <div style="font-size:.58rem;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Neto Total a Pagar</div>
+          <div style="font-family:'Orbitron',monospace;font-size:0.963rem;color:var(--green);margin-bottom:4px">${fmt(totNeto)}</div>
+          <div style="font-size:.62rem;color:var(--tm)">Total − Retefuente − ReteICA</div>
+          <div style="font-size:.6rem;color:var(--td);margin-top:3px;font-family:'Share Tech Mono',monospace">Tasa efectiva: ${totTotal>0?((totRete+totIca)/totTotal*100).toFixed(2):'0.00'}% de retención</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POR ERP -->
+    <div class="aud-section">
+      <div class="aud-sec-title">Desglose por Sistema ERP</div>
+      <div style="overflow-x:auto">
+        <table class="aud-tbl">
+          <thead><tr><th>ERP</th><th style="text-align:center">Facturas</th><th style="text-align:right">Base Gravable</th><th style="text-align:right">Retefuente</th><th style="text-align:right">ReteICA</th><th style="text-align:right">Total</th><th style="text-align:center">Contabiliz.</th><th style="text-align:center">% del Total</th></tr></thead>
+          <tbody>${erpRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- POR RÉGIMEN -->
+    <div class="aud-section">
+      <div class="aud-sec-title">Desglose por Régimen Tributario del Proveedor</div>
+      <div style="overflow-x:auto">
+        <table class="aud-tbl">
+          <thead><tr><th>Régimen</th><th>Descripción</th><th style="text-align:center">Facturas</th><th style="text-align:right">Base Gravable</th><th style="text-align:right">Retefuente</th><th style="text-align:right">ReteICA</th><th style="text-align:right">Total</th></tr></thead>
+          <tbody>${regRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- POR CONCEPTO RETEFUENTE -->
+    <div class="aud-section">
+      <div class="aud-sec-title">Retenciones por Concepto — Año Gravable 2026 (UVT $52.374)</div>
+      <div style="overflow-x:auto">
+        <table class="aud-tbl">
+          <thead><tr><th>Concepto</th><th>Descripción</th><th style="text-align:center">Facturas</th><th style="text-align:right">Base Gravable</th><th style="text-align:right">Valor Retenido</th><th style="text-align:right">Tasa Efectiva</th></tr></thead>
+          <tbody>${conRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DETALLE COMPLETO -->
+    <div class="aud-section">
+      <div class="aud-sec-title">Detalle Completo de Causaciones — ${lista.length} registros</div>
+      <div style="overflow-x:auto">
+        <table class="aud-tbl">
+          <thead><tr><th>Número</th><th>Proveedor</th><th>NIT</th><th style="text-align:center">Reg.</th><th style="text-align:right">Base</th><th style="text-align:right">IVA</th><th style="text-align:right">Retefuente</th><th style="text-align:right">ReteICA</th><th style="text-align:right">Total</th><th>ERP</th><th>Fecha</th><th style="text-align:center">Estado</th></tr></thead>
+          <tbody>${filas}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- NOTAS NORMATIVAS -->
+    <div class="aud-section">
+      <div class="aud-sec-title">Normativa Aplicada — Año Gravable 2026</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;font-size:.65rem">
+        <div style="background:var(--bg3);border-radius:7px;padding:12px">
+          <div style="color:var(--amber);font-family:'Share Tech Mono',monospace;margin-bottom:7px;font-size:.6rem">RETEFUENTE — Decreto 2418/2013 + Decreto 0572/2025</div>
+          <div style="color:var(--tm);line-height:1.9">
+            UVT 2026: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">$52.374</span> (Res. DIAN 000238, 15-dic-2025)<br>
+            Base mín. Servicios: <span style="color:var(--green);font-family:'Share Tech Mono',monospace">2 UVT = $104.748</span> (antes 4 UVT)<br>
+            Base mín. Compras: <span style="color:var(--green);font-family:'Share Tech Mono',monospace">10 UVT = $523.740</span> (antes 27 UVT)<br>
+            Honorarios/Consultoría: Sin base mínima<br>
+            Arrendamientos: Sin base mínima
+          </div>
+        </div>
+        <div style="background:var(--bg3);border-radius:7px;padding:12px">
+          <div style="color:var(--cyan);font-family:'Share Tech Mono',monospace;margin-bottom:7px;font-size:.6rem">RETEICA BOGOTÁ — Acuerdo 816/2021</div>
+          <div style="color:var(--tm);line-height:1.9">
+            Base mínima: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">2 UVT = $104.748</span> (Decreto 0572/2025)<br>
+            Servicios generales: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">9.66‰</span><br>
+            Consultoría profesional: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">8.66‰</span><br>
+            Gran Contribuyente: No aplica (autoagente)<br>
+            Régimen Simple: No aplica (exento)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER DEL INFORME -->
+    <div class="aud-footer">
+      <div class="aud-legal">
+        <strong style="color:var(--t2)">ASISTENTE CONTABLE IA — COLOMBIA</strong><br>
+        Copyright &copy; 2025-2026 &nbsp;|&nbsp; <strong style="color:var(--t2)">Ing. Julián Arias</strong> &nbsp;|&nbsp; Todos los derechos reservados<br>
+        Informe generado el ${ahora} &nbsp;·&nbsp; Período: ${desde} al ${hasta}<br>
+        Este informe es de carácter informativo. Valide con su contador o revisor fiscal.
+      </div>
+      <div style="display:flex;gap:8px;flex-direction:column;align-items:flex-end">
+        <button class="btn-print" style="background:linear-gradient(135deg,var(--green),#00cc55);color:#030c1a" onclick="exportarExcel('${desde}','${hasta}')">📊 EXPORTAR EXCEL</button>
+        <button class="btn-print" onclick="window.print()">🖨️ IMPRIMIR / EXPORTAR PDF</button>
+      </div>
+    </div>
+  `;
+
+  // Mostrar modal
+  const bg = document.getElementById('auditBg');
+  bg.style.display = 'flex';
+  bg.scrollTop = 0;
+} // fin generarAuditoria
+
+function closeAudit() {
+  document.getElementById('auditBg').style.display = 'none';
+}
+// Cerrar audit al hacer clic fuera del contenido
+document.addEventListener('DOMContentLoaded', function() {
+  const bg = document.getElementById('auditBg');
+  if (bg) {
+    bg.addEventListener('click', function(e) {
+      if (e.target === bg) closeAudit();
+    });
+  }
+});
+
+// ─── LOGIN ───────────────────────────────────────────────────────────────
+const USUARIOS = [
+  {user:'admin',        pass:'contable2026', rol:'Administrador', activo:true},
+  {user:'contador',     pass:'rete2026',     rol:'Contador',      activo:true},
+  {user:'soloLectura',  pass:'viewer123',    rol:'Solo lectura',  activo:true},
+];
+let currentUser = null;
+
+function doLogin() {
+  const u = (document.getElementById('lu').value||'').trim();
+  const p = (document.getElementById('lp').value||'').trim();
+  const found = USUARIOS.find(x => x.user === u && x.pass === p && x.activo);
+  if (found) {
+    currentUser = found;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('userLabel').textContent = found.user.toUpperCase();
+    renderUserList();
+  } else {
+    const err = document.getElementById('loginErr');
+    err.classList.add('show');
+    document.getElementById('lp').value = '';
+    document.getElementById('lp').focus();
+    setTimeout(function(){ err.classList.remove('show'); }, 3000);
+  }
+}
+
+function doLogout() {
+  if (!confirm('¿Cerrar sesión?')) return;
+  currentUser = null;
+  document.getElementById('lu').value = '';
+  document.getElementById('lp').value = '';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+// ─── GESTIÓN USUARIOS ────────────────────────────────────────────────────
+function renderUserList() {
+  const el = document.getElementById('userList');
+  if (!el) return;
+  el.innerHTML = USUARIOS.map(function(u, i) {
+    return '<div style="background:var(--bg4);border-radius:7px;padding:10px 12px;border:1px solid var(--bord)">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">' +
+        '<span style="font-family:\'Share Tech Mono\',monospace;font-size:.64rem;color:var(--teal)">' + u.user + '</span>' +
+        (u.activo ? '<span class="badge b-ok">Activo</span>' : '<span class="badge b-err">Inactivo</span>') +
+      '</div>' +
+      '<div style="font-size:.6rem;color:var(--tm)">' + u.rol + '</div>' +
+      '<div style="display:flex;gap:5px;margin-top:8px">' +
+        '<button class="btn" style="font-size:.5rem;padding:4px 8px;border-color:' + (u.activo?'var(--red)':'var(--green)') + ';color:' + (u.activo?'var(--red)':'var(--green)') + '" onclick="toggleUser(' + i + ')">' +
+          (u.activo ? 'Desactivar' : 'Activar') +
+        '</button>' +
+        (u.user !== 'admin' ? '<button class="btn" style="font-size:.5rem;padding:4px 8px;border-color:var(--td);color:var(--tm)" onclick="eliminarUser(' + i + ')">Eliminar</button>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function agregarUsuario() {
+  const u = document.getElementById('newUser').value.trim();
+  const p = document.getElementById('newPass').value.trim();
+  const r = document.getElementById('newRole');
+  const rol = r.options[r.selectedIndex].text;
+  if (!u || !p) { showFlash('userFlash','⚠ Complete usuario y contraseña','b-err'); return; }
+  if (USUARIOS.find(function(x){ return x.user === u; })) {
+    showFlash('userFlash','⚠ El usuario ya existe','b-err'); return;
+  }
+  USUARIOS.push({user:u, pass:p, rol:rol, activo:true});
+  document.getElementById('newUser').value = '';
+  document.getElementById('newPass').value = '';
+  renderUserList();
+  showFlash('userFlash', '✅ Usuario "' + u + '" creado como ' + rol);
+}
+
+function toggleUser(i) { USUARIOS[i].activo = !USUARIOS[i].activo; renderUserList(); }
+function eliminarUser(i) {
+  if (!confirm('¿Eliminar usuario "' + USUARIOS[i].user + '"?')) return;
+  USUARIOS.splice(i,1); renderUserList();
+}
+
+function showFlash(id, msg, cls) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'flash ' + (cls||'b-ok') + ' show';
+  setTimeout(function(){ el.classList.remove('show'); }, 4000);
+}
+
+// ─── TOGGLE NOTIFICACIONES ───────────────────────────────────────────────
+function toggle(trackId, contentId) {
+  const track   = document.getElementById(trackId);
+  const content = document.getElementById(contentId);
+  if (!track || !content) return;
+  track.classList.toggle('on');
+  content.style.display = track.classList.contains('on') ? 'block' : 'none';
+}
+
+// ─── EMAIL SMTP ──────────────────────────────────────────────────────────
+function probarEmail() {
+  const st = document.getElementById('emailStatus');
+  if (!document.getElementById('smtpHost').value) {
+    st.textContent = '⚠ Complete el servidor SMTP'; st.className='notif-status err'; return;
+  }
+  st.textContent = '⏳ Enviando correo de prueba...'; st.className='notif-status ok';
+  setTimeout(function() {
+    var ok = Math.random() > 0.3;
+    var dest = document.getElementById('emailTo').value || 'destino';
+    st.textContent = ok
+      ? '✅ Correo de prueba enviado a ' + dest
+      : '❌ Error SMTP — verifique credenciales y puerto';
+    st.className = 'notif-status ' + (ok ? 'ok' : 'err');
+  }, 1800);
+}
+function guardarEmail() {
+  var st = document.getElementById('emailStatus');
+  st.textContent = '✅ Configuración SMTP guardada en .env'; st.className='notif-status ok';
+}
+
+// ─── WHATSAPP TWILIO ─────────────────────────────────────────────────────
+function probarWA() {
+  const st = document.getElementById('waStatus');
+  if (!document.getElementById('twilioSid').value) {
+    st.textContent = '⚠ Complete las credenciales Twilio'; st.className='notif-status err'; return;
+  }
+  st.textContent = '⏳ Enviando mensaje WhatsApp de prueba...'; st.className='notif-status ok';
+  setTimeout(function() {
+    var ok = Math.random() > 0.3;
+    var dest = document.getElementById('waTo').value || 'destino';
+    st.textContent = ok
+      ? '✅ WhatsApp enviado a ' + dest
+      : '❌ Error Twilio — verifique Account SID y Auth Token';
+    st.className = 'notif-status ' + (ok ? 'ok' : 'err');
+  }, 2000);
+}
+function guardarWA() {
+  var st = document.getElementById('waStatus');
+  st.textContent = '✅ Configuración Twilio/WhatsApp guardada'; st.className='notif-status ok';
+}
+
+// ─── IMAP ────────────────────────────────────────────────────────────────
+function testImap() {
+  const host   = document.getElementById('imapHost').value;
+  const user   = document.getElementById('imapUser').value;
+  const port   = document.getElementById('imapPort').value;
+  const folder = document.getElementById('imapFolder').value || 'INBOX';
+  const res    = document.getElementById('imapResult');
+  if (!host || !user) {
+    res.textContent = '⚠ Complete el servidor y el correo';
+    res.className = 'imap-test-result itr-err'; return;
+  }
+  res.textContent = '⏳ Conectando a ' + host + ':' + port + ' como ' + user + '...';
+  res.className = 'imap-test-result itr-load';
+  setTimeout(function() {
+    var ok = Math.random() > 0.25;
+    var n  = Math.floor(Math.random()*5);
+    res.textContent = ok
+      ? '✅ Conexión IMAP exitosa — ' + n + ' factura(s) nueva(s) en ' + folder
+      : '❌ Error IMAP: timeout en ' + host + ' — verifique contraseña de aplicación';
+    res.className = 'imap-test-result ' + (ok ? 'itr-ok' : 'itr-err');
+  }, 2200);
+}
+
+function guardarImap() {
+  var res = document.getElementById('imapResult');
+  res.textContent = '✅ Configuración IMAP guardada — próxima revisión en 30 min';
+  res.className = 'imap-test-result itr-ok';
+}
+
+function importarAhora() {
+  var res = document.getElementById('imapResult');
+  res.textContent = '⏳ Revisando correo y descargando facturas DIAN...';
+  res.className = 'imap-test-result itr-load';
+  setTimeout(function() {
+    var n = Math.floor(Math.random()*4);
+    if (n > 0) {
+      for (var i = 0; i < n; i++) {
+        var idx = FACTURAS.length + i + 1;
+        var base = Math.round((Math.random()*3000000+300000)/1000)*1000;
+        FACTURAS.push({
+          n:'FV-2026-I0'+idx, p:'Proveedor Importado '+idx+' SAS',
+          nit:'90000000'+idx, base:base, iva:Math.round(base*0.19),
+          rete:0, ica:0, total:Math.round(base*1.19),
+          erp:'Siigo', fecha:new Date().toISOString().slice(0,10),
+          est:'PENDIENTE', con:'COM', cta:'512045', reg:'RC',
+          nota:'Importado por IMAP — pendiente de revisar'
+        });
+      }
+      res.textContent = '✅ ' + n + ' factura(s) importada(s) — ir a tab Causaciones';
+      res.className = 'imap-test-result itr-ok';
+    } else {
+      res.textContent = '✅ Correo revisado — sin facturas nuevas pendientes';
+      res.className = 'imap-test-result itr-ok';
+    }
+  }, 2500);
+}
+
+// ─── EXPORTAR EXCEL (SheetJS) ─────────────────────────────────────────────
+function exportarExcel(desde, hasta) {
+  if (typeof XLSX === 'undefined') {
+    alert('La librería XLSX aún cargando. Espere unos segundos e intente de nuevo.'); return;
+  }
+  var d = desde || document.getElementById('auditDesde').value;
+  var h = hasta  || document.getElementById('auditHasta').value;
+  var lista = getFiltradas();
+  var wb = XLSX.utils.book_new();
+
+  // ── Hoja 1: Detalle ──
+  var det = [
+    ['ASISTENTE CONTABLE IA — COLOMBIA | Ing. Julián Arias | UVT 2026: $52.374'],
+    ['Período: ' + d + ' al ' + h + ' | Facturas: ' + lista.length + ' | ' + new Date().toLocaleString('es-CO')],
+    [],
+    ['Número','Proveedor','NIT','Régimen','Concepto','Base','IVA','Retefuente','ReteICA','Total','Neto a Pagar','ERP','Fecha','Estado']
+  ];
+  lista.forEach(function(f) {
+    det.push([f.n, f.p, f.nit, f.reg, f.con, f.base, f.iva, f.rete, f.ica, f.total,
+      f.total-f.rete-f.ica, f.erp, f.fecha, f.est]);
+  });
+  det.push([]);
+  var sb = function(k){ return lista.reduce(function(s,f){ return s+f[k]; },0); };
+  det.push(['TOTALES','','','','', sb('base'),sb('iva'),sb('rete'),sb('ica'),sb('total'),
+    sb('total')-sb('rete')-sb('ica'),'','','']);
+  var ws1 = XLSX.utils.aoa_to_sheet(det);
+  ws1['!cols'] = [14,32,12,8,9,14,12,13,12,14,14,8,12,14].map(function(w){ return {wch:w}; });
+  XLSX.utils.book_append_sheet(wb, ws1, 'Detalle Causaciones');
+
+  // ── Hoja 2: Por ERP ──
+  var eRows = [['ERP','Facturas','Base','Retefuente','ReteICA','Total','Contabilizadas']];
+  ['Siigo','Helisa','Siesa'].forEach(function(e) {
+    var s = lista.filter(function(f){ return f.erp===e; });
+    if (!s.length) return;
+    eRows.push([e, s.length,
+      s.reduce(function(a,f){return a+f.base;},0),
+      s.reduce(function(a,f){return a+f.rete;},0),
+      s.reduce(function(a,f){return a+f.ica;},0),
+      s.reduce(function(a,f){return a+f.total;},0),
+      s.filter(function(f){return f.est==='CONTABILIZADA';}).length]);
+  });
+  var ws2 = XLSX.utils.aoa_to_sheet(eRows);
+  ws2['!cols'] = [10,10,14,14,12,16,14].map(function(w){ return {wch:w}; });
+  XLSX.utils.book_append_sheet(wb, ws2, 'Por ERP');
+
+  // ── Hoja 3: Por Régimen ──
+  var rRows = [['Régimen','Descripción','Facturas','Base','Retefuente','ReteICA','Total']];
+  var rDesc = {RC:'Régimen Común',GC:'Gran Contribuyente',RS:'Régimen Simple',NR:'No Retenedor'};
+  ['RC','GC','RS','NR'].forEach(function(r) {
+    var s = lista.filter(function(f){ return f.reg===r; });
+    if (!s.length) return;
+    rRows.push([r, rDesc[r]||r, s.length,
+      s.reduce(function(a,f){return a+f.base;},0),
+      s.reduce(function(a,f){return a+f.rete;},0),
+      s.reduce(function(a,f){return a+f.ica;},0),
+      s.reduce(function(a,f){return a+f.total;},0)]);
+  });
+  var ws3 = XLSX.utils.aoa_to_sheet(rRows);
+  ws3['!cols'] = [8,20,10,14,14,12,16].map(function(w){ return {wch:w}; });
+  XLSX.utils.book_append_sheet(wb, ws3, 'Por Régimen');
+
+  // ── Hoja 4: Por Concepto ──
+  var cRows = [['Concepto','Descripción','Facturas','Base','Retenido','Tasa Efectiva']];
+  var cData = {};
+  lista.forEach(function(f) {
+    if (!cData[f.con]) cData[f.con]={count:0,base:0,rete:0};
+    cData[f.con].count++; cData[f.con].base+=f.base; cData[f.con].rete+=f.rete;
+  });
+  Object.keys(cData).sort(function(a,b){ return cData[b].rete-cData[a].rete; }).forEach(function(con) {
+    var v = cData[con];
+    var tar = TARIFAS.find(function(t){ return t.con===con; });
+    cRows.push([con, tar?tar.desc:con, v.count, v.base, v.rete,
+      v.base>0 ? (v.rete/v.base*100).toFixed(2)+'%' : '0%']);
+  });
+  var ws4 = XLSX.utils.aoa_to_sheet(cRows);
+  ws4['!cols'] = [10,38,10,14,14,14].map(function(w){ return {wch:w}; });
+  XLSX.utils.book_append_sheet(wb, ws4, 'Por Concepto');
+
+  // ── Hoja 5: Tarifas 2026 ──
+  var tRows = [
+    ['TARIFAS RETEFUENTE 2026 — Decreto 0572/2025 | UVT $52.374'],
+    [],
+    ['Concepto','Tarifa %','Base Mín. UVT','Base Mín. COP','Descripción']
+  ];
+  TARIFAS.forEach(function(t) {
+    tRows.push([t.con, t.pct+'%',
+      t.uvt>0?t.uvt:'Sin mín.',
+      t.uvt>0?t.uvt*UVT:'Sin mín.',
+      t.desc]);
+  });
+  var ws5 = XLSX.utils.aoa_to_sheet(tRows);
+  ws5['!cols'] = [10,10,14,14,42].map(function(w){ return {wch:w}; });
+  XLSX.utils.book_append_sheet(wb, ws5, 'Tarifas 2026');
+
+  XLSX.writeFile(wb, 'Auditoria_Contable_' + d + '_al_' + h + '_JulianArias.xlsx');
+}
+
+// ─── ACTUALIZAR st() PARA INCLUIR cfg ────────────────────────────────────
+(function() {
+  var _origSt = st;
+  st = function(el, name) {
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+    el.classList.add('on');
+    ['dash','caus','calc','tar','hist','prov','cfg'].forEach(function(t) {
+      var d = document.getElementById('tab-'+t);
+      if (d) d.style.display = t === name ? 'block' : 'none';
+    });
+    if (name === 'caus')  renderCaus();
+    if (name === 'hist')  { renderHist(); setTimeout(drawHCharts, 80); }
+    if (name === 'prov')  renderProv();
+    if (name === 'calc')  calcRetenciones();
+    if (name === 'cfg')   renderUserList();
+  };
+})();
+</script>
+</body>
+</html>

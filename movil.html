@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Contable IA">
+<meta name="description" content="Apruebe causaciones DIAN desde su celular — Asistente Contable IA Colombia 2026">
+<title>Contable IA · Mobile</title>
+<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;Contable IA&quot;,&quot;short_name&quot;:&quot;Contable&quot;,&quot;theme_color&quot;:&quot;#111827&quot;,&quot;background_color&quot;:&quot;#111827&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;start_url&quot;:&quot;./&quot;}">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+:root{
+  --bg:#111827;--bg2:#1F2937;--bg3:#374151;--bg4:#4B5563;
+  --green:#10B981;--green2:#059669;--green3:rgba(16,185,129,.15);
+  --red:#EF4444;--red2:rgba(239,68,68,.15);
+  --amber:#F59E0B;--amber2:rgba(245,158,11,.15);
+  --blue:#3B82F6;--blue2:rgba(59,130,246,.15);
+  --txt:#F9FAFB;--txt2:#D1D5DB;--txt3:#9CA3AF;--txt4:#6B7280;
+  --bord:rgba(255,255,255,.08);--bord2:rgba(255,255,255,.14);
+  --r:12px;--r2:18px;--r3:24px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--txt)}
+
+/* ── SCREENS ── */
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s;padding-top:var(--safe-top);padding-bottom:var(--safe-bot)}
+.screen.hidden{transform:translateX(100%);pointer-events:none;opacity:0}
+.screen.slide-down{transform:translateY(100%)}
+
+/* ── STATUS BAR ── */
+.status-bar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.sb-time{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700}
+.sb-icons{display:flex;gap:6px;align-items:center;font-size:.7rem}
+
+/* ── TOP BAR ── */
+.top-bar{padding:6px 20px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.top-bar h1{font-family:'Syne',sans-serif;font-size:1.312rem;font-weight:800}
+.top-bar .back-btn{width:36px;height:36px;border-radius:50%;background:var(--bg2);border:none;color:var(--txt2);font-size:0.963rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.top-bar .back-btn:active{background:var(--bg3)}
+.icon-btn{width:38px;height:38px;border-radius:50%;background:var(--bg2);border:none;color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:0.875rem;position:relative}
+.icon-btn:active{transform:scale(.9)}
+.badge-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid var(--bg)}
+
+/* ── SCROLL AREA ── */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:0 16px 12px}
+.scroll::-webkit-scrollbar{display:none}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{height:calc(56px + var(--safe-bot));display:flex;align-items:flex-start;padding:0;background:rgba(17,24,39,.95);backdrop-filter:blur(20px);border-top:1px solid var(--bord);flex-shrink:0}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 4px;cursor:pointer;transition:all .2s;position:relative}
+.bn-icon{font-size:1.181rem;line-height:1;margin-bottom:3px;transition:transform .2s}
+.bn-label{font-size:.6rem;font-weight:500;color:var(--txt4);letter-spacing:.03em;transition:color .2s}
+.bn-item.active .bn-icon{transform:scale(1.15)}
+.bn-item.active .bn-label{color:var(--green)}
+.bn-item:active .bn-icon{transform:scale(.88)}
+.bn-badge{position:absolute;top:6px;right:calc(50% - 18px);background:var(--red);color:#fff;font-size:.55rem;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg)}
+
+/* ── LOGIN ── */
+#screen-login{justify-content:center;align-items:center;padding:40px 24px calc(40px + var(--safe-bot))}
+.login-logo{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,#10B981,#059669);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;box-shadow:0 12px 40px rgba(16,185,129,.35)}
+.login-logo svg{width:40px;height:40px}
+.login-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;text-align:center;margin-bottom:6px}
+.login-sub{font-size:.82rem;color:var(--txt3);text-align:center;margin-bottom:36px;line-height:1.5}
+.login-form{width:100%;max-width:360px}
+.form-field{margin-bottom:14px}
+.form-field label{display:block;font-size:.72rem;font-weight:500;color:var(--txt3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em}
+.form-field input{width:100%;background:var(--bg2);border:1.5px solid var(--bord2);border-radius:var(--r);padding:14px 16px;color:var(--txt);font-family:'DM Mono',monospace;font-size:.9rem;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.form-field input:focus{border-color:var(--green)}
+.login-btn{width:100%;padding:15px;background:var(--green);border:none;border-radius:var(--r2);color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;letter-spacing:.06em;cursor:pointer;margin-top:8px;transition:all .2s;box-shadow:0 8px 24px rgba(16,185,129,.3)}
+.login-btn:active{transform:scale(.97);box-shadow:0 4px 12px rgba(16,185,129,.2)}
+.login-error{color:var(--red);font-size:.78rem;text-align:center;margin-top:10px;display:none}
+.login-error.show{display:block}
+.login-hint{font-size:.72rem;color:var(--txt4);text-align:center;margin-top:18px;line-height:1.6}
+
+/* ── HOME CARDS ── */
+.summary-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.sum-card{background:var(--bg2);border-radius:var(--r2);padding:14px 12px;text-align:center;border:1px solid var(--bord)}
+.sum-n{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;line-height:1}
+.sum-n.green{color:var(--green)}.sum-n.red{color:var(--red)}.sum-n.amber{color:var(--amber)}
+.sum-l{font-size:.62rem;color:var(--txt4);margin-top:4px;font-weight:500}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-hdr h2{font-family:'Syne',sans-serif;font-size:0.875rem;font-weight:700}
+.section-hdr a{font-size:.76rem;color:var(--green);font-weight:500;cursor:pointer}
+.uvt-banner{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(5,150,105,.08));border:1px solid rgba(16,185,129,.25);border-radius:var(--r2);padding:14px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.uvt-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.uvt-text{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--green);line-height:1.6}
+.uvt-text span{color:var(--txt3)}
+
+/* ── CAUSACION CARD (swipeable) ── */
+.caus-card-wrap{position:relative;margin-bottom:12px;overflow:hidden;border-radius:var(--r2)}
+.caus-card-bg-approve{position:absolute;inset:0;background:var(--green);display:flex;align-items:center;padding-left:24px;border-radius:var(--r2)}
+.caus-card-bg-reject{position:absolute;inset:0;background:var(--red);display:flex;align-items:center;justify-content:flex-end;padding-right:24px;border-radius:var(--r2)}
+.swipe-hint{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:#fff;opacity:0;transition:opacity .15s;display:flex;align-items:center;gap:6px}
+.swipe-hint.show{opacity:1}
+.caus-card{position:relative;background:var(--bg2);border-radius:var(--r2);padding:16px;border:1px solid var(--bord);cursor:pointer;transition:transform .12s;touch-action:pan-y;will-change:transform}
+.caus-card:active{transform:scale(.98)}
+.caus-card.contabilizada{border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.04)}
+.caus-card.error{border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.04)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.card-num{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--green);font-weight:500}
+.card-erp{font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:6px}
+.erp-siigo{background:rgba(6,182,212,.15);color:#22D3EE}
+.erp-helisa{background:rgba(249,115,22,.15);color:#FB923C}
+.erp-siesa{background:rgba(167,139,250,.15);color:#A78BFA}
+.card-prov{font-size:.85rem;font-weight:600;margin-bottom:4px;line-height:1.3}
+.card-nit{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--txt4)}
+.card-amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0;padding:10px;background:rgba(255,255,255,.03);border-radius:10px}
+.ca-item{}
+.ca-label{font-size:.58rem;color:var(--txt4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.ca-value{font-family:'DM Mono',monospace;font-size:.75rem;font-weight:500}
+.ca-value.green{color:var(--green)}.ca-value.amber{color:var(--amber)}.ca-value.blue{color:var(--blue)}
+.card-footer{display:flex;justify-content:space-between;align-items:center}
+.card-date{font-size:.68rem;color:var(--txt4)}
+.status-pill{font-size:.62rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.04em}
+.sp-pend{background:rgba(59,130,246,.15);color:var(--blue)}
+.sp-ok{background:var(--green3);color:var(--green)}
+.sp-err{background:var(--red2);color:var(--red)}
+.sp-apr{background:var(--amber2);color:var(--amber)}
+.card-actions{display:flex;gap:8px;margin-top:12px}
+.ca-btn{flex:1;padding:11px;border-radius:12px;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;transition:all .18s;letter-spacing:.03em}
+.ca-btn:active{transform:scale(.95)}
+.ca-approve{background:var(--green);color:#fff;box-shadow:0 4px 16px rgba(16,185,129,.3)}
+.ca-reject{background:var(--bg3);color:var(--txt2)}
+.ca-view{background:var(--bg3);color:var(--txt2);flex:0 0 auto;padding:11px 16px}
+
+/* ── SWIPE GUIDE ── */
+.swipe-guide{display:flex;justify-content:center;gap:24px;margin-bottom:16px;font-size:.7rem;color:var(--txt4)}
+.sg-item{display:flex;align-items:center;gap:5px}
+.sg-dot{width:8px;height:8px;border-radius:50%}
+
+/* ── DETAIL SHEET ── */
+#screen-detail{background:var(--bg)}
+.detail-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 16px}
+.detail-scroll::-webkit-scrollbar{display:none}
+.detail-header{background:var(--bg2);border-radius:var(--r2);padding:16px;margin-bottom:14px;border:1px solid var(--bord)}
+.dh-num{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--green);margin-bottom:6px}
+.dh-prov{font-family:'Syne',sans-serif;font-size:0.963rem;font-weight:700;margin-bottom:4px}
+.dh-nit{font-size:.76rem;color:var(--txt3);font-family:'DM Mono',monospace;margin-bottom:12px}
+.dh-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dh-item label{font-size:.6rem;color:var(--txt4);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:3px}
+.dh-item span{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:500}
+.asiento-title{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em}
+.asiento-table{background:var(--bg2);border-radius:var(--r2);overflow:hidden;margin-bottom:14px;border:1px solid var(--bord)}
+.at-header{display:grid;grid-template-columns:90px 1fr 80px 80px;padding:10px 14px;background:var(--bg3);font-family:'DM Mono',monospace;font-size:.6rem;color:var(--txt4);text-transform:uppercase;letter-spacing:.06em}
+.at-row{display:grid;grid-template-columns:90px 1fr 80px 80px;padding:10px 14px;border-top:1px solid var(--bord);align-items:center}
+.at-row:last-child{}
+.at-cta{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--green)}
+.at-desc{font-size:.72rem;color:var(--txt2)}
+.at-deb{font-family:'DM Mono',monospace;font-size:.7rem;text-align:right;color:var(--blue)}
+.at-cre{font-family:'DM Mono',monospace;font-size:.7rem;text-align:right;color:var(--green)}
+.at-row.total{background:rgba(16,185,129,.06)}
+.at-row.total .at-desc{font-weight:700;color:var(--green)}
+.cuadre-badge{background:var(--green3);border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.cb-icon{font-size:0.875rem}
+.cb-text{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--green);line-height:1.5}
+.normativa-box{background:var(--bg2);border-radius:var(--r2);padding:14px;border:1px solid var(--bord);margin-bottom:14px}
+.nb-title{font-size:.65rem;color:var(--txt4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.nb-item{font-size:.72rem;color:var(--txt3);padding:3px 0;border-bottom:1px solid var(--bord)}
+.nb-item:last-child{border-bottom:none}
+.detail-actions{display:flex;gap:10px;padding:14px 16px;background:var(--bg);border-top:1px solid var(--bord);flex-shrink:0}
+.da-approve{flex:1;padding:15px;background:var(--green);border:none;border-radius:var(--r2);color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 6px 20px rgba(16,185,129,.3);transition:all .2s}
+.da-approve:active{transform:scale(.97)}
+.da-reject{padding:15px 20px;background:var(--bg2);border:1px solid var(--bord2);border-radius:var(--r2);color:var(--txt2);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s}
+.da-reject:active{background:var(--red2);color:var(--red);border-color:var(--red)}
+.success-overlay{position:fixed;inset:0;background:rgba(16,185,129,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.success-overlay.show{opacity:1;pointer-events:all}
+.success-circle{width:88px;height:88px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:2.188rem;box-shadow:0 0 60px rgba(16,185,129,.5);animation:pop .4s cubic-bezier(.4,0,.2,1)}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.success-msg{font-family:'Syne',sans-serif;font-size:0.963rem;font-weight:800;margin-top:20px;color:var(--txt)}
+.success-sub{font-size:.82rem;color:var(--txt3);margin-top:6px}
+
+/* ── NOTIFICACIONES ── */
+.notif-item{display:flex;gap:12px;padding:14px;background:var(--bg2);border-radius:var(--r2);margin-bottom:10px;border:1px solid var(--bord);border-left:3px solid transparent}
+.notif-item.notif-green{border-left-color:var(--green)}
+.notif-item.notif-amber{border-left-color:var(--amber)}
+.notif-item.notif-red{border-left-color:var(--red)}
+.notif-item.notif-blue{border-left-color:var(--blue)}
+.ni-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.875rem;flex-shrink:0}
+.ni-green{background:var(--green3)}.ni-amber{background:var(--amber2)}.ni-red{background:var(--red2)}.ni-blue{background:var(--blue2)}
+.ni-body{flex:1}
+.ni-title{font-size:.84rem;font-weight:600;margin-bottom:3px}
+.ni-desc{font-size:.74rem;color:var(--txt3);line-height:1.4}
+.ni-time{font-size:.64rem;color:var(--txt4);margin-top:5px;font-family:'DM Mono',monospace}
+.notif-empty{text-align:center;padding:48px 20px;color:var(--txt4);font-size:.88rem}
+
+/* ── PERFIL ── */
+.profile-header{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(5,150,105,.08));border-radius:var(--r3);padding:24px;margin-bottom:18px;text-align:center;border:1px solid rgba(16,185,129,.2)}
+.ph-avatar{width:72px;height:72px;border-radius:50%;background:var(--green);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.312rem;font-weight:800;color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.35)}
+.ph-name{font-family:'Syne',sans-serif;font-size:0.963rem;font-weight:700;margin-bottom:4px}
+.ph-role{font-size:.78rem;color:var(--txt3)}
+.ph-uvt{display:inline-block;margin-top:12px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:20px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--green)}
+.setting-group{background:var(--bg2);border-radius:var(--r2);overflow:hidden;margin-bottom:14px;border:1px solid var(--bord)}
+.sg-title{font-size:.68rem;color:var(--txt4);text-transform:uppercase;letter-spacing:.08em;padding:12px 16px 6px;font-weight:600}
+.sg-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-top:1px solid var(--bord);cursor:pointer;transition:background .15s}
+.sg-item:first-of-type{border-top:none}
+.sg-item:active{background:rgba(255,255,255,.04)}
+.sg-left{display:flex;align-items:center;gap:12px}
+.sg-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.sg-label{font-size:.86rem;font-weight:500}
+.sg-value{font-size:.76rem;color:var(--txt4);font-family:'DM Mono',monospace}
+.sg-arrow{color:var(--txt4);font-size:.8rem}
+.logout-btn{width:100%;padding:15px;background:var(--red2);border:1px solid rgba(239,68,68,.3);border-radius:var(--r2);color:var(--red);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;margin-top:8px;transition:all .2s}
+.logout-btn:active{background:rgba(239,68,68,.3)}
+
+/* ── HISTORIAL ── */
+.hist-filter{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.hist-filter::-webkit-scrollbar{display:none}
+.hf-btn{padding:7px 16px;border-radius:20px;border:1px solid var(--bord2);background:var(--bg2);color:var(--txt3);font-size:.76rem;font-weight:500;white-space:nowrap;cursor:pointer;transition:all .2s;flex-shrink:0}
+.hf-btn.active{background:var(--green);border-color:var(--green);color:#fff}
+.hist-card{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--bg2);border-radius:var(--r2);margin-bottom:8px;border:1px solid var(--bord);cursor:pointer;transition:background .15s}
+.hist-card:active{background:var(--bg3)}
+.hc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.hc-body{flex:1;min-width:0}
+.hc-num{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--txt4)}
+.hc-prov{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc-total{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:600;flex-shrink:0}
+.hc-date{font-size:.65rem;color:var(--txt4);font-family:'DM Mono',monospace}
+
+/* ── ANIMATIONS ── */
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.slide-up{animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+.fade-in{animation:fadeIn .3s ease both}
+.stagger-1{animation-delay:.05s}.stagger-2{animation-delay:.1s}.stagger-3{animation-delay:.15s}
+.stagger-4{animation-delay:.2s}.stagger-5{animation-delay:.25s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.shake{animation:shake .35s ease}
+@keyframes checkmark{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* ── PULL REFRESH ── */
+.pull-indicator{text-align:center;padding:16px;color:var(--txt4);font-size:.76rem;display:none}
+.pull-indicator.show{display:block}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:60px 20px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.es-icon{font-size:2.625rem;opacity:.4}
+.es-title{font-family:'Syne',sans-serif;font-size:0.963rem;font-weight:700;color:var(--txt2)}
+.es-sub{font-size:.82rem;color:var(--txt4);line-height:1.6}
+</style>
+</head>
+<body>
+
+<!-- ══ SUCCESS OVERLAY ══ -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-circle">✓</div>
+  <div class="success-msg" id="successMsg">¡Causación aprobada!</div>
+  <div class="success-sub" id="successSub">Enviado a Siigo correctamente</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: LOGIN -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen" id="screen-login">
+  <div class="login-logo">
+    <svg viewBox="0 0 40 40" fill="none">
+      <polygon points="20,3 35,11.5 35,28.5 20,37 5,28.5 5,11.5" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/>
+      <circle cx="20" cy="20" r="5.5" fill="#fff"/>
+    </svg>
+  </div>
+  <div class="login-title">Contable IA</div>
+  <div class="login-sub">Colombia 2026 · UVT $52.374<br>Apruebe causaciones desde su celular</div>
+  <div class="login-form">
+    <div class="form-field">
+      <label>Usuario</label>
+      <input id="lu" type="text" placeholder="admin" autocomplete="username" inputmode="email" onkeydown="if(event.key==='Enter')document.getElementById('lp').focus()">
+    </div>
+    <div class="form-field">
+      <label>Contraseña</label>
+      <input id="lp" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">INGRESAR</button>
+    <div class="login-error" id="loginErr">Usuario o contraseña incorrectos</div>
+    <div class="login-hint">Demo: <strong style="color:var(--txt2)">admin</strong> / <strong style="color:var(--txt2)">contable2026</strong></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: HOME (Inicio) -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-home">
+  <div class="status-bar">
+    <div class="sb-time" id="clock">9:41</div>
+    <div class="sb-icons">
+      <span>📶</span><span>🔋</span>
+    </div>
+  </div>
+  <div class="top-bar">
+    <div>
+      <div style="font-size:.76rem;color:var(--txt3);font-weight:400">Buenos días,</div>
+      <h1 id="homeUser">Julián</h1>
+    </div>
+    <button class="icon-btn" onclick="goNotif()">
+      🔔<div class="badge-dot" id="notifDot"></div>
+    </button>
+  </div>
+  <div class="scroll" id="homeScroll">
+    <!-- UVT Banner -->
+    <div class="uvt-banner fade-in">
+      <div class="uvt-dot"></div>
+      <div class="uvt-text">
+        UVT 2026: <strong>$52.374</strong> · Base SER: <strong>2 UVT</strong> · Base COM: <strong>10 UVT</strong><br>
+        <span>Decreto 0572/2025 · Res. DIAN 000238/2025</span>
+      </div>
+    </div>
+    <!-- KPIs -->
+    <div class="summary-strip slide-up">
+      <div class="sum-card">
+        <div class="sum-n amber" id="kpiPend">2</div>
+        <div class="sum-l">Pendientes</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-n green" id="kpiOk">3</div>
+        <div class="sum-l">Contabiliz.</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-n red" id="kpiErr">1</div>
+        <div class="sum-l">Errores</div>
+      </div>
+    </div>
+    <!-- Pendientes -->
+    <div class="section-hdr slide-up stagger-1">
+      <h2>Pendientes de aprobación</h2>
+      <a onclick="goTab('caus')">Ver todas →</a>
+    </div>
+    <div id="homePendList"></div>
+    <!-- Recientes -->
+    <div class="section-hdr slide-up stagger-2" style="margin-top:6px">
+      <h2>Recientes</h2>
+      <a onclick="goTab('hist')">Historial →</a>
+    </div>
+    <div id="homeRecentList"></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="bn-item active" id="bn-home" onclick="goTab('home')">
+      <div class="bn-icon">🏠</div><div class="bn-label">Inicio</div>
+    </div>
+    <div class="bn-item" id="bn-caus" onclick="goTab('caus')">
+      <div class="bn-icon">📋</div><div class="bn-label">Causar</div>
+      <div class="bn-badge" id="causBadge">2</div>
+    </div>
+    <div class="bn-item" id="bn-hist" onclick="goTab('hist')">
+      <div class="bn-icon">📊</div><div class="bn-label">Historial</div>
+    </div>
+    <div class="bn-item" id="bn-profile" onclick="goTab('profile')">
+      <div class="bn-icon">👤</div><div class="bn-label">Perfil</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: CAUSACIONES -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-caus">
+  <div class="status-bar">
+    <div class="sb-time" id="clock2">9:41</div>
+    <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+  </div>
+  <div class="top-bar">
+    <h1>Causaciones</h1>
+    <button class="icon-btn" onclick="aprobarTodas()">✅</button>
+  </div>
+  <div class="swipe-guide">
+    <div class="sg-item"><div class="sg-dot" style="background:var(--green)"></div>Deslizar → Aprobar</div>
+    <div class="sg-item"><div class="sg-dot" style="background:var(--red)"></div>← Rechazar</div>
+  </div>
+  <div class="scroll" id="causScroll">
+    <div id="causList"></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="bn-item" id="bn-home2" onclick="goTab('home')"><div class="bn-icon">🏠</div><div class="bn-label">Inicio</div></div>
+    <div class="bn-item active" id="bn-caus2" onclick="goTab('caus')"><div class="bn-icon">📋</div><div class="bn-label">Causar</div><div class="bn-badge" id="causBadge2">2</div></div>
+    <div class="bn-item" id="bn-hist2" onclick="goTab('hist')"><div class="bn-icon">📊</div><div class="bn-label">Historial</div></div>
+    <div class="bn-item" id="bn-profile2" onclick="goTab('profile')"><div class="bn-icon">👤</div><div class="bn-label">Perfil</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: HISTORIAL -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-hist">
+  <div class="status-bar">
+    <div class="sb-time" id="clock3">9:41</div>
+    <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+  </div>
+  <div class="top-bar"><h1>Historial</h1></div>
+  <div class="hist-filter" id="histFilter" style="padding:0 16px 8px;flex-shrink:0">
+    <div class="hf-btn active" onclick="filterHist('all',this)">Todas</div>
+    <div class="hf-btn" onclick="filterHist('CONTABILIZADA',this)">Contabilizadas</div>
+    <div class="hf-btn" onclick="filterHist('PENDIENTE',this)">Pendientes</div>
+    <div class="hf-btn" onclick="filterHist('ERROR',this)">Errores</div>
+    <div class="hf-btn" onclick="filterHist('Siigo',this)">Siigo</div>
+    <div class="hf-btn" onclick="filterHist('Helisa',this)">Helisa</div>
+  </div>
+  <div class="scroll" id="histScroll"><div id="histList"></div></div>
+  <div class="bottom-nav">
+    <div class="bn-item" onclick="goTab('home')"><div class="bn-icon">🏠</div><div class="bn-label">Inicio</div></div>
+    <div class="bn-item" onclick="goTab('caus')"><div class="bn-icon">📋</div><div class="bn-label">Causar</div><div class="bn-badge" id="causBadge3">2</div></div>
+    <div class="bn-item active" onclick="goTab('hist')"><div class="bn-icon">📊</div><div class="bn-label">Historial</div></div>
+    <div class="bn-item" onclick="goTab('profile')"><div class="bn-icon">👤</div><div class="bn-label">Perfil</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: PERFIL -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-profile">
+  <div class="status-bar">
+    <div class="sb-time" id="clock4">9:41</div>
+    <div class="sb-icons"><span>📶</span><span>🔋</span></div>
+  </div>
+  <div class="top-bar"><h1>Mi Perfil</h1></div>
+  <div class="scroll">
+    <div class="profile-header fade-in">
+      <div class="ph-avatar" id="phInitials">JA</div>
+      <div class="ph-name" id="phName">Julián Arias</div>
+      <div class="ph-role" id="phRole">Administrador</div>
+      <div class="ph-uvt">UVT 2026: $52.374 · Decreto 0572/2025</div>
+    </div>
+    <div class="setting-group">
+      <div class="sg-title">Notificaciones</div>
+      <div class="sg-item">
+        <div class="sg-left"><div class="sg-icon" style="background:var(--green3)">📧</div><div class="sg-label">Email</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span class="sg-value">Activo</span><div style="width:44px;height:24px;border-radius:12px;background:var(--green);position:relative"><div style="position:absolute;right:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff"></div></div></div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-left"><div class="sg-icon" style="background:var(--green3)">💬</div><div class="sg-label">WhatsApp</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span class="sg-value">Activo</span><div style="width:44px;height:24px;border-radius:12px;background:var(--green);position:relative"><div style="position:absolute;right:2px;top:2px;width:20px;height:20px;border-radius:50%;background:#fff"></div></div></div>
+      </div>
+    </div>
+    <div class="setting-group">
+      <div class="sg-title">Sistema</div>
+      <div class="sg-item" onclick="showInfo('UVT 2026','$52.374 · Resolución DIAN 000238/2025 · IPC 5.17%')">
+        <div class="sg-left"><div class="sg-icon" style="background:rgba(59,130,246,.15)">📋</div><div class="sg-label">Normativa 2026</div></div>
+        <div class="sg-arrow">›</div>
+      </div>
+      <div class="sg-item" onclick="showInfo('Versión','Asistente Contable IA v3.0\nColombia 2026\nUVT $52.374')">
+        <div class="sg-left"><div class="sg-icon" style="background:rgba(167,139,250,.15)">ℹ️</div><div class="sg-label">Versión de la app</div></div>
+        <div style="display:flex;align-items:center;gap:6px"><span class="sg-value">v3.0</span><div class="sg-arrow">›</div></div>
+      </div>
+      <div class="sg-item" onclick="showInfo('Servidor','Conectado a: contable.sudominio.co\nEstado: ✅ En línea\nÚltima sincronización: hace 2 min')">
+        <div class="sg-left"><div class="sg-icon" style="background:var(--green3)">🔗</div><div class="sg-label">Estado del servidor</div></div>
+        <div style="display:flex;align-items:center;gap:6px"><span class="sg-value" style="color:var(--green)">En línea</span><div class="sg-arrow">›</div></div>
+      </div>
+    </div>
+    <div class="setting-group">
+      <div class="sg-title">Propietario</div>
+      <div class="sg-item">
+        <div class="sg-left"><div class="sg-icon" style="background:rgba(245,158,11,.15)">©</div><div class="sg-label">Ing. Julián Arias</div></div>
+        <div class="sg-value">2025-2026</div>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">CERRAR SESIÓN</button>
+    <div style="height:16px"></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="bn-item" onclick="goTab('home')"><div class="bn-icon">🏠</div><div class="bn-label">Inicio</div></div>
+    <div class="bn-item" onclick="goTab('caus')"><div class="bn-icon">📋</div><div class="bn-label">Causar</div><div class="bn-badge" id="causBadge4">2</div></div>
+    <div class="bn-item" onclick="goTab('hist')"><div class="bn-icon">📊</div><div class="bn-label">Historial</div></div>
+    <div class="bn-item active" onclick="goTab('profile')"><div class="bn-icon">👤</div><div class="bn-label">Perfil</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: NOTIFICACIONES -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-notif">
+  <div class="status-bar"><div class="sb-time" id="clock5">9:41</div><div class="sb-icons"><span>📶</span><span>🔋</span></div></div>
+  <div class="top-bar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="back-btn" onclick="goBack()">‹</button>
+      <h1>Notificaciones</h1>
+    </div>
+    <button class="icon-btn" onclick="clearNotifs()" title="Limpiar">✕</button>
+  </div>
+  <div class="scroll" id="notifList"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SCREEN: DETALLE ASIENTO -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="screen hidden slide-down" id="screen-detail">
+  <div class="status-bar"><div class="sb-time" id="clock6">9:41</div><div class="sb-icons"><span>📶</span><span>🔋</span></div></div>
+  <div class="top-bar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="back-btn" onclick="goBack()">‹</button>
+      <h1>Asiento Contable</h1>
+    </div>
+    <div id="detailStatus"></div>
+  </div>
+  <div class="detail-scroll" id="detailContent"></div>
+  <div class="detail-actions" id="detailActions"></div>
+</div>
+
+<script>
+// ─── DATOS ────────────────────────────────────────────────────────
+const UVT = 52374;
+const USERS = [
+  {user:'admin',     pass:'contable2026', name:'Julián Arias',  role:'Administrador', initials:'JA'},
+  {user:'contador',  pass:'rete2026',     name:'Ana Gómez',     role:'Contador',      initials:'AG'},
+];
+
+const FACTURAS = [
+  {id:0, n:'FV-2026-001', p:'Papelería y Suministros del Norte SAS', nit:'900456789', base:1000000, iva:190000, rete:25000, ica:9660, total:1190000, neto:1155340, erp:'Siigo', fecha:'2026-03-15', est:'PENDIENTE', con:'COM', cta:'512045', reg:'RC', nota:'COM 2.5% · base>10 UVT 2026'},
+  {id:1, n:'FV-2026-002', p:'Consultoría Estratégica Ltda',          nit:'800111222', base:3000000, iva:0,      rete:330000,ica:0,    total:3000000, neto:2670000, erp:'Siigo', fecha:'2026-03-14', est:'PENDIENTE', con:'HON', cta:'511005', reg:'GC', nota:'HON 11% · GC exento ICA'},
+  {id:2, n:'FV-2026-003', p:'Servicios Generales Torres SAS',        nit:'830045601', base:500000,  iva:95000,  rete:10000, ica:4830, total:595000,  neto:580170,  erp:'Helisa',fecha:'2026-03-13', est:'CONTABILIZADA',con:'SER_LI',cta:'512035',reg:'RC', nota:'SER_LI 2% · ICA 9.66‰'},
+  {id:3, n:'FV-2026-004', p:'Arrendamientos Bogotá SA',              nit:'900321000', base:2500000, iva:0,      rete:87500, ica:0,    total:2500000, neto:2412500, erp:'Helisa',fecha:'2026-03-12', est:'CONTABILIZADA',con:'ARR',   cta:'521010',reg:'GC', nota:'ARR 3.5% · GC exento ICA'},
+  {id:4, n:'FV-2026-005', p:'Avianca SA',                            nit:'890900810', base:800000,  iva:0,      rete:8000,  ica:0,    total:800000,  neto:792000,  erp:'Siesa', fecha:'2026-03-12', est:'CONTABILIZADA',con:'SER_TA',cta:'512050',reg:'GC', nota:'SER_TA 1% · GC exento ICA'},
+  {id:5, n:'FV-2026-006', p:'Proveedor Régimen Simple SAS',          nit:'901234567', base:600000,  iva:114000, rete:0,     ica:0,    total:714000,  neto:714000,  erp:'Siigo', fecha:'2026-03-11', est:'ERROR',      con:'EXC',   cta:'512045',reg:'RS', nota:'RS exento de toda retención'},
+];
+
+const NOTIFS = [
+  {type:'green',  icon:'✅', title:'FV-2026-003 contabilizada',    desc:'Enviada a Helisa · $595.000 · Torres SAS',         time:'Hace 15 min'},
+  {type:'amber',  icon:'⏰', title:'2 causaciones pendientes',      desc:'FV-2026-001 y FV-2026-002 esperan aprobación',     time:'Hace 32 min'},
+  {type:'green',  icon:'📥', title:'3 facturas importadas (IMAP)',  desc:'Descargadas de facturas@empresa.com automáticamente',time:'Hace 1 hora'},
+  {type:'blue',   icon:'🔄', title:'Tarifas 2026 actualizadas',     desc:'UVT $52.374 · Decreto 0572/2025 aplicado',         time:'Hace 2 horas'},
+  {type:'red',    icon:'⚠',  title:'FV-2026-006 requiere revisión','desc':'Proveedor RS — revisar configuración',             time:'Hace 3 horas'},
+];
+
+let currentUser = null;
+let currentScreen = 'login';
+let detailIdx = null;
+let histFilter = 'all';
+
+// ─── FORMATO ──────────────────────────────────────────────────────
+const fmt = n => '$' + Math.round(n).toLocaleString('es-CO');
+const erpClass = {Siigo:'erp-siigo', Helisa:'erp-helisa', Siesa:'erp-siesa'};
+const estClass = {PENDIENTE:'sp-pend', CONTABILIZADA:'sp-ok', ERROR:'sp-err', APROBADA:'sp-apr'};
+const estColor = {PENDIENTE:'var(--amber)', CONTABILIZADA:'var(--green)', ERROR:'var(--red)', APROBADA:'var(--blue)'};
+
+// ─── RELOJ ────────────────────────────────────────────────────────
+function updateClock() {
+  var t = new Date().toLocaleTimeString('es-CO', {hour:'2-digit',minute:'2-digit'});
+  ['clock','clock2','clock3','clock4','clock5','clock6'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = t;
+  });
+}
+setInterval(updateClock, 15000);
+updateClock();
+
+// ─── SCREEN NAVIGATION ───────────────────────────────────────────
+function showScreen(id, slideFromBottom) {
+  document.querySelectorAll('.screen').forEach(function(s) {
+    s.classList.add('hidden');
+    s.classList.remove('slide-down');
+  });
+  var el = document.getElementById('screen-' + id);
+  if (!el) return;
+  if (slideFromBottom) el.classList.add('slide-down');
+  else el.classList.remove('slide-down');
+  el.classList.remove('hidden');
+  currentScreen = id;
+}
+
+function goBack() {
+  if (currentScreen === 'detail') { showScreen('caus', false); renderCaus(); }
+  else if (currentScreen === 'notif') { showScreen('home', false); }
+  else showScreen('home', false);
+}
+
+function goNotif() { renderNotifs(); showScreen('notif', false); }
+
+// ─── BOTTOM NAV ───────────────────────────────────────────────────
+function goTab(tab) {
+  var map = {home:'home', caus:'caus', hist:'hist', profile:'profile'};
+  if (!map[tab]) return;
+  showScreen(map[tab], false);
+  if (tab === 'caus') renderCaus();
+  if (tab === 'hist') renderHist('all');
+  if (tab === 'home') renderHome();
+}
+
+// ─── AUTH ─────────────────────────────────────────────────────────
+function doLogin() {
+  var u = (document.getElementById('lu').value || '').trim();
+  var p = (document.getElementById('lp').value || '').trim();
+  var found = USERS.find(function(x) { return x.user === u && x.pass === p; });
+  if (found) {
+    currentUser = found;
+    document.getElementById('homeUser').textContent = found.name.split(' ')[0];
+    document.getElementById('phInitials').textContent = found.initials;
+    document.getElementById('phName').textContent = found.name;
+    document.getElementById('phRole').textContent = found.role;
+    renderHome();
+    showScreen('home', false);
+  } else {
+    var err = document.getElementById('loginErr');
+    err.classList.add('show');
+    document.getElementById('lp').classList.add('shake');
+    setTimeout(function() {
+      err.classList.remove('show');
+      document.getElementById('lp').classList.remove('shake');
+    }, 3000);
+    document.getElementById('lp').value = '';
+  }
+}
+function doLogout() {
+  if (!confirm('¿Cerrar sesión?')) return;
+  currentUser = null;
+  document.getElementById('lu').value = '';
+  document.getElementById('lp').value = '';
+  showScreen('login', false);
+}
+
+// ─── BADGE COUNT ─────────────────────────────────────────────────
+function updateBadges() {
+  var pend = FACTURAS.filter(function(f) { return f.est === 'PENDIENTE' || f.est === 'APROBADA'; }).length;
+  ['causBadge','causBadge2','causBadge3','causBadge4'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = pend;
+    el.style.display = pend > 0 ? 'flex' : 'none';
+  });
+  var kpiPend = document.getElementById('kpiPend');
+  if (kpiPend) kpiPend.textContent = pend;
+  var notifDot = document.getElementById('notifDot');
+  if (notifDot) notifDot.style.display = NOTIFS.length > 0 ? 'block' : 'none';
+}
+
+// ─── HOME ─────────────────────────────────────────────────────────
+function renderHome() {
+  updateBadges();
+  var ok  = FACTURAS.filter(function(f) { return f.est === 'CONTABILIZADA'; }).length;
+  var err = FACTURAS.filter(function(f) { return f.est === 'ERROR'; }).length;
+  var kpiOk = document.getElementById('kpiOk');
+  var kpiErr = document.getElementById('kpiErr');
+  if (kpiOk) kpiOk.textContent = ok;
+  if (kpiErr) kpiErr.textContent = err;
+
+  // Pending cards (max 2)
+  var pend = FACTURAS.filter(function(f) { return f.est === 'PENDIENTE'; }).slice(0, 2);
+  var hp = document.getElementById('homePendList');
+  if (!hp) return;
+  if (!pend.length) {
+    hp.innerHTML = '<div class="empty-state"><div class="es-icon">🎉</div><div class="es-title">¡Todo al día!</div><div class="es-sub">No hay causaciones pendientes de aprobación</div></div>';
+  } else {
+    hp.innerHTML = pend.map(function(f) { return miniCard(f); }).join('');
+  }
+
+  // Recent
+  var recent = FACTURAS.filter(function(f) { return f.est === 'CONTABILIZADA'; }).slice(0, 3);
+  var hr = document.getElementById('homeRecentList');
+  if (hr) hr.innerHTML = recent.map(function(f) { return histCard(f); }).join('');
+}
+
+function miniCard(f) {
+  return '<div class="caus-card" style="margin-bottom:12px" onclick="openDetail(' + f.id + ')">' +
+    '<div class="card-top">' +
+      '<span class="card-num">' + f.n + '</span>' +
+      '<span class="card-erp ' + (erpClass[f.erp]||'') + '">' + f.erp + '</span>' +
+    '</div>' +
+    '<div class="card-prov">' + f.p + '</div>' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:.88rem;font-weight:600;color:var(--green)">' + fmt(f.total) + '</div>' +
+      '<span class="status-pill ' + (estClass[f.est]||'sp-pend') + '">' + f.est + '</span>' +
+    '</div>' +
+  '</div>';
+}
+
+function histCard(f) {
+  return '<div class="hist-card" onclick="openDetail(' + f.id + ')">' +
+    '<div class="hc-dot" style="background:' + (estColor[f.est]||'var(--txt4)') + '"></div>' +
+    '<div class="hc-body">' +
+      '<div class="hc-num">' + f.n + '</div>' +
+      '<div class="hc-prov">' + f.p.substring(0,28) + '</div>' +
+      '<div class="hc-date">' + f.fecha + ' · ' + f.erp + '</div>' +
+    '</div>' +
+    '<div style="text-align:right">' +
+      '<div class="hc-total" style="color:var(--green)">' + fmt(f.total) + '</div>' +
+      '<div class="hc-date" style="margin-top:4px">' + f.reg + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// ─── CAUSACIONES con SWIPE ────────────────────────────────────────
+function renderCaus() {
+  updateBadges();
+  var list = document.getElementById('causList');
+  if (!list) return;
+  var pend = FACTURAS.filter(function(f) { return f.est === 'PENDIENTE' || f.est === 'APROBADA'; });
+  if (!pend.length) {
+    list.innerHTML = '<div class="empty-state"><div class="es-icon">✅</div><div class="es-title">¡Todo aprobado!</div><div class="es-sub">No hay causaciones pendientes de revisión</div></div>';
+    return;
+  }
+  list.innerHTML = pend.map(function(f) {
+    return '<div class="caus-card-wrap" id="wrap-' + f.id + '">' +
+      '<div class="caus-card-bg-approve"><div class="swipe-hint" id="hint-approve-' + f.id + '">✓ Aprobar</div></div>' +
+      '<div class="caus-card-bg-reject" style="justify-content:flex-end"><div class="swipe-hint" id="hint-reject-' + f.id + '">✕ Rechazar</div></div>' +
+      '<div class="caus-card" id="card-' + f.id + '" onclick="openDetail(' + f.id + ')">' +
+        '<div class="card-top">' +
+          '<span class="card-num">' + f.n + '</span>' +
+          '<span class="card-erp ' + (erpClass[f.erp]||'') + '">' + f.erp + '</span>' +
+        '</div>' +
+        '<div class="card-prov">' + f.p + '</div>' +
+        '<div class="card-nit">NIT ' + f.nit + ' · ' + f.reg + '</div>' +
+        '<div class="card-amounts">' +
+          '<div class="ca-item"><div class="ca-label">Base</div><div class="ca-value">' + fmt(f.base) + '</div></div>' +
+          '<div class="ca-item"><div class="ca-label">Rete 2026</div><div class="ca-value amber">' + (f.rete > 0 ? fmt(f.rete) : 'N/A') + '</div></div>' +
+          '<div class="ca-item"><div class="ca-label">Neto pagar</div><div class="ca-value green">' + fmt(f.neto) + '</div></div>' +
+        '</div>' +
+        '<div class="card-footer">' +
+          '<span class="card-date">' + f.fecha + '</span>' +
+          '<span class="status-pill ' + (estClass[f.est]||'sp-pend') + '">' + f.est + '</span>' +
+        '</div>' +
+        '<div class="card-actions">' +
+          '<button class="ca-btn ca-approve" onclick="event.stopPropagation();aprobar(' + f.id + ')">✓ Aprobar</button>' +
+          '<button class="ca-btn ca-reject" onclick="event.stopPropagation();rechazar(' + f.id + ')">✕ Rechazar</button>' +
+          '<button class="ca-btn ca-view" onclick="event.stopPropagation();openDetail(' + f.id + ')">Ver →</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  // Add swipe gestures
+  pend.forEach(function(f) { addSwipe(f.id); });
+}
+
+function addSwipe(id) {
+  var card = document.getElementById('card-' + id);
+  var wrap = document.getElementById('wrap-' + id);
+  if (!card || !wrap) return;
+  var startX = 0, currentX = 0, isDragging = false, threshold = 80;
+
+  function onStart(e) {
+    startX = (e.touches ? e.touches[0].clientX : e.clientX);
+    isDragging = true;
+    card.style.transition = 'none';
+  }
+  function onMove(e) {
+    if (!isDragging) return;
+    currentX = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
+    card.style.transform = 'translateX(' + currentX + 'px)';
+    var ha = document.getElementById('hint-approve-' + id);
+    var hr = document.getElementById('hint-reject-' + id);
+    if (ha) ha.classList.toggle('show', currentX > threshold/2);
+    if (hr) hr.classList.toggle('show', currentX < -threshold/2);
+    e.preventDefault();
+  }
+  function onEnd() {
+    isDragging = false;
+    card.style.transition = 'transform .3s cubic-bezier(.4,0,.2,1)';
+    if (currentX > threshold) {
+      card.style.transform = 'translateX(100%)';
+      setTimeout(function() { aprobar(id); }, 200);
+    } else if (currentX < -threshold) {
+      card.style.transform = 'translateX(-100%)';
+      setTimeout(function() { rechazar(id); }, 200);
+    } else {
+      card.style.transform = 'translateX(0)';
+      var ha = document.getElementById('hint-approve-' + id);
+      var hr = document.getElementById('hint-reject-' + id);
+      if (ha) ha.classList.remove('show');
+      if (hr) hr.classList.remove('show');
+    }
+    currentX = 0;
+  }
+  card.addEventListener('touchstart', onStart, {passive:true});
+  card.addEventListener('touchmove', onMove, {passive:false});
+  card.addEventListener('touchend', onEnd);
+  card.addEventListener('mousedown', onStart);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
+}
+
+// ─── APROBAR / RECHAZAR ───────────────────────────────────────────
+function aprobar(id) {
+  var f = FACTURAS.find(function(x) { return x.id === id; });
+  if (!f) return;
+  f.est = 'CONTABILIZADA';
+  var wrap = document.getElementById('wrap-' + id);
+  if (wrap) { wrap.style.transition = 'all .3s'; wrap.style.opacity = '0'; wrap.style.height = '0'; wrap.style.marginBottom = '0'; }
+  setTimeout(function() { if (wrap) wrap.remove(); }, 300);
+  showSuccess('¡Aprobada!', 'Enviado a ' + f.erp + ' — ID: ' + Math.random().toString(36).slice(2,10).toUpperCase());
+  updateBadges();
+  NOTIFS.unshift({type:'green', icon:'✅', title:f.n + ' contabilizada', desc:'Enviada a ' + f.erp + ' · ' + fmt(f.total) + ' · ' + f.p.substring(0,20), time:'Ahora'});
+}
+
+function rechazar(id) {
+  var f = FACTURAS.find(function(x) { return x.id === id; });
+  if (!f) return;
+  f.est = 'ERROR';
+  var wrap = document.getElementById('wrap-' + id);
+  if (wrap) { wrap.style.transition = 'all .3s'; wrap.style.opacity = '0'; wrap.style.height = '0'; wrap.style.marginBottom = '0'; }
+  setTimeout(function() { if (wrap) wrap.remove(); }, 300);
+  updateBadges();
+}
+
+function aprobarTodas() {
+  var pend = FACTURAS.filter(function(f) { return f.est === 'PENDIENTE'; });
+  if (!pend.length) { alert('No hay causaciones pendientes'); return; }
+  if (!confirm('¿Aprobar las ' + pend.length + ' causaciones pendientes?')) return;
+  pend.forEach(function(f) { f.est = 'CONTABILIZADA'; });
+  renderCaus();
+  showSuccess('¡' + pend.length + ' aprobadas!', 'Todas enviadas a sus ERPs correctamente');
+  updateBadges();
+}
+
+// ─── SUCCESS ANIMATION ────────────────────────────────────────────
+function showSuccess(msg, sub) {
+  var ov = document.getElementById('successOverlay');
+  document.getElementById('successMsg').textContent = msg;
+  document.getElementById('successSub').textContent = sub;
+  ov.classList.add('show');
+  setTimeout(function() { ov.classList.remove('show'); }, 2200);
+}
+
+// ─── DETAIL ───────────────────────────────────────────────────────
+function openDetail(idx) {
+  var f = FACTURAS.find(function(x) { return x.id === idx; });
+  if (!f) return;
+  detailIdx = idx;
+
+  var rows = '';
+  rows += '<div class="at-row"><div class="at-cta">' + f.cta + '</div><div class="at-desc">Gasto/Costo — ' + f.con + '</div><div class="at-deb">' + fmt(f.base) + '</div><div class="at-cre">—</div></div>';
+  if (f.iva > 0) rows += '<div class="at-row"><div class="at-cta">24080100</div><div class="at-desc">IVA Descontable 19%</div><div class="at-deb">' + fmt(f.iva) + '</div><div class="at-cre">—</div></div>';
+  if (f.rete > 0) rows += '<div class="at-row"><div class="at-cta">23650100</div><div class="at-desc">Retefuente ' + f.con + ' · UVT $52.374</div><div class="at-deb">—</div><div class="at-cre">' + fmt(f.rete) + '</div></div>';
+  if (f.ica > 0) rows += '<div class="at-row"><div class="at-cta">23680100</div><div class="at-desc">ReteICA 9.66‰ Bogotá D.C.</div><div class="at-deb">—</div><div class="at-cre">' + fmt(f.ica) + '</div></div>';
+  rows += '<div class="at-row"><div class="at-cta">22050000</div><div class="at-desc">CxP — ' + f.p.substring(0,22) + '</div><div class="at-deb">—</div><div class="at-cre">' + fmt(f.neto) + '</div></div>';
+  rows += '<div class="at-row total"><div class="at-cta" style="font-weight:700">TOTAL</div><div class="at-desc">Σ Débitos = Σ Créditos</div><div class="at-deb" style="color:var(--green)">' + fmt(f.total) + '</div><div class="at-cre">' + fmt(f.total) + '</div></div>';
+
+  var content = document.getElementById('detailContent');
+  content.innerHTML =
+    '<div class="detail-header">' +
+      '<div class="dh-num">' + f.n + ' · ' + f.fecha + '</div>' +
+      '<div class="dh-prov">' + f.p + '</div>' +
+      '<div class="dh-nit">NIT ' + f.nit + '</div>' +
+      '<div class="dh-grid">' +
+        '<div class="dh-item"><label>Régimen</label><span>' + f.reg + '</span></div>' +
+        '<div class="dh-item"><label>ERP Destino</label><span style="color:var(--green)">' + f.erp + '</span></div>' +
+        '<div class="dh-item"><label>Concepto Rete</label><span>' + f.con + '</span></div>' +
+        '<div class="dh-item"><label>Estado</label><span class="status-pill ' + (estClass[f.est]||'') + '" style="font-size:.68rem">' + f.est + '</span></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="asiento-title">Asiento Contable PUC</div>' +
+    '<div class="asiento-table">' +
+      '<div class="at-header"><div>Cta. PUC</div><div>Descripción</div><div style="text-align:right">Débito</div><div style="text-align:right">Crédito</div></div>' +
+      rows +
+    '</div>' +
+    '<div class="cuadre-badge"><div class="cb-icon">✓</div><div class="cb-text">ASIENTO CUADRADO — Σ DÉB = Σ CRÉ = ' + fmt(f.total) + '<br>UVT 2026: $52.374 · Decreto 0572/2025</div></div>' +
+    '<div class="normativa-box">' +
+      '<div class="nb-title">Normativa aplicada 2026</div>' +
+      '<div class="nb-item">UVT 2026: $52.374 · Res. DIAN 000238/2025</div>' +
+      '<div class="nb-item">Base mín. COM: 10 UVT = $523.740 · Decreto 0572/2025</div>' +
+      '<div class="nb-item">Base mín. SER: 2 UVT = $104.748 · Decreto 0572/2025</div>' +
+      '<div class="nb-item">ReteICA Bogotá: 9.66‰ · Acuerdo 816/2021</div>' +
+    '</div>';
+
+  var detStatus = document.getElementById('detailStatus');
+  if (detStatus) detStatus.innerHTML = '<span class="status-pill ' + (estClass[f.est]||'') + '">' + f.est + '</span>';
+
+  var actions = document.getElementById('detailActions');
+  if (f.est === 'PENDIENTE' || f.est === 'APROBADA') {
+    actions.innerHTML =
+      '<button class="da-reject" onclick="rechazar(' + idx + ');goBack()">✕ Rechazar</button>' +
+      '<button class="da-approve" onclick="aprobar(' + idx + ');goBack()">✓ Aprobar y Contabilizar</button>';
+  } else {
+    actions.innerHTML = '<div style="flex:1;text-align:center;font-size:.82rem;color:var(--txt3);padding:8px">' + (f.est === 'CONTABILIZADA' ? '✅ Ya contabilizada en ' + f.erp : '❌ Rechazada — revisar configuración') + '</div>';
+  }
+
+  showScreen('detail', true);
+}
+
+// ─── HISTORIAL ────────────────────────────────────────────────────
+function filterHist(filter, btn) {
+  histFilter = filter;
+  document.querySelectorAll('.hf-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderHist(filter);
+}
+
+function renderHist(filter) {
+  var list = document.getElementById('histList');
+  if (!list) return;
+  var data = FACTURAS;
+  if (filter && filter !== 'all') {
+    if (['PENDIENTE','CONTABILIZADA','ERROR','APROBADA'].includes(filter)) {
+      data = data.filter(function(f) { return f.est === filter; });
+    } else {
+      data = data.filter(function(f) { return f.erp === filter; });
+    }
+  }
+  if (!data.length) {
+    list.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><div class="es-title">Sin resultados</div><div class="es-sub">No hay facturas para este filtro</div></div>';
+    return;
+  }
+  list.innerHTML = data.map(function(f) { return histCard(f); }).join('');
+}
+
+// ─── NOTIFICACIONES ───────────────────────────────────────────────
+function renderNotifs() {
+  var list = document.getElementById('notifList');
+  if (!list) return;
+  if (!NOTIFS.length) {
+    list.innerHTML = '<div style="padding:16px"><div class="notif-empty">🔔 Sin notificaciones nuevas</div></div>';
+    return;
+  }
+  list.innerHTML = '<div style="padding:16px">' +
+    NOTIFS.map(function(n) {
+      return '<div class="notif-item notif-' + n.type + '">' +
+        '<div class="ni-icon ni-' + n.type + '">' + n.icon + '</div>' +
+        '<div class="ni-body"><div class="ni-title">' + n.title + '</div><div class="ni-desc">' + n.desc + '</div><div class="ni-time">' + n.time + '</div></div>' +
+      '</div>';
+    }).join('') +
+  '</div>';
+}
+
+function clearNotifs() {
+  NOTIFS.length = 0;
+  renderNotifs();
+  var dot = document.getElementById('notifDot');
+  if (dot) dot.style.display = 'none';
+}
+
+// ─── INFO MODAL ───────────────────────────────────────────────────
+function showInfo(title, msg) { alert(title + '\n\n' + msg); }
+
+// ─── INIT ─────────────────────────────────────────────────────────
+updateBadges();
+</script>
+</body>
+</html>
