@@ -3,59 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Asistente Contable IA — Colombia 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Nexcore IA — Colombia 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space Grotesk:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#030c1a;--bg2:#071221;--bg3:#0a1830;--bg4:#0d1e3a;
-  --teal:#00f5d4;--t2:#00c4aa;--tc:rgba(0,245,212,.12);
-  --cyan:#00d4ff;--green:#39ff8a;--g2:#1acc60;
+  --bg:#060D1F;--bg2:#0A1428;--bg3:#0D1B35;--bg4:#112040;
+  --teal:#0B5CFF;--t2:#0044CC;--tc:rgba(11,92,255,.12);
+  --cyan:#00CFFF;--green:#39ff8a;--g2:#1acc60;
   --amber:#ffaa00;--red:#ff3366;--purple:#7b2fff;
-  --txt:#cce8ff;--tm:#4a7a99;--td:#1a3a55;
-  --bord:rgba(0,245,212,.1);--bh:rgba(0,245,212,.28);
+  --txt:#E8F0FF;--tm:#5A7AAA;--td:#1A2E55;
+  --bord:rgba(11,92,255,.1);--bh:rgba(11,92,255,.28);
 }
-body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min-height:100vh}
+body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--txt);min-height:100vh}
 /* ─ HEADER ─────────────────────────────────────────────────────── */
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;background:var(--bg2);border-bottom:1px solid var(--bord);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
 .logo{display:flex;align-items:center;gap:9px}
-.brand{font-family:'Orbitron',monospace;font-size:.8rem;color:var(--teal);letter-spacing:2px;line-height:1.3}
+.brand{font-family:'Space Grotesk',monospace;font-size:.8rem;color:var(--teal);letter-spacing:2px;line-height:1.3}
 .brand-s{font-size:.53rem;color:var(--tm);letter-spacing:1.5px}
-.uvt-pill{background:rgba(0,245,212,.07);border:1px solid rgba(0,245,212,.22);border-radius:20px;padding:4px 14px;font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--teal);display:flex;align-items:center;gap:6px}
+.uvt-pill{background:rgba(11,92,255,.07);border:1px solid rgba(11,92,255,.22);border-radius:20px;padding:4px 14px;font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--teal);display:flex;align-items:center;gap:6px}
 .udot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pu 2s ease infinite}
 @keyframes pu{0%,100%{opacity:1;box-shadow:0 0 5px var(--teal)}50%{opacity:.25;box-shadow:none}}
 .pills{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
-.pill{display:flex;align-items:center;gap:4px;font-family:'Share Tech Mono',monospace;font-size:.58rem;padding:3px 9px;border-radius:20px;border:1px solid}
+.pill{display:flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:3px 9px;border-radius:20px;border:1px solid}
 .pill.on{color:var(--green);border-color:rgba(57,255,138,.3);background:rgba(57,255,138,.06)}
 .pill.w{color:var(--amber);border-color:rgba(255,170,0,.28);background:rgba(255,170,0,.06)}
 .pdot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pu 2s ease infinite}
-#clk{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--td)}
+#clk{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--td)}
 /* ─ TABS ─────────────────────────────────────────────────────────── */
 .tabs{display:flex;border-bottom:1px solid var(--bord);padding:0 18px;background:var(--bg2);overflow-x:auto}
-.tab{padding:9px 15px;font-family:'Rajdhani',sans-serif;font-size:.76rem;font-weight:600;color:var(--tm);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.tab{padding:9px 15px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:600;color:var(--tm);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 .tab.on{color:var(--teal);border-bottom-color:var(--teal)}
 .tab:hover{color:var(--txt)}
 /* ─ LAYOUT ──────────────────────────────────────────────────────── */
 .wrap{padding:10px 16px;display:flex;flex-direction:column;gap:10px}
 .card{background:var(--bg3);border:1px solid var(--bord);border-radius:9px;padding:14px;transition:border-color .2s}
-.card:hover{border-color:rgba(0,245,212,.18)}
+.card:hover{border-color:rgba(11,92,255,.18)}
 .ct{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;font-weight:700;display:flex;align-items:center;gap:6px}
 .ct::before{content:'';width:3px;height:12px;border-radius:1px;background:var(--teal);display:block;flex-shrink:0}
 /* ─ NORMATIVA BANNER ────────────────────────────────────────────── */
-.norm{background:linear-gradient(135deg,rgba(0,245,212,.05),rgba(0,212,255,.03));border:1px solid rgba(0,245,212,.18);border-radius:9px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.norm{background:linear-gradient(135deg,rgba(11,92,255,.05),rgba(0,207,255,.03));border:1px solid rgba(11,92,255,.18);border-radius:9px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .ni{display:flex;flex-direction:column;align-items:center;gap:2px}
-.nv{font-family:'Orbitron',monospace;font-size:.92rem;font-weight:700;color:var(--teal)}
+.nv{font-family:'Space Grotesk',monospace;font-size:.92rem;font-weight:700;color:var(--teal)}
 .nl{font-size:.54rem;color:var(--tm);text-transform:uppercase;letter-spacing:.8px;text-align:center;line-height:1.4}
 .nsep{width:1px;height:36px;background:var(--bord)}
 /* ─ KPIs ─────────────────────────────────────────────────────────── */
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .kpi{background:var(--bg3);border:1px solid var(--bord);border-radius:9px;padding:12px 13px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
-.kpi:hover{border-color:var(--bh);box-shadow:0 0 16px rgba(0,245,212,.07)}
+.kpi:hover{border-color:var(--bh);box-shadow:0 0 16px rgba(11,92,255,.07)}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.5}
 .kp-l{font-size:.59rem;color:var(--tm);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
-.kp-v{font-family:'Orbitron',monospace;font-size:1.094rem;font-weight:700;line-height:1;color:var(--teal)}
+.kp-v{font-family:'Space Grotesk',monospace;font-size:1.094rem;font-weight:700;line-height:1;color:var(--teal)}
 .kp-v.g{color:var(--green)}.kp-v.r{color:var(--red)}.kp-v.a{color:var(--amber)}.kp-v.c{color:var(--cyan);font-size:.88rem}
-.kp-s{font-size:.59rem;color:var(--tm);margin-top:5px;font-family:'Share Tech Mono',monospace}
+.kp-s{font-size:.59rem;color:var(--tm);margin-top:5px;font-family:'JetBrains Mono',monospace}
 .kp-bar{height:2px;background:var(--bg4);border-radius:1px;margin-top:9px}
 .kp-f{height:2px;border-radius:1px}
 /* ─ GRIDS ─────────────────────────────────────────────────────────── */
@@ -68,7 +68,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 .hl{width:58px;font-size:.59rem;color:var(--tm);text-align:right;flex-shrink:0;line-height:1.3}
 .htr{flex:1;height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
 .hf{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.23,1,.32,1)}
-.hv{width:52px;font-family:'Share Tech Mono',monospace;font-size:.59rem;text-align:right;flex-shrink:0}
+.hv{width:52px;font-family:'JetBrains Mono',monospace;font-size:.59rem;text-align:right;flex-shrink:0}
 /* ─ GAUGES ─────────────────────────────────────────────────────────── */
 .grow{display:flex;justify-content:space-around;padding:6px 0}
 .gi{display:flex;flex-direction:column;align-items:center;gap:4px}
@@ -79,13 +79,13 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 .sb:hover{opacity:1}
 /* ─ TABLES ─────────────────────────────────────────────────────────── */
 .tbl{width:100%;border-collapse:collapse;font-size:.69rem}
-.tbl th{color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--bord);font-weight:400;text-align:left}
-.tbl td{padding:6px 8px;border-bottom:1px solid rgba(0,245,212,.04);color:var(--txt)}
+.tbl th{color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--bord);font-weight:400;text-align:left}
+.tbl td{padding:6px 8px;border-bottom:1px solid rgba(11,92,255,.04);color:var(--txt)}
 .tbl tr:last-child td{border-bottom:none}
-.tbl tr:hover td{background:rgba(0,245,212,.03);cursor:pointer}
+.tbl tr:hover td{background:rgba(11,92,255,.03);cursor:pointer}
 .badge{padding:2px 8px;border-radius:10px;font-size:.55rem;font-weight:600;border:1px solid;display:inline-block}
 .b-ok{color:var(--green);border-color:rgba(57,255,138,.35);background:rgba(57,255,138,.07)}
-.b-pend{color:var(--teal);border-color:rgba(0,245,212,.35);background:rgba(0,245,212,.07)}
+.b-pend{color:var(--teal);border-color:rgba(11,92,255,.35);background:rgba(11,92,255,.07)}
 .b-err{color:var(--red);border-color:rgba(255,51,102,.35);background:rgba(255,51,102,.07)}
 .b-apr{color:var(--amber);border-color:rgba(255,170,0,.35);background:rgba(255,170,0,.07)}
 /* ─ CAUSACION CARDS ─────────────────────────────────────────────────── */
@@ -93,114 +93,114 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 .mg{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:10px 0}
 .mg-i{background:var(--bg4);border-radius:6px;padding:8px;text-align:center}
 .mg-l{font-size:.52rem;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.mg-v{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--txt)}
+.mg-v{font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--txt)}
 /* ─ CALCULADORA ─────────────────────────────────────────────────────── */
 .calc-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.calc-input{background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 12px;color:var(--txt);font-family:'Share Tech Mono',monospace;font-size:.72rem;width:160px;outline:none;transition:border-color .2s}
+.calc-input{background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 12px;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:.72rem;width:160px;outline:none;transition:border-color .2s}
 .calc-input:focus{border-color:var(--teal)}
-.calc-select{background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;color:var(--txt);font-family:'Rajdhani',sans-serif;font-size:.76rem;outline:none;cursor:pointer;transition:border-color .2s}
+.calc-select{background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 10px;color:var(--txt);font-family:'Inter',sans-serif;font-size:.76rem;outline:none;cursor:pointer;transition:border-color .2s}
 .calc-select:focus{border-color:var(--teal)}
-.calc-result{background:rgba(0,245,212,.05);border:1px solid rgba(0,245,212,.2);border-radius:8px;padding:12px 16px;margin-top:8px}
-.cr-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(0,245,212,.06);font-size:.72rem}
+.calc-result{background:rgba(11,92,255,.05);border:1px solid rgba(11,92,255,.2);border-radius:8px;padding:12px 16px;margin-top:8px}
+.cr-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(11,92,255,.06);font-size:.72rem}
 .cr-row:last-child{border-bottom:none;padding-top:8px}
 .cr-label{color:var(--tm)}
-.cr-val{font-family:'Share Tech Mono',monospace;font-weight:700}
+.cr-val{font-family:'JetBrains Mono',monospace;font-weight:700}
 /* ─ BUTTONS ─────────────────────────────────────────────────────────── */
-.btn{padding:8px 18px;border-radius:6px;font-family:'Orbitron',monospace;font-size:.58rem;letter-spacing:1.5px;cursor:pointer;border:1px solid;transition:all .2s;text-transform:uppercase;font-weight:700}
-.btn-ok{background:linear-gradient(135deg,rgba(0,245,212,.18),rgba(0,245,212,.06));border-color:var(--teal);color:var(--teal)}
-.btn-ok:hover{box-shadow:0 0 16px rgba(0,245,212,.35);transform:translateY(-1px)}
+.btn{padding:8px 18px;border-radius:6px;font-family:'Space Grotesk',monospace;font-size:.58rem;letter-spacing:1.5px;cursor:pointer;border:1px solid;transition:all .2s;text-transform:uppercase;font-weight:700}
+.btn-ok{background:linear-gradient(135deg,rgba(11,92,255,.18),rgba(11,92,255,.06));border-color:var(--teal);color:var(--teal)}
+.btn-ok:hover{box-shadow:0 0 16px rgba(11,92,255,.35);transform:translateY(-1px)}
 .btn-ok:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
 .btn-rej{background:rgba(255,51,102,.07);border-color:rgba(255,51,102,.45);color:var(--red)}
 .btn-rej:hover{background:rgba(255,51,102,.18)}
-.btn-all{background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;color:#030c1a;font-weight:900}
-.btn-all:hover{box-shadow:0 0 22px rgba(0,245,212,.5);transform:translateY(-1px)}
-.btn-calc{background:linear-gradient(135deg,rgba(0,245,212,.22),rgba(0,212,255,.1));border-color:var(--teal);color:var(--teal)}
-.btn-calc:hover{box-shadow:0 0 14px rgba(0,245,212,.3)}
-.flash{display:none;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--green);padding:7px;background:rgba(57,255,138,.07);border:1px solid rgba(57,255,138,.22);border-radius:5px;margin-top:8px}
+.btn-all{background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;color:#060D1F;font-weight:900}
+.btn-all:hover{box-shadow:0 0 22px rgba(11,92,255,.5);transform:translateY(-1px)}
+.btn-calc{background:linear-gradient(135deg,rgba(11,92,255,.22),rgba(0,207,255,.1));border-color:var(--teal);color:var(--teal)}
+.btn-calc:hover{box-shadow:0 0 14px rgba(11,92,255,.3)}
+.flash{display:none;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);padding:7px;background:rgba(57,255,138,.07);border:1px solid rgba(57,255,138,.22);border-radius:5px;margin-top:8px}
 .flash.show{display:block}
 /* ─ MODAL ────────────────────────────────────────────────────────────── */
 .mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:300;align-items:center;justify-content:center}
 .mbg.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--bh);border-radius:12px;padding:20px;width:min(660px,96vw);max-height:92vh;overflow-y:auto}
 .mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--bord)}
-.mtitle{font-family:'Orbitron',monospace;font-size:.73rem;color:var(--teal);letter-spacing:1.5px}
+.mtitle{font-family:'Space Grotesk',monospace;font-size:.73rem;color:var(--teal);letter-spacing:1.5px}
 .xbtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--bord);background:var(--bg3);color:var(--tm);cursor:pointer;font-size:.73rem;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .xbtn:hover{color:var(--red);border-color:var(--red)}
 .atbl{width:100%;border-collapse:collapse;font-size:.68rem;margin:9px 0}
-.atbl th{color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.58rem;text-transform:uppercase;padding:5px 8px;border-bottom:1px solid var(--bord);font-weight:400;text-align:left}
-.atbl td{padding:6px 8px;border-bottom:1px solid rgba(0,245,212,.05);color:var(--txt)}
-.atbl tr.tot td{background:rgba(0,245,212,.07);font-weight:700;color:var(--teal)}
-.cuadre{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--green);text-align:center;padding:8px;background:rgba(57,255,138,.06);border-radius:5px;border:1px solid rgba(57,255,138,.2);margin-top:8px}
+.atbl th{color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;padding:5px 8px;border-bottom:1px solid var(--bord);font-weight:400;text-align:left}
+.atbl td{padding:6px 8px;border-bottom:1px solid rgba(11,92,255,.05);color:var(--txt)}
+.atbl tr.tot td{background:rgba(11,92,255,.07);font-weight:700;color:var(--teal)}
+.cuadre{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--green);text-align:center;padding:8px;background:rgba(57,255,138,.06);border-radius:5px;border:1px solid rgba(57,255,138,.2);margin-top:8px}
 /* ─ TARIFA ROWS ──────────────────────────────────────────────────────── */
-.trow{display:grid;grid-template-columns:85px 54px 148px 1fr;gap:7px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(0,245,212,.05)}
+.trow{display:grid;grid-template-columns:85px 54px 148px 1fr;gap:7px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(11,92,255,.05)}
 .trow:last-child{border-bottom:none}
-.tr-c{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--amber)}
-.tr-p{font-family:'Orbitron',monospace;font-size:.73rem;font-weight:700;color:var(--teal)}
+.tr-c{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--amber)}
+.tr-p{font-family:'Space Grotesk',monospace;font-size:.73rem;font-weight:700;color:var(--teal)}
 .tr-b{font-size:.63rem;color:var(--tm)}
 .tr-d{font-size:.63rem;color:var(--txt)}
 .ctag{display:inline-block;padding:1px 6px;border-radius:8px;font-size:.52rem;font-weight:700;margin-left:4px;vertical-align:middle}
 .ct-d{background:rgba(255,51,102,.1);color:var(--red);border:1px solid rgba(255,51,102,.3)}
 /* ─ AUDITORÍA MODAL ──────────────────────────────────────────────── */
 .aud-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--teal)}
-.aud-title{font-family:'Orbitron',monospace;font-size:.9rem;color:var(--teal);letter-spacing:2px;line-height:1.4}
-.aud-subtitle{font-size:.65rem;color:var(--tm);margin-top:4px;font-family:'Share Tech Mono',monospace}
+.aud-title{font-family:'Space Grotesk',monospace;font-size:.9rem;color:var(--teal);letter-spacing:2px;line-height:1.4}
+.aud-subtitle{font-size:.65rem;color:var(--tm);margin-top:4px;font-family:'JetBrains Mono',monospace}
 .aud-kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:18px}
 .aud-kpi{background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:12px;text-align:center;position:relative;overflow:hidden}
 .aud-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.6}
-.aud-kv{font-family:'Orbitron',monospace;font-size:0.919rem;font-weight:700;color:var(--teal);line-height:1;margin-bottom:5px}
+.aud-kv{font-family:'Space Grotesk',monospace;font-size:0.919rem;font-weight:700;color:var(--teal);line-height:1;margin-bottom:5px}
 .aud-kv.g{color:var(--green)}.aud-kv.a{color:var(--amber)}.aud-kv.r{color:var(--red)}.aud-kv.c{color:var(--cyan)}
 .aud-kl{font-size:.56rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px}
 .aud-section{margin-bottom:16px}
-.aud-sec-title{font-family:'Orbitron',monospace;font-size:.68rem;color:var(--teal);letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:6px}
+.aud-sec-title{font-family:'Space Grotesk',monospace;font-size:.68rem;color:var(--teal);letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:6px}
 .aud-sec-title::before{content:'';width:3px;height:12px;border-radius:1px;background:var(--teal);display:block}
 .aud-tbl{width:100%;border-collapse:collapse;font-size:.68rem}
-.aud-tbl th{color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--bord);background:var(--bg4);font-weight:400;text-align:left}
-.aud-tbl td{padding:6px 8px;border-bottom:1px solid rgba(0,245,212,.05);font-size:.68rem}
+.aud-tbl th{color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--bord);background:var(--bg4);font-weight:400;text-align:left}
+.aud-tbl td{padding:6px 8px;border-bottom:1px solid rgba(11,92,255,.05);font-size:.68rem}
 .aud-tbl tr:last-child td{border-bottom:none}
-.aud-tbl tr.subtotal td{background:rgba(0,245,212,.05);font-weight:700;color:var(--teal);border-top:1px solid rgba(0,245,212,.15)}
-.aud-tbl tr:hover td{background:rgba(0,245,212,.03)}
+.aud-tbl tr.subtotal td{background:rgba(11,92,255,.05);font-weight:700;color:var(--teal);border-top:1px solid rgba(11,92,255,.15)}
+.aud-tbl tr:hover td{background:rgba(11,92,255,.03)}
 .aud-erp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}
 .aud-erp-card{background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:12px 14px}
-.aud-erp-name{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;margin-bottom:8px}
-.aud-erp-row2{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:.65rem;border-bottom:1px solid rgba(0,245,212,.05)}
+.aud-erp-name{font-family:'Space Grotesk',monospace;font-size:.72rem;font-weight:700;margin-bottom:8px}
+.aud-erp-row2{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:.65rem;border-bottom:1px solid rgba(11,92,255,.05)}
 .aud-erp-row2:last-child{border-bottom:none}
 .aud-erp-lbl{color:var(--tm)}
-.aud-erp-val{font-family:'Share Tech Mono',monospace}
+.aud-erp-val{font-family:'JetBrains Mono',monospace}
 .aud-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--bord);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.aud-legal{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--td);line-height:1.8}
-.btn-print{background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;color:#030c1a;font-family:'Orbitron',monospace;font-size:.58rem;letter-spacing:1.5px;cursor:pointer;border-radius:6px;padding:8px 18px;font-weight:900;transition:all .2s}
-.btn-print:hover{box-shadow:0 0 18px rgba(0,245,212,.45);transform:translateY(-1px)}
-.no-items{text-align:center;padding:40px;color:var(--tm);font-family:'Share Tech Mono',monospace;font-size:.72rem}
+.aud-legal{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--td);line-height:1.8}
+.btn-print{background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;color:#060D1F;font-family:'Space Grotesk',monospace;font-size:.58rem;letter-spacing:1.5px;cursor:pointer;border-radius:6px;padding:8px 18px;font-weight:900;transition:all .2s}
+.btn-print:hover{box-shadow:0 0 18px rgba(11,92,255,.45);transform:translateY(-1px)}
+.no-items{text-align:center;padding:40px;color:var(--tm);font-family:'JetBrains Mono',monospace;font-size:.72rem}
 /* ─ LOGIN ────────────────────────────────────────────────────────────── */
 #login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
 .login-box{background:var(--bg2);border:1px solid var(--bh);border-radius:14px;padding:36px 40px;width:min(400px,94vw);display:flex;flex-direction:column;align-items:center;gap:0}
 .login-hex{margin-bottom:20px}
-.login-title{font-family:'Orbitron',monospace;font-size:0.875rem;color:var(--teal);letter-spacing:2.5px;margin-bottom:4px;text-align:center}
-.login-sub{font-size:.62rem;color:var(--tm);text-align:center;margin-bottom:28px;font-family:'Share Tech Mono',monospace}
+.login-title{font-family:'Space Grotesk',monospace;font-size:0.875rem;color:var(--teal);letter-spacing:2.5px;margin-bottom:4px;text-align:center}
+.login-sub{font-size:.62rem;color:var(--tm);text-align:center;margin-bottom:28px;font-family:'JetBrains Mono',monospace}
 .login-field{width:100%;margin-bottom:14px}
-.login-label{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:block;font-family:'Share Tech Mono',monospace}
-.login-input{width:100%;background:var(--bg4);border:1px solid var(--bord);border-radius:7px;padding:10px 14px;color:var(--txt);font-family:'Share Tech Mono',monospace;font-size:.76rem;outline:none;transition:border-color .2s}
-.login-input:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(0,245,212,.1)}
-.login-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;border-radius:7px;color:#030c1a;font-family:'Orbitron',monospace;font-size:.65rem;letter-spacing:2px;font-weight:900;cursor:pointer;margin-top:8px;transition:all .2s}
-.login-btn:hover{box-shadow:0 0 24px rgba(0,245,212,.4);transform:translateY(-1px)}
-.login-error{color:var(--red);font-family:'Share Tech Mono',monospace;font-size:.62rem;text-align:center;margin-top:8px;display:none}
+.login-label{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:block;font-family:'JetBrains Mono',monospace}
+.login-input{width:100%;background:var(--bg4);border:1px solid var(--bord);border-radius:7px;padding:10px 14px;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:.76rem;outline:none;transition:border-color .2s}
+.login-input:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(11,92,255,.1)}
+.login-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--teal),var(--cyan));border:none;border-radius:7px;color:#060D1F;font-family:'Space Grotesk',monospace;font-size:.65rem;letter-spacing:2px;font-weight:900;cursor:pointer;margin-top:8px;transition:all .2s}
+.login-btn:hover{box-shadow:0 0 24px rgba(11,92,255,.4);transform:translateY(-1px)}
+.login-error{color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.62rem;text-align:center;margin-top:8px;display:none}
 .login-error.show{display:block}
-.login-footer{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--td);text-align:center;margin-top:20px;line-height:1.8}
+.login-footer{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--td);text-align:center;margin-top:20px;line-height:1.8}
 /* ─ USER BADGE ──────────────────────────────────────────────────────────── */
-.user-badge{display:flex;align-items:center;gap:7px;font-family:'Share Tech Mono',monospace;font-size:.61rem;color:var(--teal);cursor:pointer;padding:4px 10px;border-radius:20px;border:1px solid rgba(0,245,212,.2);background:rgba(0,245,212,.05);transition:all .2s}
+.user-badge{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:.61rem;color:var(--teal);cursor:pointer;padding:4px 10px;border-radius:20px;border:1px solid rgba(11,92,255,.2);background:rgba(11,92,255,.05);transition:all .2s}
 .user-badge:hover{border-color:var(--red);color:var(--red)}
 /* ─ NOTIFICACIONES ──────────────────────────────────────────────────────── */
 .notif-form{display:flex;flex-direction:column;gap:10px}
 .notif-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.notif-label{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;width:120px;flex-shrink:0;font-family:'Share Tech Mono',monospace}
-.notif-input{flex:1;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 12px;color:var(--txt);font-family:'Share Tech Mono',monospace;font-size:.72rem;outline:none;transition:border-color .2s;min-width:200px}
+.notif-label{font-size:.62rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;width:120px;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.notif-input{flex:1;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:7px 12px;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:.72rem;outline:none;transition:border-color .2s;min-width:200px}
 .notif-input:focus{border-color:var(--teal)}
 .notif-toggle{display:flex;align-items:center;gap:8px}
 .toggle-track{width:38px;height:20px;border-radius:10px;background:var(--bg4);border:1px solid var(--bord);position:relative;cursor:pointer;transition:background .2s}
-.toggle-track.on{background:rgba(0,245,212,.3);border-color:var(--teal)}
+.toggle-track.on{background:rgba(11,92,255,.3);border-color:var(--teal)}
 .toggle-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--tm);transition:all .2s}
 .toggle-track.on .toggle-thumb{left:20px;background:var(--teal)}
-.notif-status{font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:5px 10px;border-radius:5px;display:none}
+.notif-status{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:5px 10px;border-radius:5px;display:none}
 .notif-status.ok{background:rgba(57,255,138,.08);border:1px solid rgba(57,255,138,.2);color:var(--green);display:block}
 .notif-status.err{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.2);color:var(--red);display:block}
 /* ─ EXCEL EXPORT ────────────────────────────────────────────────────────── */
@@ -208,12 +208,12 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 .btn-xl:hover{box-shadow:0 0 16px rgba(57,255,138,.35);transform:translateY(-1px)}
 /* ─ IMAP CONFIG ─────────────────────────────────────────────────────────── */
 .imap-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.imap-test-result{font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:8px 12px;border-radius:6px;display:none;margin-top:4px}
+.imap-test-result{font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:8px 12px;border-radius:6px;display:none;margin-top:4px}
 .itr-ok{background:rgba(57,255,138,.08);border:1px solid rgba(57,255,138,.2);color:var(--green);display:block}
 .itr-err{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.2);color:var(--red);display:block}
-.itr-load{background:rgba(0,245,212,.08);border:1px solid rgba(0,245,212,.2);color:var(--teal);display:block}
+.itr-load{background:rgba(11,92,255,.08);border:1px solid rgba(11,92,255,.2);color:var(--teal);display:block}
 /* ─ FOOTER ───────────────────────────────────────────────────────────────── */
-.footer{text-align:center;padding:16px 20px 10px;margin-top:24px;border-top:1px solid rgba(0,245,212,.08);font-family:'Share Tech Mono',monospace;font-size:.59rem;color:#1a3a55;line-height:2.2}
+.footer{text-align:center;padding:16px 20px 10px;margin-top:24px;border-top:1px solid rgba(11,92,255,.08);font-family:'JetBrains Mono',monospace;font-size:.59rem;color:#1A2E55;line-height:2.2}
 /* ─ PRINT ─────────────────────────────────────────────────────────────────── */
 @media print{
   body,html{background:#fff!important;color:#000!important}
@@ -226,6 +226,104 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
   .xbtn{display:none!important}
 }
 </style>
+
+<!-- NEXCORE IA BRAND OVERRIDE -->
+<style id="nexcore-brand">
+/* ── Nexcore IA Corporate Colors ── */
+:root{
+  --bg:#060D1F!important;--bg2:#0A1428!important;--bg3:#0D1B35!important;--bg4:#112040!important;
+  --blue:#0B5CFF;--b2:#0044CC;--bc:rgba(11,92,255,.12);
+  --teal:#0B5CFF!important;--t2:#0044CC!important;--tc:rgba(11,92,255,.1)!important;
+  --cyan:#00CFFF!important;--c2:#00A8D4!important;
+  --orange:#FF6B00;--o2:#E55A00;
+  --txt:#E8F0FF!important;--tm:#5A7AAA!important;--td:#1A2E55!important;
+  --bord:rgba(11,92,255,.18)!important;--bh:rgba(11,92,255,.42)!important;
+}
+body{background:#060D1F!important}
+
+/* ── Logo gradient accent ── */
+.uvt-pill,.udot,.pdot{background:linear-gradient(135deg,#0B5CFF,#FF6B00)!important;-webkit-background-clip:text!important;color:transparent!important}
+.udot,.pdot{background:#0B5CFF!important;color:transparent!important;-webkit-background-clip:unset!important}
+
+/* ── Brand text gradient ── */
+.brand,.brand-s,.kp-v,.nv{
+  background:linear-gradient(90deg,#0B5CFF,#00CFFF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.kp-v.g{background:linear-gradient(90deg,#00E5A0,#0B5CFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.kp-v.a{background:linear-gradient(90deg,#FF6B00,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.kp-v.r{-webkit-text-fill-color:#FF3355!important}
+
+/* ── Tabs active ── */
+.tab.on{color:#0B5CFF!important;border-bottom-color:#0B5CFF!important}
+.tab:hover{color:#00CFFF!important}
+
+/* ── Buttons gradient Nexcore ── */
+.btn-all,.login-btn{
+  background:linear-gradient(135deg,#0B5CFF,#FF6B00)!important;
+  border:none!important;color:#fff!important;font-weight:700!important;
+}
+.btn-all:hover,.login-btn:hover{
+  box-shadow:0 0 24px rgba(11,92,255,.5)!important;
+}
+.btn-ok{border-color:#0B5CFF!important;color:#0B5CFF!important}
+.btn-ok:hover{box-shadow:0 0 16px rgba(11,92,255,.4)!important}
+
+/* ── KPI top bar gradient ── */
+.kpi::before{
+  background:linear-gradient(90deg,transparent,#0B5CFF,#FF6B00,transparent)!important;
+  opacity:.7!important;
+}
+
+/* ── Normativa banner ── */
+.norm{
+  background:linear-gradient(135deg,rgba(11,92,255,.06),rgba(255,107,0,.04))!important;
+  border-color:rgba(11,92,255,.25)!important;
+}
+
+/* ── Cards hover ── */
+.card:hover,.ccard:hover{border-color:rgba(11,92,255,.35)!important}
+
+/* ── Header border ── */
+.hdr{border-bottom-color:rgba(11,92,255,.2)!important}
+
+/* ── Pulse animation color ── */
+.udot{background:#0B5CFF!important}
+
+/* ── User badge ── */
+.user-badge{border-color:rgba(11,92,255,.3)!important;color:#00CFFF!important}
+
+/* ── Footer ── */
+.footer{border-top-color:rgba(11,92,255,.1)!important}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar-thumb{background:rgba(11,92,255,.4)!important}
+
+/* ── Login box ── */
+.login-box{border-color:rgba(11,92,255,.45)!important;box-shadow:0 0 40px rgba(11,92,255,.12)!important}
+.login-input:focus{border-color:#0B5CFF!important;box-shadow:0 0 0 2px rgba(11,92,255,.15)!important}
+
+/* ── UVT pill ── */
+.uvt-pill{
+  background:rgba(11,92,255,.08)!important;
+  border-color:rgba(11,92,255,.28)!important;
+  color:#00CFFF!important;
+}
+
+/* ── Badges OK ── */
+.b-ok{color:#00E5A0!important;border-color:rgba(0,229,160,.35)!important;background:rgba(0,229,160,.07)!important}
+.b-pend{color:#0B5CFF!important;border-color:rgba(11,92,255,.35)!important;background:rgba(11,92,255,.07)!important}
+
+/* ── Sparkline accent ── */
+.hf,.kp-f{background:linear-gradient(90deg,#0B5CFF,#00CFFF)!important}
+
+/* ── Section title marker ── */
+.ct::before{background:#0B5CFF!important}
+.aud-sec-title::before{background:#0B5CFF!important}
+
+/* ── Modal border ── */
+.modal{border-color:rgba(11,92,255,.42)!important}
+</style>
 </head>
 <body>
 
@@ -233,14 +331,25 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 <div id="login-screen">
   <div class="login-box">
     <div class="login-hex">
-      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-        <polygon points="26,3 45,14 45,38 26,49 7,38 7,14" fill="rgba(0,245,212,.07)" stroke="rgba(0,245,212,.5)" stroke-width="1.2"/>
-        <polygon points="26,9 39,17 39,35 26,43 13,35 13,17" fill="rgba(0,212,255,.07)" stroke="rgba(0,212,255,.35)" stroke-width="1"/>
-        <circle cx="26" cy="26" r="6" fill="var(--teal)" opacity=".9"/>
-      </svg>
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+  <defs>
+    <linearGradient id="ll1" x1="0" y1="0" x2="72" y2="72"><stop offset="0%" stop-color="#0B5CFF"/><stop offset="100%" stop-color="#FF6B00"/></linearGradient>
+    <linearGradient id="ll2" x1="0" y1="72" x2="72" y2="0"><stop offset="0%" stop-color="#00CFFF"/><stop offset="100%" stop-color="#FF6B00"/></linearGradient>
+    <radialGradient id="ll3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF6B00" stop-opacity=".3"/><stop offset="100%" stop-color="#0B5CFF" stop-opacity=".05"/></radialGradient>
+  </defs>
+  <circle cx="36" cy="36" r="34" fill="rgba(11,92,255,.07)" stroke="url(#ll1)" stroke-width="1.5"/>
+  <circle cx="36" cy="36" r="26" fill="url(#ll3)"/>
+  <path d="M12 36 Q36 8 60 36 Q36 64 12 36Z" fill="none" stroke="url(#ll2)" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="36" cy="36" r="7" fill="url(#ll1)"/>
+  <circle cx="14" cy="36" r="3.5" fill="#0B5CFF" opacity=".9"/>
+  <circle cx="58" cy="36" r="3.5" fill="#FF6B00" opacity=".9"/>
+  <path d="M20 28 L36 20 L52 28" stroke="#00CFFF" stroke-width=".8" stroke-opacity=".4" fill="none"/>
+  <path d="M20 44 L36 52 L52 44" stroke="#FF6B00" stroke-width=".8" stroke-opacity=".4" fill="none"/>
+</svg>
     </div>
-    <div class="login-title">CONTABLE IA</div>
-    <div class="login-sub">COLOMBIA 2026 · UVT $52.374 · Ing. Julián Arias</div>
+    <div class="login-title" style="background:linear-gradient(90deg,#0B5CFF,#FF6B00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.1rem;letter-spacing:3px">NEXCORE IA</div>
+    <div style="font-size:.58rem;color:#5A7AAA;letter-spacing:1.5px;margin-bottom:4px;font-family:'JetBrains Mono',monospace">INTELIGENCIA QUE IMPULSA DECISIONES</div>
+    <div class="login-sub">COLOMBIA 2026 · UVT $52.374 · Nexcore IA · Ing. Julián Arias</div>
     <div class="login-field">
       <label class="login-label">Usuario</label>
       <input class="login-input" id="lu" type="text" placeholder="usuario@empresa.com" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('lp').focus()">
@@ -252,7 +361,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
     <button class="login-btn" onclick="doLogin()">INGRESAR AL SISTEMA</button>
     <div class="login-error" id="loginErr">Usuario o contraseña incorrectos</div>
     <div class="login-footer">
-      Copyright &copy; 2025-2026 Ing. Julián Arias<br>
+      Copyright &copy; 2025-2026 Nexcore IA · Ing. Julián Arias<br>
       Demo: usuario <strong style="color:var(--teal)">admin</strong> · clave <strong style="color:var(--teal)">contable2026</strong>
     </div>
   </div>
@@ -262,13 +371,20 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 <div class="hdr">
   <div class="logo">
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
-      <polygon points="17,2 29,9.5 29,24.5 17,32 5,24.5 5,9.5" fill="rgba(0,245,212,.07)" stroke="rgba(0,245,212,.5)" stroke-width="1"/>
-      <polygon points="17,6.5 25,11.5 25,22.5 17,27.5 9,22.5 9,11.5" fill="rgba(0,212,255,.07)" stroke="rgba(0,212,255,.35)" stroke-width="1"/>
-      <circle cx="17" cy="17" r="4" fill="var(--teal)" opacity=".9"/>
-      <line x1="17" y1="2" x2="17" y2="10" stroke="var(--teal)" stroke-width=".7" opacity=".5"/>
-      <line x1="17" y1="24" x2="17" y2="32" stroke="var(--teal)" stroke-width=".7" opacity=".5"/>
-    </svg>
-    <div><div class="brand">CONTABLE IA</div><div class="brand-s">DIAN · UBL 2.1 · COLOMBIA 2026</div></div>
+  <defs>
+    <linearGradient id="ng1" x1="0" y1="0" x2="34" y2="34"><stop offset="0%" stop-color="#0B5CFF"/><stop offset="100%" stop-color="#FF6B00"/></linearGradient>
+    <linearGradient id="ng2" x1="0" y1="34" x2="34" y2="0"><stop offset="0%" stop-color="#00CFFF"/><stop offset="100%" stop-color="#FF6B00"/></linearGradient>
+  </defs>
+  <circle cx="17" cy="17" r="15.5" fill="rgba(11,92,255,.07)" stroke="url(#ng1)" stroke-width="1"/>
+  <path d="M7 17 Q17 5 27 17 Q17 29 7 17Z" fill="none" stroke="url(#ng2)" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="17" cy="17" r="3.5" fill="url(#ng1)"/>
+  <circle cx="8" cy="17" r="1.8" fill="#0B5CFF" opacity=".9"/>
+  <circle cx="26" cy="17" r="1.8" fill="#FF6B00" opacity=".9"/>
+</svg>
+    <div>
+    <div class="brand" style="background:linear-gradient(90deg,#0B5CFF,#FF6B00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:.85rem;letter-spacing:2.5px">NEXCORE IA</div>
+    <div class="brand-s" style="color:#5A7AAA;letter-spacing:1.5px">SOFTWARE · ANALÍTICA · AUTOMATIZACIÓN</div>
+  </div>
   </div>
   <div class="uvt-pill"><div class="udot"></div>UVT 2026 &nbsp;<strong>$52.374</strong>&nbsp;·&nbsp;Res. DIAN 000238/2025</div>
   <div class="pills">
@@ -308,7 +424,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
     <div class="nsep"></div>
     <div class="ni"><div class="nv">11%</div><div class="nl">Honorarios<br>Sin base mín.</div></div>
     <div class="nsep"></div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--tm);text-align:right;line-height:1.9">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.54rem;color:var(--tm);text-align:right;line-height:1.9">
       Decreto 0572 · 28-may-2025<br>Res. DIAN 000238 · 15-dic-2025<br>Acuerdo 816/2021 Bogotá D.C.
     </div>
   </div>
@@ -327,21 +443,21 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
       <div style="display:flex;align-items:center;gap:12px">
         <canvas id="dnC" width="105" height="105" style="flex-shrink:0"></canvas>
         <div style="display:flex;flex-direction:column;gap:8px;flex:1;font-size:.7rem">
-          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--teal);display:inline-block"></span><span style="flex:1;color:var(--tm)">Siigo</span><span style="font-family:'Share Tech Mono',monospace;font-size:.62rem">3 · 50%</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--green);display:inline-block"></span><span style="flex:1;color:var(--tm)">Helisa</span><span style="font-family:'Share Tech Mono',monospace;font-size:.62rem">2 · 33%</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--cyan);display:inline-block"></span><span style="flex:1;color:var(--tm)">Siesa</span><span style="font-family:'Share Tech Mono',monospace;font-size:.62rem">1 · 17%</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--teal);display:inline-block"></span><span style="flex:1;color:var(--tm)">Siigo</span><span style="font-family:'JetBrains Mono',monospace;font-size:.62rem">3 · 50%</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--green);display:inline-block"></span><span style="flex:1;color:var(--tm)">Helisa</span><span style="font-family:'JetBrains Mono',monospace;font-size:.62rem">2 · 33%</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:2px;background:var(--cyan);display:inline-block"></span><span style="flex:1;color:var(--tm)">Siesa</span><span style="font-family:'JetBrains Mono',monospace;font-size:.62rem">1 · 17%</span></div>
           <div style="margin-top:5px;padding-top:7px;border-top:1px solid var(--bord)">
-            <div style="font-size:.58rem;color:var(--amber);font-family:'Share Tech Mono',monospace">Retefuente: $459.500</div>
-            <div style="font-size:.58rem;color:var(--green);font-family:'Share Tech Mono',monospace">ReteICA: $14.490</div>
+            <div style="font-size:.58rem;color:var(--amber);font-family:'JetBrains Mono',monospace">Retefuente: $459.500</div>
+            <div style="font-size:.58rem;color:var(--green);font-family:'JetBrains Mono',monospace">ReteICA: $14.490</div>
           </div>
         </div>
       </div>
     </div>
     <div class="card"><div class="ct">Estado ERPs</div>
       <div class="grow">
-        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--teal)" stroke-width="5" stroke-dasharray="83 55" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="var(--teal)">60%</text></svg><div class="gl">Siigo</div></div>
-        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--green)" stroke-width="5" stroke-dasharray="69 69" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="var(--green)">50%</text></svg><div class="gl">Helisa</div></div>
-        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--cyan)" stroke-width="5" stroke-dasharray="28 110" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="var(--cyan)">20%</text></svg><div class="gl">Siesa</div></div>
+        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--teal)" stroke-width="5" stroke-dasharray="83 55" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Space Grotesk,monospace" font-size="10" font-weight="700" fill="var(--teal)">60%</text></svg><div class="gl">Siigo</div></div>
+        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--green)" stroke-width="5" stroke-dasharray="69 69" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Space Grotesk,monospace" font-size="10" font-weight="700" fill="var(--green)">50%</text></svg><div class="gl">Helisa</div></div>
+        <div class="gi"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="28" cy="28" r="22" fill="none" stroke="var(--cyan)" stroke-width="5" stroke-dasharray="28 110" stroke-linecap="round" transform="rotate(-90 28 28)"/><text x="28" y="33" text-anchor="middle" font-family="Space Grotesk,monospace" font-size="10" font-weight="700" fill="var(--cyan)">20%</text></svg><div class="gl">Siesa</div></div>
       </div>
     </div>
   </div>
@@ -358,9 +474,9 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
     <div class="card"><div class="ct">Acumulado Semanal</div><div class="ch"><canvas id="areaC" height="115"></canvas></div></div>
     <div class="card"><div class="ct">Analytics</div>
       <div style="display:flex;flex-direction:column;gap:13px">
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">Base gravable</span><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--teal)">31.5%</span></div><div class="spk" id="sp1"></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">Retefuente</span><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--green)">75.9%</span></div><div class="spk" id="sp2"></div></div>
-        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">ReteICA</span><span style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--cyan)">55.7%</span></div><div class="spk" id="sp3"></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">Base gravable</span><span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--teal)">31.5%</span></div><div class="spk" id="sp1"></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">Retefuente</span><span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--green)">75.9%</span></div><div class="spk" id="sp2"></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:.57rem;color:var(--tm)">ReteICA</span><span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--cyan)">55.7%</span></div><div class="spk" id="sp3"></div></div>
       </div>
     </div>
   </div>
@@ -369,7 +485,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 <!-- ══ CAUSACIONES ══ -->
 <div id="tab-caus" class="wrap" style="display:none">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-    <div style="font-family:'Orbitron',monospace;font-size:.72rem;color:var(--teal);letter-spacing:1px">CAUSACIONES PENDIENTES — UVT $52.374 · 2026</div>
+    <div style="font-family:'Space Grotesk',monospace;font-size:.72rem;color:var(--teal);letter-spacing:1px">CAUSACIONES PENDIENTES — UVT $52.374 · 2026</div>
     <button class="btn btn-all" onclick="aprobarTodo()">⚡ APROBAR TODAS</button>
   </div>
   <div id="causGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
@@ -381,7 +497,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
     <div class="card">
       <div class="ct">Calculadora de Retenciones 2026</div>
-      <div style="font-size:.62rem;color:var(--amber);margin-bottom:14px;font-family:'Share Tech Mono',monospace">UVT $52.374 · Decreto 0572/2025 · Acuerdo 816/2021</div>
+      <div style="font-size:.62rem;color:var(--amber);margin-bottom:14px;font-family:'JetBrains Mono',monospace">UVT $52.374 · Decreto 0572/2025 · Acuerdo 816/2021</div>
       <div class="calc-row">
         <div>
           <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Base Gravable (sin IVA)</div>
@@ -429,8 +545,8 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
         <div class="cr-row"><span class="cr-label">IVA descontable</span><span class="cr-val" id="rIva" style="color:var(--cyan)">—</span></div>
         <div class="cr-row"><span class="cr-label">Retefuente</span><span class="cr-val" id="rRete" style="color:var(--amber)">—</span></div>
         <div class="cr-row"><span class="cr-label">ReteICA Bogotá</span><span class="cr-val" id="rIca" style="color:var(--amber)">—</span></div>
-        <div class="cr-row" style="border-top:1px solid rgba(0,245,212,.15);margin-top:4px"><span class="cr-label" style="font-weight:700;color:var(--txt)">✓ Neto a pagar</span><span class="cr-val" id="rNeto" style="color:var(--green);font-size:.85rem;font-family:'Orbitron',monospace">—</span></div>
-        <div style="font-size:.58rem;color:var(--td);margin-top:6px;font-family:'Share Tech Mono',monospace" id="rNota"></div>
+        <div class="cr-row" style="border-top:1px solid rgba(11,92,255,.15);margin-top:4px"><span class="cr-label" style="font-weight:700;color:var(--txt)">✓ Neto a pagar</span><span class="cr-val" id="rNeto" style="color:var(--green);font-size:.85rem;font-family:'Space Grotesk',monospace">—</span></div>
+        <div style="font-size:.58rem;color:var(--td);margin-top:6px;font-family:'JetBrains Mono',monospace" id="rNota"></div>
       </div>
     </div>
     <div>
@@ -439,26 +555,26 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
         <table class="tbl">
           <thead><tr><th>Concepto</th><th>UVTs</th><th>Valor 2026</th><th>Valor 2025</th><th>Cambio</th></tr></thead>
           <tbody>
-            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">COM</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">10 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$523.740</td><td style="color:var(--tm);font-size:.62rem">$1.344.573</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
-            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
-            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER_LI</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
-            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">PUB</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
-            <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">HON/CON/ARR</td><td style="font-family:'Share Tech Mono',monospace;color:var(--tm)">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td><span class="badge b-pend">Igual</span></td></tr>
+            <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">COM</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal)">10 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green)">$523.740</td><td style="color:var(--tm);font-size:.62rem">$1.344.573</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">SER</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">SER_LI</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">PUB</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal)">2 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green)">$104.748</td><td style="color:var(--tm);font-size:.62rem">$199.196</td><td><span class="badge b-ok">▼ Baja</span></td></tr>
+            <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">HON/CON/ARR</td><td style="font-family:'JetBrains Mono',monospace;color:var(--tm)">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td><span class="badge b-pend">Igual</span></td></tr>
           </tbody>
         </table>
       </div>
       <div class="card">
         <div class="ct">ReteICA Bogotá D.C. — Tarifas 2026</div>
-        <div style="font-size:.58rem;color:var(--tm);margin-bottom:9px;font-family:'Share Tech Mono',monospace">Acuerdo 816/2021 · Base mín. 2 UVT = $104.748 (Decreto 0572/2025)</div>
+        <div style="font-size:.58rem;color:var(--tm);margin-bottom:9px;font-family:'JetBrains Mono',monospace">Acuerdo 816/2021 · Base mín. 2 UVT = $104.748 (Decreto 0572/2025)</div>
         <table class="tbl">
           <thead><tr><th>Actividad Económica</th><th>Tarifa ‰</th><th>Base mín.</th></tr></thead>
           <tbody>
-            <tr><td>Servicios en general</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">9.66‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
-            <tr><td>Consultoría profesional (libre)</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">8.66‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
-            <tr><td>Actividades industriales</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">4.14‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
-            <tr><td>Actividades comerciales</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">4.14‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
-            <tr><td>Servicios financieros</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">14.00‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
-            <tr><td>Transporte carga/pasajeros</td><td style="font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">3.50‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Servicios en general</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">9.66‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Consultoría profesional (libre)</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">8.66‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Actividades industriales</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">4.14‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Actividades comerciales</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">4.14‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Servicios financieros</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">14.00‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
+            <tr><td>Transporte carga/pasajeros</td><td style="font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">3.50‰</td><td style="font-size:.62rem;color:var(--tm)">$104.748</td></tr>
             <tr><td style="color:var(--tm)">Gran Contribuyente (GC)</td><td style="color:var(--td)">—</td><td style="font-size:.62rem;color:var(--td)">Autoagente, no aplica</td></tr>
             <tr><td style="color:var(--tm)">Régimen Simple (RS)</td><td style="color:var(--td)">—</td><td style="font-size:.62rem;color:var(--td)">Exento, no aplica</td></tr>
           </tbody>
@@ -473,35 +589,35 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
     <div class="card">
       <div class="ct">Tabla Retefuente Completa — Año Gravable 2026</div>
-      <div style="font-size:.59rem;color:var(--amber);margin-bottom:10px;font-family:'Share Tech Mono',monospace">UVT $52.374 · Decreto 0572/2025 · Res. DIAN 000238/2025</div>
+      <div style="font-size:.59rem;color:var(--amber);margin-bottom:10px;font-family:'JetBrains Mono',monospace">UVT $52.374 · Decreto 0572/2025 · Res. DIAN 000238/2025</div>
       <div style="display:grid;grid-template-columns:85px 54px 148px 1fr;gap:6px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--bord)">
-        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Concepto</div>
-        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Tarifa</div>
-        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Base Mínima</div>
-        <div style="font-size:.56rem;color:var(--teal);font-family:'Share Tech Mono',monospace;text-transform:uppercase">Descripción</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'JetBrains Mono',monospace;text-transform:uppercase">Concepto</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'JetBrains Mono',monospace;text-transform:uppercase">Tarifa</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'JetBrains Mono',monospace;text-transform:uppercase">Base Mínima</div>
+        <div style="font-size:.56rem;color:var(--teal);font-family:'JetBrains Mono',monospace;text-transform:uppercase">Descripción</div>
       </div>
       <div id="tarifaRows"></div>
     </div>
     <div class="card">
       <div class="ct">Resumen de Cambios 2025 → 2026</div>
       <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:14px">
-        <div style="background:var(--bg4);border-radius:7px;padding:10px;text-align:center"><div style="font-size:.57rem;color:var(--tm);margin-bottom:4px">UVT 2025</div><div style="font-family:'Orbitron',monospace;font-size:.9rem;color:var(--tm)">$49.799</div></div>
+        <div style="background:var(--bg4);border-radius:7px;padding:10px;text-align:center"><div style="font-size:.57rem;color:var(--tm);margin-bottom:4px">UVT 2025</div><div style="font-family:'Space Grotesk',monospace;font-size:.9rem;color:var(--tm)">$49.799</div></div>
         <div style="font-size:1.05rem;color:var(--teal);text-align:center">→</div>
-        <div style="background:rgba(0,245,212,.08);border:1px solid rgba(0,245,212,.2);border-radius:7px;padding:10px;text-align:center"><div style="font-size:.57rem;color:var(--teal);margin-bottom:4px">UVT 2026</div><div style="font-family:'Orbitron',monospace;font-size:.9rem;color:var(--teal)">$52.374</div></div>
+        <div style="background:rgba(11,92,255,.08);border:1px solid rgba(11,92,255,.2);border-radius:7px;padding:10px;text-align:center"><div style="font-size:.57rem;color:var(--teal);margin-bottom:4px">UVT 2026</div><div style="font-family:'Space Grotesk',monospace;font-size:.9rem;color:var(--teal)">$52.374</div></div>
       </div>
-      <div style="font-size:.62rem;color:var(--green);font-family:'Share Tech Mono',monospace;margin-bottom:9px;padding:7px;background:rgba(57,255,138,.06);border-radius:6px;border:1px solid rgba(57,255,138,.15)">
+      <div style="font-size:.62rem;color:var(--green);font-family:'JetBrains Mono',monospace;margin-bottom:9px;padding:7px;background:rgba(57,255,138,.06);border-radius:6px;border:1px solid rgba(57,255,138,.15)">
         ▲ Incremento UVT: +5.17% (IPC 2025)<br>
         ▼ Decreto 0572/2025: Bases mínimas BAJAN → más facturas con retención
       </div>
       <table class="tbl">
         <thead><tr><th>Concepto</th><th>Base 2025</th><th>Base 2026</th><th>Valor 2026</th><th>Efecto</th></tr></thead>
         <tbody>
-          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">COM / COM_ND</td><td style="color:var(--tm);font-size:.62rem">27 UVT</td><td style="color:var(--green);font-weight:700">10 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$523.740</td><td><span class="badge b-ok">+Retención</span></td></tr>
-          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER / SER_LI</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
-          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">SER_TA / SER_TN</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
-          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">PUB</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'Share Tech Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
-          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">HON / CON / ARR</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.6rem">—</td><td><span class="badge b-pend">Sin cambio</span></td></tr>
-          <tr><td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.62rem">ReteICA Bogotá</td><td style="color:var(--tm);font-size:.62rem">9.66‰</td><td style="color:var(--tm);font-size:.62rem">9.66‰</td><td style="color:var(--tm);font-size:.6rem">Acuerdo 816</td><td><span class="badge b-pend">Sin cambio</span></td></tr>
+          <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">COM / COM_ND</td><td style="color:var(--tm);font-size:.62rem">27 UVT</td><td style="color:var(--green);font-weight:700">10 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.6rem">$523.740</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">SER / SER_LI</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">SER_TA / SER_TN</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">PUB</td><td style="color:var(--tm);font-size:.62rem">4 UVT</td><td style="color:var(--green);font-weight:700">2 UVT</td><td style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.6rem">$104.748</td><td><span class="badge b-ok">+Retención</span></td></tr>
+          <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">HON / CON / ARR</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.62rem">Sin mín.</td><td style="color:var(--tm);font-size:.6rem">—</td><td><span class="badge b-pend">Sin cambio</span></td></tr>
+          <tr><td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.62rem">ReteICA Bogotá</td><td style="color:var(--tm);font-size:.62rem">9.66‰</td><td style="color:var(--tm);font-size:.62rem">9.66‰</td><td style="color:var(--tm);font-size:.6rem">Acuerdo 816</td><td><span class="badge b-pend">Sin cambio</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -512,7 +628,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 <div id="tab-hist" class="wrap" style="display:none">
 
   <!-- Panel de fechas + botón auditoría -->
-  <div class="card" style="background:linear-gradient(135deg,rgba(0,245,212,.05),rgba(0,212,255,.03));border-color:rgba(0,245,212,.22)">
+  <div class="card" style="background:linear-gradient(135deg,rgba(11,92,255,.05),rgba(0,207,255,.03));border-color:rgba(11,92,255,.22)">
     <div class="ct" style="margin-bottom:14px">Auditoría de Causaciones por Rango de Fechas</div>
     <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap">
       <div>
@@ -536,7 +652,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
       </div>
     </div>
     <!-- Resumen rápido de filtro -->
-    <div id="filtroResumen" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(0,245,212,.06);border-radius:7px;border:1px solid rgba(0,245,212,.15);font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--teal)"></div>
+    <div id="filtroResumen" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(11,92,255,.06);border-radius:7px;border:1px solid rgba(11,92,255,.15);font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--teal)"></div>
   </div>
 
   <!-- Tabla historial -->
@@ -564,7 +680,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
     <!-- IMAP -->
     <div class="card">
       <div class="ct">Correo IMAP — Captura de Facturas DIAN</div>
-      <div style="font-size:.6rem;color:var(--tm);margin-bottom:12px;font-family:'Share Tech Mono',monospace">El sistema revisa este correo cada 30 min para importar facturas electrónicas automáticamente</div>
+      <div style="font-size:.6rem;color:var(--tm);margin-bottom:12px;font-family:'JetBrains Mono',monospace">El sistema revisa este correo cada 30 min para importar facturas electrónicas automáticamente</div>
       <div class="imap-grid">
         <div>
           <div style="font-size:.6rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Servidor IMAP</div>
@@ -595,7 +711,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
         <button class="btn btn-ok" onclick="guardarImap()" style="flex:1">Guardar Configuración</button>
         <button class="btn btn-calc" onclick="importarAhora()" style="flex:1">Importar Ahora</button>
       </div>
-      <div style="margin-top:10px;padding:10px;background:var(--bg4);border-radius:6px;font-size:.6rem;color:var(--tm);font-family:'Share Tech Mono',monospace;line-height:1.8">
+      <div style="margin-top:10px;padding:10px;background:var(--bg4);border-radius:6px;font-size:.6rem;color:var(--tm);font-family:'JetBrains Mono',monospace;line-height:1.8">
         Gmail: activar 2 pasos → generar contraseña de aplicación<br>
         Outlook/Hotmail: usar imap-mail.outlook.com<br>
         El sistema busca ZIPs con XMLs DIAN adjuntos
@@ -650,7 +766,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
             <span style="font-size:.68rem;color:var(--txt)">Activar notificaciones por WhatsApp</span>
           </div>
           <div id="waNotifCfg" style="display:none;margin-top:4px">
-            <div style="font-size:.6rem;color:var(--amber);margin-bottom:8px;font-family:'Share Tech Mono',monospace">Requiere cuenta Twilio · twilio.com/whatsapp</div>
+            <div style="font-size:.6rem;color:var(--amber);margin-bottom:8px;font-family:'JetBrains Mono',monospace">Requiere cuenta Twilio · twilio.com/whatsapp</div>
             <div class="notif-row" style="margin-bottom:8px">
               <span class="notif-label">Account SID</span>
               <input class="notif-input" id="twilioSid" type="text" placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
@@ -695,7 +811,7 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
     <div class="ct">Gestión de Usuarios del Sistema</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px" id="userList"></div>
     <div style="border-top:1px solid var(--bord);padding-top:12px">
-      <div style="font-size:.62rem;color:var(--tm);margin-bottom:10px;font-family:'Share Tech Mono',monospace">AGREGAR NUEVO USUARIO</div>
+      <div style="font-size:.62rem;color:var(--tm);margin-bottom:10px;font-family:'JetBrains Mono',monospace">AGREGAR NUEVO USUARIO</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <input class="calc-input" id="newUser" type="text" placeholder="usuario@empresa.com" style="flex:2;min-width:180px">
         <input class="calc-input" id="newPass" type="password" placeholder="Contraseña" style="flex:2;min-width:150px">
@@ -726,8 +842,8 @@ body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--txt);min
 
 <!-- ══ FOOTER ══ -->
 <div class="footer">
-  <span style="color:var(--t2)">ASISTENTE CONTABLE IA — COLOMBIA</span><br>
-  Copyright &copy; 2025-2026 &nbsp;|&nbsp; <span style="color:var(--t2)">Ing. Julián Arias</span> &nbsp;|&nbsp; Todos los derechos reservados<br>
+  <span style="color:var(--t2)">NEXCORE IA — COLOMBIA</span><br>
+  Copyright &copy; 2025-2026 &nbsp;|&nbsp; <span style="color:var(--t2)">Nexcore IA · Ing. Julián Arias</span> &nbsp;|&nbsp; Todos los derechos reservados<br>
   Prohibida su reproducción sin autorización escrita del autor<br>
   UVT 2026: $52.374 &nbsp;·&nbsp; Decreto 0572/2025 &nbsp;·&nbsp; Res. DIAN 000238/2025 &nbsp;·&nbsp; Acuerdo 816/2021 Bogotá D.C.
 </div>
@@ -797,7 +913,7 @@ setInterval(() => {
   FACTURAS.slice(0, 5).forEach((f, i) => {
     const tr = document.createElement('tr');
     tr.onclick = () => openModal(i);
-    tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">${f.n.replace('FV-2026-','FV-')}</td><td style="color:var(--teal);font-family:'Share Tech Mono',monospace;font-size:.61rem">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.61rem;font-weight:700">${f.erp}</td><td>${bdg(f.est)}</td>`;
+    tr.innerHTML = `<td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">${f.n.replace('FV-2026-','FV-')}</td><td style="color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:.61rem">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.61rem;font-weight:700">${f.erp}</td><td>${bdg(f.est)}</td>`;
     bd.appendChild(tr);
   });
   tb.appendChild(bd);
@@ -896,7 +1012,7 @@ function renderCaus() {
   g.innerHTML = '';
   const pend = FACTURAS.filter(f => f.est === 'PENDIENTE' || f.est === 'APROBADA');
   if (!pend.length) {
-    g.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:50px;color:var(--green);font-family:\'Share Tech Mono\',monospace;font-size:.8rem">✓ SIN CAUSACIONES PENDIENTES</div>';
+    g.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:50px;color:var(--green);font-family:\'JetBrains Mono\',monospace;font-size:.8rem">✓ SIN CAUSACIONES PENDIENTES</div>';
     return;
   }
   pend.forEach(f => {
@@ -905,9 +1021,9 @@ function renderCaus() {
     g.innerHTML += `<div class="ccard" id="cc${i}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px">
         <div>
-          <div style="font-family:'Orbitron',monospace;font-size:.69rem;color:var(--teal)">${f.n}</div>
+          <div style="font-family:'Space Grotesk',monospace;font-size:.69rem;color:var(--teal)">${f.n}</div>
           <div style="font-size:.68rem;color:var(--tm);margin-top:2px">${f.p}</div>
-          <div style="font-size:.58rem;color:var(--td);font-family:'Share Tech Mono',monospace;margin-top:2px">NIT ${f.nit} · ${f.reg} · ${f.nota}</div>
+          <div style="font-size:.58rem;color:var(--td);font-family:'JetBrains Mono',monospace;margin-top:2px">NIT ${f.nit} · ${f.reg} · ${f.nota}</div>
         </div>
         <div style="text-align:right;display:flex;flex-direction:column;gap:4px">${bdg(f.est)}<span style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</span></div>
       </div>
@@ -920,7 +1036,7 @@ function renderCaus() {
       <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--bord)">
         <div>
           <span style="font-size:.61rem;color:var(--tm)">Neto a pagar: </span>
-          <span style="font-family:'Orbitron',monospace;font-size:.88rem;font-weight:700;color:var(--green)">${fmt(neto)}</span>
+          <span style="font-family:'Space Grotesk',monospace;font-size:.88rem;font-weight:700;color:var(--green)">${fmt(neto)}</span>
         </div>
         <div style="display:flex;gap:6px">
           <button class="btn btn-ok" onclick="aprobarUno(${i},this)">Aprobar</button>
@@ -958,7 +1074,7 @@ function renderHist() {
     const tr = document.createElement('tr');
     tr.style.background = rc[f.est] || '';
     tr.onclick = () => openModal(i);
-    tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.6rem">${f.n}</td><td style="font-size:.67rem">${f.p.substring(0,22)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right">${fmt(f.base)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--cyan)">${fmt(f.iva)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.63rem;font-weight:700;color:var(--teal);text-align:right">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</td><td style="font-size:.61rem;color:var(--tm)">${f.fecha}</td><td>${bdg(f.est)}</td>`;
+    tr.innerHTML = `<td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.6rem">${f.n}</td><td style="font-size:.67rem">${f.p.substring(0,22)}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right">${fmt(f.base)}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right;color:var(--cyan)">${fmt(f.iva)}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.63rem;font-weight:700;color:var(--teal);text-align:right">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</td><td style="font-size:.61rem;color:var(--tm)">${f.fecha}</td><td>${bdg(f.est)}</td>`;
     bd.appendChild(tr);
   });
   tb.appendChild(bd);
@@ -972,7 +1088,7 @@ function renderProv() {
   const bd = document.createElement('tbody');
   PROV.forEach(p => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">${p.nit}</td><td style="font-size:.7rem">${p.r}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem">${p.cta}</td><td>${bdg('PENDIENTE').replace('PENDIENTE',p.reg)}</td><td style="color:${EC[p.erp]};font-weight:700;font-size:.62rem">${p.erp}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.62rem;text-align:center">${p.ica}</td><td style="color:var(--amber);font-size:.63rem">${p.con}</td><td style="text-align:center;color:${p.rete==='✓'?'var(--green)':'var(--red)'};font-size:.82rem">${p.rete}</td>`;
+    tr.innerHTML = `<td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">${p.nit}</td><td style="font-size:.7rem">${p.r}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem">${p.cta}</td><td>${bdg('PENDIENTE').replace('PENDIENTE',p.reg)}</td><td style="color:${EC[p.erp]};font-weight:700;font-size:.62rem">${p.erp}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.62rem;text-align:center">${p.ica}</td><td style="color:var(--amber);font-size:.63rem">${p.con}</td><td style="text-align:center;color:${p.rete==='✓'?'var(--green)':'var(--red)'};font-size:.82rem">${p.rete}</td>`;
     bd.appendChild(tr);
   });
   tb.appendChild(bd);
@@ -983,12 +1099,12 @@ function openModal(i) {
   const f = FACTURAS[i];
   const neto = f.total - f.rete - f.ica;
   let rows = '';
-  rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">${f.cta}</td><td>Gasto/Costo — ${f.con}</td><td style="color:var(--cyan);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.base)}</td><td style="text-align:right;color:var(--td)">—</td></tr>`;
-  if (f.iva > 0) rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">24080100</td><td>IVA Descontable 19%</td><td style="color:var(--cyan);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.iva)}</td><td style="text-align:right;color:var(--td)">—</td></tr>`;
-  if (f.rete > 0) rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">23650100</td><td>Retefuente — ${f.con} · UVT $52.374</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.rete)}</td></tr>`;
-  if (f.ica > 0) rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">23680100</td><td>ReteICA 9.66‰ · Bogotá D.C.</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(f.ica)}</td></tr>`;
-  rows += `<tr><td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.61rem">22050000</td><td>CxP — ${f.p.substring(0,24)}</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'Share Tech Mono',monospace;text-align:right">${fmt(neto)}</td></tr>`;
-  rows += `<tr class="tot"><td colspan="2">TOTALES</td><td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(f.total)}</td><td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(f.total)}</td></tr>`;
+  rows += `<tr><td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">${f.cta}</td><td>Gasto/Costo — ${f.con}</td><td style="color:var(--cyan);font-family:'JetBrains Mono',monospace;text-align:right">${fmt(f.base)}</td><td style="text-align:right;color:var(--td)">—</td></tr>`;
+  if (f.iva > 0) rows += `<tr><td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">24080100</td><td>IVA Descontable 19%</td><td style="color:var(--cyan);font-family:'JetBrains Mono',monospace;text-align:right">${fmt(f.iva)}</td><td style="text-align:right;color:var(--td)">—</td></tr>`;
+  if (f.rete > 0) rows += `<tr><td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">23650100</td><td>Retefuente — ${f.con} · UVT $52.374</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'JetBrains Mono',monospace;text-align:right">${fmt(f.rete)}</td></tr>`;
+  if (f.ica > 0) rows += `<tr><td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">23680100</td><td>ReteICA 9.66‰ · Bogotá D.C.</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'JetBrains Mono',monospace;text-align:right">${fmt(f.ica)}</td></tr>`;
+  rows += `<tr><td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.61rem">22050000</td><td>CxP — ${f.p.substring(0,24)}</td><td style="color:var(--td);text-align:right">—</td><td style="color:var(--green);font-family:'JetBrains Mono',monospace;text-align:right">${fmt(neto)}</td></tr>`;
+  rows += `<tr class="tot"><td colspan="2">TOTALES</td><td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(f.total)}</td><td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(f.total)}</td></tr>`;
 
   document.getElementById('modalC').innerHTML = `
     <div class="mhdr">
@@ -996,10 +1112,10 @@ function openModal(i) {
       <button class="xbtn" onclick="closeModal()">✕</button>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:13px">
-      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">Proveedor</div><div style="font-family:'Share Tech Mono',monospace;font-size:.59rem;color:var(--txt)">${f.p.substring(0,17)}</div></div>
-      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">NIT</div><div style="font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--cyan)">${f.nit}</div></div>
-      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">Régimen</div><div style="font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--amber)">${f.reg}</div></div>
-      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">ERP Destino</div><div style="font-family:'Share Tech Mono',monospace;font-size:.63rem;color:${EC[f.erp]}">${f.erp}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">Proveedor</div><div style="font-family:'JetBrains Mono',monospace;font-size:.59rem;color:var(--txt)">${f.p.substring(0,17)}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">NIT</div><div style="font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--cyan)">${f.nit}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">Régimen</div><div style="font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--amber)">${f.reg}</div></div>
+      <div style="background:var(--bg3);border-radius:6px;padding:8px;text-align:center"><div style="font-size:.52rem;color:var(--tm);text-transform:uppercase;margin-bottom:2px">ERP Destino</div><div style="font-family:'JetBrains Mono',monospace;font-size:.63rem;color:${EC[f.erp]}">${f.erp}</div></div>
     </div>
     <table class="atbl">
       <thead><tr><th>Cuenta PUC</th><th>Descripción</th><th style="text-align:right">Débito</th><th style="text-align:right">Crédito</th></tr></thead>
@@ -1041,10 +1157,10 @@ function st(el, name) {
 }
 
 // ─── CHARTS ───────────────────────────────────────────────────────────────
-Chart.defaults.font.family = "'Share Tech Mono',monospace";
+Chart.defaults.font.family = "'JetBrains Mono',monospace";
 const ax = (col) => ({
-  grid: { color:'rgba(0,245,212,.05)', drawBorder:false },
-  ticks: { color: col||'#4a7a99', font:{ size:8 } },
+  grid: { color:'rgba(11,92,255,.05)', drawBorder:false },
+  ticks: { color: col||'#5A7AAA', font:{ size:8 } },
   border: { display:false }
 });
 
@@ -1053,7 +1169,7 @@ new Chart(document.getElementById('barC'), {
   type:'bar',
   data:{ labels:['Mar 10','Mar 11','Mar 12','Mar 13'],
     datasets:[{ data:[1190000,3595000,3300000,714000],
-      backgroundColor:['rgba(0,245,212,.5)','rgba(0,245,212,.65)','rgba(0,245,212,.85)','rgba(57,255,138,.7)'],
+      backgroundColor:['rgba(11,92,255,.5)','rgba(11,92,255,.65)','rgba(11,92,255,.85)','rgba(57,255,138,.7)'],
       borderColor:['var(--teal)','var(--teal)','var(--teal)','var(--green)'],
       borderWidth:1, borderRadius:3 }]
   },
@@ -1067,7 +1183,7 @@ new Chart(document.getElementById('dnC'), {
   type:'doughnut',
   data:{ labels:['Siigo','Helisa','Siesa'],
     datasets:[{ data:[3,2,1],
-      backgroundColor:['rgba(0,245,212,.8)','rgba(57,255,138,.8)','rgba(0,212,255,.8)'],
+      backgroundColor:['rgba(11,92,255,.8)','rgba(57,255,138,.8)','rgba(0,207,255,.8)'],
       borderColor:'var(--bg3)', borderWidth:2 }]
   },
   options:{ responsive:false, cutout:'70%', plugins:{ legend:{ display:false }}}
@@ -1079,7 +1195,7 @@ new Chart(document.getElementById('areaC'), {
   data:{ labels:['Mar 10','Mar 11','Mar 12','Mar 13'],
     datasets:[{ data:[1190000,4785000,8085000,8799000],
       borderColor:'var(--teal)', borderWidth:2, fill:true,
-      backgroundColor:'rgba(0,245,212,.07)', tension:.4,
+      backgroundColor:'rgba(11,92,255,.07)', tension:.4,
       pointBackgroundColor:'var(--teal)', pointRadius:4 }]
   },
   options:{ responsive:true, maintainAspectRatio:false,
@@ -1096,7 +1212,7 @@ function drawHCharts() {
     data:{ labels:['Mar 10','Mar 11','Mar 12','Mar 13'],
       datasets:[{ data:[1190000,4785000,8085000,8799000],
         borderColor:'var(--teal)', borderWidth:2, fill:true,
-        backgroundColor:'rgba(0,245,212,.07)', tension:.4,
+        backgroundColor:'rgba(11,92,255,.07)', tension:.4,
         pointBackgroundColor:'var(--teal)', pointRadius:4 }]
     },
     options:{ responsive:true, maintainAspectRatio:false,
@@ -1107,11 +1223,11 @@ function drawHCharts() {
     type:'doughnut',
     data:{ labels:['RC','GC','RS'],
       datasets:[{ data:[2,3,1],
-        backgroundColor:['rgba(0,245,212,.8)','rgba(57,255,138,.8)','rgba(0,212,255,.7)'],
+        backgroundColor:['rgba(11,92,255,.8)','rgba(57,255,138,.8)','rgba(0,207,255,.7)'],
         borderColor:'var(--bg3)', borderWidth:2 }]
     },
     options:{ responsive:true, maintainAspectRatio:false, cutout:'65%',
-      plugins:{ legend:{ display:true, labels:{ color:'#4a7a99', font:{ size:9 }, boxWidth:10 }}}}
+      plugins:{ legend:{ display:true, labels:{ color:'#5A7AAA', font:{ size:9 }, boxWidth:10 }}}}
   });
 }
 // ─── AUDITORÍA POR RANGO DE FECHAS ──────────────────────────────────────
@@ -1140,7 +1256,7 @@ function aplicarFiltro() {
     const rc = {PENDIENTE:'',CONTABILIZADA:'rgba(57,255,138,.03)',ERROR:'rgba(255,51,102,.03)',APROBADA:'rgba(255,170,0,.03)'};
     if (!lista.length) {
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td colspan="10" style="text-align:center;padding:30px;color:var(--tm);font-family:\'Share Tech Mono\',monospace">Sin resultados para el rango seleccionado</td>';
+      tr.innerHTML = '<td colspan="10" style="text-align:center;padding:30px;color:var(--tm);font-family:\'JetBrains Mono\',monospace">Sin resultados para el rango seleccionado</td>';
       bd.appendChild(tr);
     } else {
       lista.forEach((f) => {
@@ -1148,7 +1264,7 @@ function aplicarFiltro() {
         const tr = document.createElement('tr');
         tr.style.background = rc[f.est] || '';
         tr.onclick = () => openModal(i);
-        tr.innerHTML = `<td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.6rem">${f.n}</td><td style="font-size:.67rem">${f.p.substring(0,22)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right">${fmt(f.base)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--cyan)">${fmt(f.iva)}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td><td style="font-family:'Share Tech Mono',monospace;font-size:.63rem;font-weight:700;color:var(--teal);text-align:right">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</td><td style="font-size:.61rem;color:var(--tm)">${f.fecha}</td><td>${bdg(f.est)}</td>`;
+        tr.innerHTML = `<td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.6rem">${f.n}</td><td style="font-size:.67rem">${f.p.substring(0,22)}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right">${fmt(f.base)}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right;color:var(--cyan)">${fmt(f.iva)}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.61rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td><td style="font-family:'JetBrains Mono',monospace;font-size:.63rem;font-weight:700;color:var(--teal);text-align:right">${fmt(f.total)}</td><td style="color:${EC[f.erp]};font-size:.62rem;font-weight:700">${f.erp}</td><td style="font-size:.61rem;color:var(--tm)">${f.fecha}</td><td>${bdg(f.est)}</td>`;
         bd.appendChild(tr);
       });
     }
@@ -1229,18 +1345,18 @@ function generarAuditoria() {
 
   // ── Generar filas detalles ──
   let filas = '';
-  const rc2 = {PENDIENTE:'rgba(255,170,0,.04)',CONTABILIZADA:'rgba(57,255,138,.04)',ERROR:'rgba(255,51,102,.04)',APROBADA:'rgba(0,245,212,.04)'};
+  const rc2 = {PENDIENTE:'rgba(255,170,0,.04)',CONTABILIZADA:'rgba(57,255,138,.04)',ERROR:'rgba(255,51,102,.04)',APROBADA:'rgba(11,92,255,.04)'};
   lista.forEach((f, idx) => {
     filas += `<tr style="background:${rc2[f.est]||''}">
-      <td style="font-family:'Share Tech Mono',monospace;color:var(--cyan);font-size:.6rem;white-space:nowrap">${f.n}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.6rem;white-space:nowrap">${f.n}</td>
       <td>${f.p}</td>
-      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--tm);white-space:nowrap">${f.nit}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--tm);white-space:nowrap">${f.nit}</td>
       <td style="text-align:center"><span class="badge b-pend" style="font-size:.52rem">${f.reg}</span></td>
-      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right">${fmt(f.base)}</td>
-      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right;color:var(--cyan)">${f.iva>0?fmt(f.iva):'—'}</td>
-      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td>
-      <td style="font-family:'Share Tech Mono',monospace;font-size:.6rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td>
-      <td style="font-family:'Share Tech Mono',monospace;font-size:.62rem;text-align:right;font-weight:700;color:var(--teal)">${fmt(f.total)}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-align:right">${fmt(f.base)}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-align:right;color:var(--cyan)">${f.iva>0?fmt(f.iva):'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-align:right;color:var(--amber)">${f.rete>0?fmt(f.rete):'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-align:right;color:var(--amber)">${f.ica>0?fmt(f.ica):'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.62rem;text-align:right;font-weight:700;color:var(--teal)">${fmt(f.total)}</td>
       <td style="color:${EC[f.erp]};font-size:.6rem;font-weight:700">${f.erp}</td>
       <td style="font-size:.6rem;color:var(--tm)">${f.fecha}</td>
       <td>${bdg(f.est)}</td>
@@ -1250,12 +1366,12 @@ function generarAuditoria() {
 
   // ── Subtotales ──
   filas += `<tr class="subtotal">
-    <td colspan="4" style="font-family:'Orbitron',monospace;font-size:.62rem">TOTALES (${lista.length} facturas)</td>
-    <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(totBase)}</td>
-    <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--cyan)">${fmt(totIva)}</td>
-    <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(totRete)}</td>
-    <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(totIca)}</td>
-    <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(totTotal)}</td>
+    <td colspan="4" style="font-family:'Space Grotesk',monospace;font-size:.62rem">TOTALES (${lista.length} facturas)</td>
+    <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(totBase)}</td>
+    <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--cyan)">${fmt(totIva)}</td>
+    <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--amber)">${fmt(totRete)}</td>
+    <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--amber)">${fmt(totIca)}</td>
+    <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(totTotal)}</td>
     <td colspan="3"></td>
   </tr>`;
 
@@ -1264,14 +1380,14 @@ function generarAuditoria() {
   Object.entries(erpData).filter(([,v])=>v.count>0).forEach(([erp, v]) => {
     const pct = totTotal > 0 ? ((v.total/totTotal)*100).toFixed(1) : '0.0';
     erpRows += `<tr>
-      <td style="font-weight:700;color:${EC[erp]};font-family:'Orbitron',monospace;font-size:.65rem">${erp}</td>
-      <td style="text-align:center;font-family:'Share Tech Mono',monospace">${v.count}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(v.base)}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(v.rete)}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${fmt(v.ica)}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;font-weight:700;color:var(--teal)">${fmt(v.total)}</td>
+      <td style="font-weight:700;color:${EC[erp]};font-family:'Space Grotesk',monospace;font-size:.65rem">${erp}</td>
+      <td style="text-align:center;font-family:'JetBrains Mono',monospace">${v.count}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(v.base)}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--amber)">${fmt(v.rete)}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--amber)">${fmt(v.ica)}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--teal)">${fmt(v.total)}</td>
       <td style="text-align:center;color:var(--green);font-size:.62rem">${v.contab}/${v.count}</td>
-      <td style="text-align:center;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--tm)">${pct}%</td>
+      <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--tm)">${pct}%</td>
     </tr>`;
   });
 
@@ -1282,11 +1398,11 @@ function generarAuditoria() {
     regRows += `<tr>
       <td><span class="badge b-pend" style="font-size:.57rem">${reg}</span></td>
       <td>${regDesc[reg]||reg}</td>
-      <td style="text-align:center;font-family:'Share Tech Mono',monospace">${v.count}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(v.base)}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${v.rete>0?fmt(v.rete):'—'}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--amber)">${v.ica>0?fmt(v.ica):'—'}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;font-weight:700;color:var(--teal)">${fmt(v.total)}</td>
+      <td style="text-align:center;font-family:'JetBrains Mono',monospace">${v.count}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(v.base)}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--amber)">${v.rete>0?fmt(v.rete):'—'}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--amber)">${v.ica>0?fmt(v.ica):'—'}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--teal)">${fmt(v.total)}</td>
     </tr>`;
   });
 
@@ -1295,12 +1411,12 @@ function generarAuditoria() {
   Object.entries(conData).sort((a,b)=>b[1].rete-a[1].rete).forEach(([con, v]) => {
     const tarifa = TARIFAS.find(t=>t.con===con);
     conRows += `<tr>
-      <td style="font-family:'Share Tech Mono',monospace;color:var(--amber);font-size:.63rem">${con}</td>
+      <td style="font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:.63rem">${con}</td>
       <td style="font-size:.65rem">${tarifa?tarifa.desc:con}</td>
-      <td style="text-align:center;font-family:'Share Tech Mono',monospace">${v.count}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace">${fmt(v.base)}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;color:var(--teal);font-weight:700">${v.rete>0?fmt(v.rete):'—'}</td>
-      <td style="text-align:right;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--tm)">${v.base>0?((v.rete/v.base)*100).toFixed(2)+'%':'—'}</td>
+      <td style="text-align:center;font-family:'JetBrains Mono',monospace">${v.count}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace">${fmt(v.base)}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;color:var(--teal);font-weight:700">${v.rete>0?fmt(v.rete):'—'}</td>
+      <td style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--tm)">${v.base>0?((v.rete/v.base)*100).toFixed(2)+'%':'—'}</td>
     </tr>`;
   });
 
@@ -1312,7 +1428,7 @@ function generarAuditoria() {
         <div class="aud-title">📋 INFORME DE AUDITORÍA CONTABLE</div>
         <div class="aud-subtitle">
           Período: ${desde} al ${hasta} &nbsp;·&nbsp; Generado: ${ahora}<br>
-          Asistente Contable IA · Colombia · UVT 2026: $52.374 · Ing. Julián Arias
+          Nexcore IA · Colombia · UVT 2026: $52.374 · Nexcore IA · Ing. Julián Arias
         </div>
       </div>
       <div style="display:flex;gap:8px;flex-direction:column;align-items:flex-end">
@@ -1336,21 +1452,21 @@ function generarAuditoria() {
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
         <div style="background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:14px">
           <div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Base Gravable + IVA</div>
-          <div style="font-family:'Orbitron',monospace;font-size:0.875rem;color:var(--txt);margin-bottom:4px">${fmt(totBase)}</div>
+          <div style="font-family:'Space Grotesk',monospace;font-size:0.875rem;color:var(--txt);margin-bottom:4px">${fmt(totBase)}</div>
           <div style="font-size:.62rem;color:var(--tm)">Base gravable (sin IVA)</div>
-          <div style="font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--cyan);margin-top:4px">+ ${fmt(totIva)} IVA descontable</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--cyan);margin-top:4px">+ ${fmt(totIva)} IVA descontable</div>
         </div>
         <div style="background:var(--bg3);border:1px solid var(--bord);border-radius:8px;padding:14px">
           <div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Retenciones Practicadas</div>
-          <div style="font-family:'Orbitron',monospace;font-size:0.875rem;color:var(--amber);margin-bottom:4px">${fmt(totRete+totIca)}</div>
-          <div style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--amber)">Retefuente: ${fmt(totRete)}</div>
-          <div style="font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--amber)">ReteICA 9.66‰: ${fmt(totIca)}</div>
+          <div style="font-family:'Space Grotesk',monospace;font-size:0.875rem;color:var(--amber);margin-bottom:4px">${fmt(totRete+totIca)}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber)">Retefuente: ${fmt(totRete)}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber)">ReteICA 9.66‰: ${fmt(totIca)}</div>
         </div>
         <div style="background:rgba(57,255,138,.06);border:1px solid rgba(57,255,138,.2);border-radius:8px;padding:14px">
           <div style="font-size:.58rem;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Neto Total a Pagar</div>
-          <div style="font-family:'Orbitron',monospace;font-size:0.963rem;color:var(--green);margin-bottom:4px">${fmt(totNeto)}</div>
+          <div style="font-family:'Space Grotesk',monospace;font-size:0.963rem;color:var(--green);margin-bottom:4px">${fmt(totNeto)}</div>
           <div style="font-size:.62rem;color:var(--tm)">Total − Retefuente − ReteICA</div>
-          <div style="font-size:.6rem;color:var(--td);margin-top:3px;font-family:'Share Tech Mono',monospace">Tasa efectiva: ${totTotal>0?((totRete+totIca)/totTotal*100).toFixed(2):'0.00'}% de retención</div>
+          <div style="font-size:.6rem;color:var(--td);margin-top:3px;font-family:'JetBrains Mono',monospace">Tasa efectiva: ${totTotal>0?((totRete+totIca)/totTotal*100).toFixed(2):'0.00'}% de retención</div>
         </div>
       </div>
     </div>
@@ -1404,21 +1520,21 @@ function generarAuditoria() {
       <div class="aud-sec-title">Normativa Aplicada — Año Gravable 2026</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;font-size:.65rem">
         <div style="background:var(--bg3);border-radius:7px;padding:12px">
-          <div style="color:var(--amber);font-family:'Share Tech Mono',monospace;margin-bottom:7px;font-size:.6rem">RETEFUENTE — Decreto 2418/2013 + Decreto 0572/2025</div>
+          <div style="color:var(--amber);font-family:'JetBrains Mono',monospace;margin-bottom:7px;font-size:.6rem">RETEFUENTE — Decreto 2418/2013 + Decreto 0572/2025</div>
           <div style="color:var(--tm);line-height:1.9">
-            UVT 2026: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">$52.374</span> (Res. DIAN 000238, 15-dic-2025)<br>
-            Base mín. Servicios: <span style="color:var(--green);font-family:'Share Tech Mono',monospace">2 UVT = $104.748</span> (antes 4 UVT)<br>
-            Base mín. Compras: <span style="color:var(--green);font-family:'Share Tech Mono',monospace">10 UVT = $523.740</span> (antes 27 UVT)<br>
+            UVT 2026: <span style="color:var(--teal);font-family:'JetBrains Mono',monospace">$52.374</span> (Res. DIAN 000238, 15-dic-2025)<br>
+            Base mín. Servicios: <span style="color:var(--green);font-family:'JetBrains Mono',monospace">2 UVT = $104.748</span> (antes 4 UVT)<br>
+            Base mín. Compras: <span style="color:var(--green);font-family:'JetBrains Mono',monospace">10 UVT = $523.740</span> (antes 27 UVT)<br>
             Honorarios/Consultoría: Sin base mínima<br>
             Arrendamientos: Sin base mínima
           </div>
         </div>
         <div style="background:var(--bg3);border-radius:7px;padding:12px">
-          <div style="color:var(--cyan);font-family:'Share Tech Mono',monospace;margin-bottom:7px;font-size:.6rem">RETEICA BOGOTÁ — Acuerdo 816/2021</div>
+          <div style="color:var(--cyan);font-family:'JetBrains Mono',monospace;margin-bottom:7px;font-size:.6rem">RETEICA BOGOTÁ — Acuerdo 816/2021</div>
           <div style="color:var(--tm);line-height:1.9">
-            Base mínima: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">2 UVT = $104.748</span> (Decreto 0572/2025)<br>
-            Servicios generales: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">9.66‰</span><br>
-            Consultoría profesional: <span style="color:var(--teal);font-family:'Share Tech Mono',monospace">8.66‰</span><br>
+            Base mínima: <span style="color:var(--teal);font-family:'JetBrains Mono',monospace">2 UVT = $104.748</span> (Decreto 0572/2025)<br>
+            Servicios generales: <span style="color:var(--teal);font-family:'JetBrains Mono',monospace">9.66‰</span><br>
+            Consultoría profesional: <span style="color:var(--teal);font-family:'JetBrains Mono',monospace">8.66‰</span><br>
             Gran Contribuyente: No aplica (autoagente)<br>
             Régimen Simple: No aplica (exento)
           </div>
@@ -1429,13 +1545,13 @@ function generarAuditoria() {
     <!-- FOOTER DEL INFORME -->
     <div class="aud-footer">
       <div class="aud-legal">
-        <strong style="color:var(--t2)">ASISTENTE CONTABLE IA — COLOMBIA</strong><br>
-        Copyright &copy; 2025-2026 &nbsp;|&nbsp; <strong style="color:var(--t2)">Ing. Julián Arias</strong> &nbsp;|&nbsp; Todos los derechos reservados<br>
+        <strong style="color:var(--t2)">NEXCORE IA — COLOMBIA</strong><br>
+        Copyright &copy; 2025-2026 &nbsp;|&nbsp; <strong style="color:var(--t2)">Nexcore IA · Ing. Julián Arias</strong> &nbsp;|&nbsp; Todos los derechos reservados<br>
         Informe generado el ${ahora} &nbsp;·&nbsp; Período: ${desde} al ${hasta}<br>
         Este informe es de carácter informativo. Valide con su contador o revisor fiscal.
       </div>
       <div style="display:flex;gap:8px;flex-direction:column;align-items:flex-end">
-        <button class="btn-print" style="background:linear-gradient(135deg,var(--green),#00cc55);color:#030c1a" onclick="exportarExcel('${desde}','${hasta}')">📊 EXPORTAR EXCEL</button>
+        <button class="btn-print" style="background:linear-gradient(135deg,var(--green),#00cc55);color:#060D1F" onclick="exportarExcel('${desde}','${hasta}')">📊 EXPORTAR EXCEL</button>
         <button class="btn-print" onclick="window.print()">🖨️ IMPRIMIR / EXPORTAR PDF</button>
       </div>
     </div>
@@ -1501,7 +1617,7 @@ function renderUserList() {
   el.innerHTML = USUARIOS.map(function(u, i) {
     return '<div style="background:var(--bg4);border-radius:7px;padding:10px 12px;border:1px solid var(--bord)">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">' +
-        '<span style="font-family:\'Share Tech Mono\',monospace;font-size:.64rem;color:var(--teal)">' + u.user + '</span>' +
+        '<span style="font-family:\'JetBrains Mono\',monospace;font-size:.64rem;color:var(--teal)">' + u.user + '</span>' +
         (u.activo ? '<span class="badge b-ok">Activo</span>' : '<span class="badge b-err">Inactivo</span>') +
       '</div>' +
       '<div style="font-size:.6rem;color:var(--tm)">' + u.rol + '</div>' +
@@ -1665,7 +1781,7 @@ function exportarExcel(desde, hasta) {
 
   // ── Hoja 1: Detalle ──
   var det = [
-    ['ASISTENTE CONTABLE IA — COLOMBIA | Ing. Julián Arias | UVT 2026: $52.374'],
+    ['NEXCORE IA — COLOMBIA | Nexcore IA · Ing. Julián Arias | UVT 2026: $52.374'],
     ['Período: ' + d + ' al ' + h + ' | Facturas: ' + lista.length + ' | ' + new Date().toLocaleString('es-CO')],
     [],
     ['Número','Proveedor','NIT','Régimen','Concepto','Base','IVA','Retefuente','ReteICA','Total','Neto a Pagar','ERP','Fecha','Estado']

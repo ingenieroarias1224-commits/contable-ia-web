@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Admin SaaS — Asistente Contable IA · Ing. Julián Arias</title>
+<title>Nexcore IA — Colombia 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -229,6 +229,104 @@ textarea.form-control{min-height:80px;resize:vertical}
 @media(max-width:720px){.sidebar{width:180px}.kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr)}.plan-grid{grid-template-columns:1fr}}
 @media(max-width:580px){.sidebar{display:none}}
 </style>
+
+<!-- NEXCORE IA BRAND OVERRIDE -->
+<style id="nexcore-brand">
+/* ── Nexcore IA Corporate Colors ── */
+:root{
+  --bg:#060D1F!important;--bg2:#0A1428!important;--bg3:#0D1B35!important;--bg4:#112040!important;
+  --blue:#0B5CFF;--b2:#0044CC;--bc:rgba(11,92,255,.12);
+  --teal:#0B5CFF!important;--t2:#0044CC!important;--tc:rgba(11,92,255,.1)!important;
+  --cyan:#00CFFF!important;--c2:#00A8D4!important;
+  --orange:#FF6B00;--o2:#E55A00;
+  --txt:#E8F0FF!important;--tm:#5A7AAA!important;--td:#1A2E55!important;
+  --bord:rgba(11,92,255,.18)!important;--bh:rgba(11,92,255,.42)!important;
+}
+body{background:#060D1F!important}
+
+/* ── Logo gradient accent ── */
+.uvt-pill,.udot,.pdot{background:linear-gradient(135deg,#0B5CFF,#FF6B00)!important;-webkit-background-clip:text!important;color:transparent!important}
+.udot,.pdot{background:#0B5CFF!important;color:transparent!important;-webkit-background-clip:unset!important}
+
+/* ── Brand text gradient ── */
+.brand,.brand-s,.kp-v,.nv{
+  background:linear-gradient(90deg,#0B5CFF,#00CFFF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.kp-v.g{background:linear-gradient(90deg,#00E5A0,#0B5CFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.kp-v.a{background:linear-gradient(90deg,#FF6B00,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.kp-v.r{-webkit-text-fill-color:#FF3355!important}
+
+/* ── Tabs active ── */
+.tab.on{color:#0B5CFF!important;border-bottom-color:#0B5CFF!important}
+.tab:hover{color:#00CFFF!important}
+
+/* ── Buttons gradient Nexcore ── */
+.btn-all,.login-btn{
+  background:linear-gradient(135deg,#0B5CFF,#FF6B00)!important;
+  border:none!important;color:#fff!important;font-weight:700!important;
+}
+.btn-all:hover,.login-btn:hover{
+  box-shadow:0 0 24px rgba(11,92,255,.5)!important;
+}
+.btn-ok{border-color:#0B5CFF!important;color:#0B5CFF!important}
+.btn-ok:hover{box-shadow:0 0 16px rgba(11,92,255,.4)!important}
+
+/* ── KPI top bar gradient ── */
+.kpi::before{
+  background:linear-gradient(90deg,transparent,#0B5CFF,#FF6B00,transparent)!important;
+  opacity:.7!important;
+}
+
+/* ── Normativa banner ── */
+.norm{
+  background:linear-gradient(135deg,rgba(11,92,255,.06),rgba(255,107,0,.04))!important;
+  border-color:rgba(11,92,255,.25)!important;
+}
+
+/* ── Cards hover ── */
+.card:hover,.ccard:hover{border-color:rgba(11,92,255,.35)!important}
+
+/* ── Header border ── */
+.hdr{border-bottom-color:rgba(11,92,255,.2)!important}
+
+/* ── Pulse animation color ── */
+.udot{background:#0B5CFF!important}
+
+/* ── User badge ── */
+.user-badge{border-color:rgba(11,92,255,.3)!important;color:#00CFFF!important}
+
+/* ── Footer ── */
+.footer{border-top-color:rgba(11,92,255,.1)!important}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar-thumb{background:rgba(11,92,255,.4)!important}
+
+/* ── Login box ── */
+.login-box{border-color:rgba(11,92,255,.45)!important;box-shadow:0 0 40px rgba(11,92,255,.12)!important}
+.login-input:focus{border-color:#0B5CFF!important;box-shadow:0 0 0 2px rgba(11,92,255,.15)!important}
+
+/* ── UVT pill ── */
+.uvt-pill{
+  background:rgba(11,92,255,.08)!important;
+  border-color:rgba(11,92,255,.28)!important;
+  color:#00CFFF!important;
+}
+
+/* ── Badges OK ── */
+.b-ok{color:#00E5A0!important;border-color:rgba(0,229,160,.35)!important;background:rgba(0,229,160,.07)!important}
+.b-pend{color:#0B5CFF!important;border-color:rgba(11,92,255,.35)!important;background:rgba(11,92,255,.07)!important}
+
+/* ── Sparkline accent ── */
+.hf,.kp-f{background:linear-gradient(90deg,#0B5CFF,#00CFFF)!important}
+
+/* ── Section title marker ── */
+.ct::before{background:#0B5CFF!important}
+.aud-sec-title::before{background:#0B5CFF!important}
+
+/* ── Modal border ── */
+.modal{border-color:rgba(11,92,255,.42)!important}
+</style>
 </head>
 <body>
 
@@ -239,7 +337,7 @@ textarea.form-control{min-height:80px;resize:vertical}
 <header class="hdr">
   <a class="logo" href="#">
     <svg viewBox="0 0 28 28" fill="none"><polygon points="14,2 25,8 25,20 14,26 3,20 3,8" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.5)" stroke-width="1"/><circle cx="14" cy="14" r="4" fill="#10B981"/></svg>
-    <div class="logo-text">ADMIN SAAS<span>CONTABLE IA · ING. JULIÁN ARIAS</span></div>
+    <div class="logo-text">ADMIN SAAS<span>NEXCORE IA · ING. JULIÁN ARIAS</span></div>
   </a>
   <div class="hdr-search">
     <span class="search-ico">🔍</span>
@@ -282,7 +380,7 @@ textarea.form-control{min-height:80px;resize:vertical}
       <!-- ══ DASHBOARD ══ -->
       <div class="page on" id="page-dashboard">
         <div class="ph">
-          <div class="ph-left"><h1>Panel de Administración</h1><p>Asistente Contable IA · Colombia 2026 · UVT $52.374</p></div>
+          <div class="ph-left"><h1>Panel de Administración</h1><p>Nexcore IA · Colombia 2026 · UVT $52.374</p></div>
           <div class="ph-actions">
             <button class="btn btn-outline btn-sm" onclick="goPage('revenue')">Ver Revenue →</button>
             <button class="btn btn-primary btn-sm" onclick="openModal('new-client')">+ Nuevo cliente</button>

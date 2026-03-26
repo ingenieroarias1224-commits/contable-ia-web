@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Asistente Contable IA — Automatice sus causaciones DIAN en segundos. Retefuente, ReteICA y asientos PUC automáticos. Integración con Siigo, Helisa y Siesa. Colombia 2026.">
-<title>Asistente Contable IA — Colombia 2026 | Ing. Julián Arias</title>
+<meta name="description" content="Nexcore IA — Automatice sus causaciones DIAN en segundos. Retefuente, ReteICA y asientos PUC automáticos. Integración con Siigo, Helisa y Siesa. Colombia 2026.">
+<title>Nexcore IA — Colombia 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#111827;--ink2:#1a2232;--ink3:#222d40;
-  --teal:#10B981;--teal2:#059669;--teal3:rgba(16,185,129,.12);
+  --teal:#0B5CFF;--teal2:#0044CC;--teal3:rgba(11,92,255,.12);
   --gold:#6EE7B7;--gold2:#34D399;
   --slate:#4A5568;--mist:#8A9BB0;--fog:#C8D4E0;
   --white:#F8FAFC;
@@ -27,7 +27,7 @@ img{display:block}
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.4)}70%{box-shadow:0 0 0 12px rgba(16,185,129,0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(11,92,255,.4)}70%{box-shadow:0 0 0 12px rgba(11,92,255,0)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes scan{0%{top:-100%}100%{top:110%}}
@@ -48,16 +48,16 @@ nav.scrolled{background:rgba(11,14,20,.88);backdrop-filter:blur(16px);border-bot
 .nav-links a{font-size:.82rem;color:var(--mist);text-decoration:none;font-weight:500;letter-spacing:.02em;transition:color .2s}
 .nav-links a:hover{color:var(--white)}
 .nav-cta{background:var(--teal);color:var(--ink)!important;padding:9px 22px;border-radius:50px;font-weight:700!important;font-size:.8rem!important;letter-spacing:.04em;transition:box-shadow .2s,transform .2s!important}
-.nav-cta:hover{box-shadow:0 0 24px rgba(16,185,129,.45);transform:translateY(-1px)!important}
+.nav-cta:hover{box-shadow:0 0 24px rgba(11,92,255,.45);transform:translateY(-1px)!important}
 .nav-mobile-btn{display:none;background:none;border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:7px;cursor:pointer;color:var(--fog)}
 
 /* ── HERO ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 80px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(16,185,129,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 30%,transparent 100%)}
-.hero-glow1{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(16,185,129,.12) 0%,transparent 70%)}
-.hero-glow2{position:absolute;bottom:-60px;right:-100px;width:500px;height:400px;background:radial-gradient(ellipse,rgba(16,185,129,.04) 0%,transparent 70%)}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:50px;padding:7px 18px;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teal);margin-bottom:32px;animation:fadeUp .6s .1s both}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(11,92,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(11,92,255,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 30%,transparent 100%)}
+.hero-glow1{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(11,92,255,.12) 0%,transparent 70%)}
+.hero-glow2{position:absolute;bottom:-60px;right:-100px;width:500px;height:400px;background:radial-gradient(ellipse,rgba(11,92,255,.04) 0%,transparent 70%)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(11,92,255,.1);border:1px solid rgba(11,92,255,.25);border-radius:50px;padding:7px 18px;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teal);margin-bottom:32px;animation:fadeUp .6s .1s both}
 .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
 .hero-h1{font-family:'Syne',sans-serif;font-size:clamp(2.275rem,6vw,4.4rem);font-weight:800;line-height:1.08;text-align:center;max-width:860px;margin-bottom:24px;animation:fadeUp .6s .2s both;letter-spacing:-.02em}
 .hero-h1 em{font-style:normal;color:var(--teal)}
@@ -65,7 +65,7 @@ nav.scrolled{background:rgba(11,14,20,.88);backdrop-filter:blur(16px);border-bot
 .hero-sub{font-size:clamp(0.875rem,2vw,1.18rem);color:var(--mist);text-align:center;max-width:620px;line-height:1.7;margin-bottom:44px;animation:fadeUp .6s .3s both;font-weight:300}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:60px;animation:fadeUp .6s .4s both}
 .btn-primary{display:inline-flex;align-items:center;gap:9px;background:var(--teal);color:var(--ink);font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.04em;padding:15px 34px;border-radius:50px;text-decoration:none;transition:all .25s;border:none;cursor:pointer}
-.btn-primary:hover{box-shadow:0 0 36px rgba(16,185,129,.5);transform:translateY(-2px)}
+.btn-primary:hover{box-shadow:0 0 36px rgba(11,92,255,.5);transform:translateY(-2px)}
 .btn-secondary{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--white);font-family:'Syne',sans-serif;font-weight:600;font-size:.92rem;letter-spacing:.03em;padding:14px 32px;border-radius:50px;border:1px solid rgba(255,255,255,.2);text-decoration:none;transition:all .25s;cursor:pointer}
 .btn-secondary:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.05)}
 .btn-arrow{font-size:0.875rem;transition:transform .2s}
@@ -98,7 +98,7 @@ section{padding:100px 0}
 .pain-body strong{display:block;font-weight:600;font-size:.9rem;margin-bottom:4px}
 .pain-body p{font-size:.84rem;color:var(--mist);line-height:1.5}
 .problem-visual{position:relative}
-.terminal{background:#0D1117;border:1px solid rgba(16,185,129,.2);border-radius:var(--r2);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6)}
+.terminal{background:#0D1117;border:1px solid rgba(11,92,255,.2);border-radius:var(--r2);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6)}
 .terminal-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06)}
 .t-dot{width:11px;height:11px;border-radius:50%}
 .t-title{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--slate);margin-left:4px}
@@ -117,26 +117,26 @@ section{padding:100px 0}
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
 .feat-card{background:var(--ink2);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:32px 28px;transition:border-color .3s,transform .3s,box-shadow .3s;position:relative;overflow:hidden}
 .feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:0;transition:opacity .3s}
-.feat-card:hover{border-color:rgba(16,185,129,.25);transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.feat-card:hover{border-color:rgba(11,92,255,.25);transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
 .feat-card:hover::before{opacity:1}
 .feat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.225rem}
-.feat-icon.teal{background:rgba(16,185,129,.12);color:var(--teal)}
-.feat-icon.gold{background:rgba(16,185,129,.1);color:var(--gold)}
+.feat-icon.teal{background:rgba(11,92,255,.12);color:var(--teal)}
+.feat-icon.gold{background:rgba(11,92,255,.1);color:var(--gold)}
 .feat-icon.blue{background:rgba(96,165,250,.1);color:#60A5FA}
 .feat-icon.purple{background:rgba(167,139,250,.1);color:#A78BFA}
 .feat-icon.green{background:rgba(74,222,128,.1);color:#4ADE80}
 .feat-icon.pink{background:rgba(244,114,182,.1);color:#F472B6}
 .feat-card h3{font-family:'Syne',sans-serif;font-size:0.893rem;font-weight:700;margin-bottom:10px}
 .feat-card p{font-size:.84rem;color:var(--mist);line-height:1.65}
-.feat-tag{display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:.66rem;color:var(--teal);background:rgba(16,185,129,.08);padding:3px 10px;border-radius:4px}
+.feat-tag{display:inline-block;margin-top:16px;font-family:'DM Mono',monospace;font-size:.66rem;color:var(--teal);background:rgba(11,92,255,.08);padding:3px 10px;border-radius:4px}
 
 /* ── HOW IT WORKS ── */
 .how{background:var(--ink2)}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px;position:relative}
-.steps::before{content:'';position:absolute;top:36px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(16,185,129,.3),rgba(16,185,129,.3),transparent);pointer-events:none}
+.steps::before{content:'';position:absolute;top:36px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(11,92,255,.3),rgba(11,92,255,.3),transparent);pointer-events:none}
 .step{text-align:center;padding:0 20px;position:relative}
-.step-num{width:72px;height:72px;border-radius:50%;border:2px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:var(--ink);position:relative;z-index:1;transition:all .3s}
-.step:hover .step-num{border-color:var(--teal);box-shadow:0 0 24px rgba(16,185,129,.25)}
+.step-num{width:72px;height:72px;border-radius:50%;border:2px solid rgba(11,92,255,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:var(--ink);position:relative;z-index:1;transition:all .3s}
+.step:hover .step-num{border-color:var(--teal);box-shadow:0 0 24px rgba(11,92,255,.25)}
 .step-n{font-family:'Syne',sans-serif;font-size:1.137rem;font-weight:800;color:var(--teal)}
 .step h3{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;margin-bottom:10px}
 .step p{font-size:.8rem;color:var(--mist);line-height:1.6}
@@ -144,19 +144,19 @@ section{padding:100px 0}
 /* ── ERPS ── */
 .erps-row{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:48px}
 .erp-card{background:var(--ink2);border:1px solid rgba(255,255,255,.08);border-radius:var(--r2);padding:28px 36px;text-align:center;flex:1;min-width:200px;max-width:280px;transition:all .3s}
-.erp-card:hover{border-color:rgba(16,185,129,.3);transform:translateY(-3px)}
+.erp-card:hover{border-color:rgba(11,92,255,.3);transform:translateY(-3px)}
 .erp-logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:10px}
 .erp-logo.siigo{color:#34D399}
 .erp-logo.helisa{color:#FF7043}
 .erp-logo.siesa{color:#7C4DFF}
 .erp-desc{font-size:.8rem;color:var(--mist);line-height:1.5;margin-bottom:16px}
-.erp-method{display:flex;align-items:center;gap:6px;justify-content:center;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);background:rgba(16,185,129,.08);padding:5px 12px;border-radius:4px}
+.erp-method{display:flex;align-items:center;gap:6px;justify-content:center;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);background:rgba(11,92,255,.08);padding:5px 12px;border-radius:4px}
 
 /* ── NORMATIVA ── */
-.norm-band{background:linear-gradient(135deg,var(--ink2) 0%,rgba(5,30,20,.8) 100%);border:1px solid rgba(16,185,129,.15);border-radius:var(--r3);padding:56px;margin:0 24px}
+.norm-band{background:linear-gradient(135deg,var(--ink2) 0%,rgba(5,30,20,.8) 100%);border:1px solid rgba(11,92,255,.15);border-radius:var(--r3);padding:56px;margin:0 24px}
 .norm-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 .norm-pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.norm-pill{display:flex;align-items:center;gap:8px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:50px;padding:10px 18px}
+.norm-pill{display:flex;align-items:center;gap:8px;background:rgba(11,92,255,.08);border:1px solid rgba(11,92,255,.2);border-radius:50px;padding:10px 18px}
 .np-val{font-family:'Syne',sans-serif;font-size:0.963rem;font-weight:800;color:var(--teal)}
 .np-lbl{font-size:.75rem;color:var(--mist);line-height:1.3}
 .norm-table{background:var(--ink);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);overflow:hidden}
@@ -172,7 +172,7 @@ section{padding:100px 0}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
 .price-card{background:var(--ink2);border:1px solid rgba(255,255,255,.08);border-radius:var(--r2);padding:36px 32px;position:relative;transition:all .3s}
 .price-card:hover{transform:translateY(-4px)}
-.price-card.featured{border-color:var(--teal);background:linear-gradient(160deg,rgba(16,185,129,.07) 0%,var(--ink2) 60%)}
+.price-card.featured{border-color:var(--teal);background:linear-gradient(160deg,rgba(11,92,255,.07) 0%,var(--ink2) 60%)}
 .price-card.featured::before{content:'MÁS POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--teal);color:var(--ink);font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;letter-spacing:.1em;padding:4px 16px;border-radius:50px}
 .price-name{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--mist);text-transform:uppercase;margin-bottom:20px}
 .price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
@@ -188,7 +188,7 @@ section{padding:100px 0}
 .pf-text.dim{color:var(--slate)}
 .price-btn{display:block;width:100%;padding:13px;text-align:center;border-radius:50px;font-family:'Syne',sans-serif;font-weight:700;font-size:.84rem;letter-spacing:.04em;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
 .price-btn.primary{background:var(--teal);color:var(--ink)}
-.price-btn.primary:hover{box-shadow:0 0 28px rgba(16,185,129,.4)}
+.price-btn.primary:hover{box-shadow:0 0 28px rgba(11,92,255,.4)}
 .price-btn.outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.2)}
 .price-btn.outline:hover{border-color:var(--teal);color:var(--teal)}
 
@@ -198,13 +198,13 @@ section{padding:100px 0}
 .test-stars{color:var(--gold);font-size:.9rem;letter-spacing:2px;margin-bottom:16px}
 .test-text{font-size:.88rem;color:var(--fog);line-height:1.7;font-style:italic;margin-bottom:24px}
 .test-author{display:flex;align-items:center;gap:12px}
-.test-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#059669);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.82rem;color:var(--ink);flex-shrink:0}
+.test-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0044CC);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.82rem;color:var(--ink);flex-shrink:0}
 .test-name{font-weight:600;font-size:.86rem}
 .test-role{font-size:.76rem;color:var(--mist)}
 
 /* ── CTA FINAL ── */
-.cta-final{background:linear-gradient(135deg,rgba(5,40,25,.8) 0%,rgba(5,25,40,.8) 100%);border:1px solid rgba(16,185,129,.15);border-radius:var(--r3);padding:80px 60px;text-align:center;margin:0 24px;position:relative;overflow:hidden}
-.cta-final::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(16,185,129,.12) 0%,transparent 70%);pointer-events:none}
+.cta-final{background:linear-gradient(135deg,rgba(5,40,25,.8) 0%,rgba(5,25,40,.8) 100%);border:1px solid rgba(11,92,255,.15);border-radius:var(--r3);padding:80px 60px;text-align:center;margin:0 24px;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(11,92,255,.12) 0%,transparent 70%);pointer-events:none}
 .cta-final h2{font-family:'Syne',sans-serif;font-size:clamp(1.575rem,4vw,2.8rem);font-weight:800;line-height:1.15;margin-bottom:18px;position:relative}
 .cta-final p{font-size:0.875rem;color:var(--mist);max-width:540px;margin:0 auto 40px;line-height:1.7;position:relative}
 .cta-final .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
@@ -222,11 +222,11 @@ section{padding:100px 0}
 .form-select option{background:var(--ink2)}
 .contact-info{display:flex;flex-direction:column;gap:20px}
 .ci-item{display:flex;align-items:flex-start;gap:14px}
-.ci-icon{width:42px;height:42px;border-radius:10px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);display:flex;align-items:center;justify-content:center;font-size:0.963rem;flex-shrink:0}
+.ci-icon{width:42px;height:42px;border-radius:10px;background:rgba(11,92,255,.1);border:1px solid rgba(11,92,255,.2);display:flex;align-items:center;justify-content:center;font-size:0.963rem;flex-shrink:0}
 .ci-body strong{display:block;font-size:.88rem;margin-bottom:2px}
 .ci-body p{font-size:.8rem;color:var(--mist)}
 .form-submit{width:100%;padding:14px;background:var(--teal);color:var(--ink);border:none;border-radius:50px;font-family:'Syne',sans-serif;font-weight:800;font-size:.88rem;letter-spacing:.06em;cursor:pointer;transition:all .25s}
-.form-submit:hover{box-shadow:0 0 32px rgba(16,185,129,.45);transform:translateY(-2px)}
+.form-submit:hover{box-shadow:0 0 32px rgba(11,92,255,.45);transform:translateY(-2px)}
 .form-ok{display:none;text-align:center;padding:32px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);border-radius:var(--r2);color:#4ADE80;font-size:.9rem}
 
 /* ── FOOTER ── */
@@ -234,7 +234,7 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
 .footer-brand{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.1em;color:var(--teal);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .footer-desc{font-size:.82rem;color:var(--mist);line-height:1.7;margin-bottom:18px}
-.footer-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);border-radius:4px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:.64rem;color:var(--teal)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(11,92,255,.08);border:1px solid rgba(11,92,255,.15);border-radius:4px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:.64rem;color:var(--teal)}
 .footer-col-title{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--fog);text-transform:uppercase;margin-bottom:16px}
 .footer-links{display:flex;flex-direction:column;gap:10px}
 .footer-links a{font-size:.82rem;color:var(--mist);text-decoration:none;transition:color .2s}
@@ -265,6 +265,55 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
   .pricing-grid{grid-template-columns:1fr}
 }
 </style>
+
+<!-- NEXCORE IA BRAND -->
+<style id="nexcore-brand">
+:root{
+  --bg:#060D1F!important;--bg2:#0A1428!important;--bg3:#0D1B35!important;--bg4:#112040!important;
+  --teal:#0B5CFF!important;--t2:#0044CC!important;--tc:rgba(11,92,255,.1)!important;
+  --cyan:#00CFFF!important;--green:#00E5A0!important;
+  --txt:#E8F0FF!important;--tm:#5A7AAA!important;--td:#1A2E55!important;
+  --bord:rgba(11,92,255,.18)!important;--bh:rgba(11,92,255,.42)!important;
+  --orange:#FF6B00;
+}
+body{background:#060D1F!important}
+
+/* Logo en headers */
+.hdr-logo,.logo,.hdr-brand,.logo-text{color:#E8F0FF!important}
+
+/* Gradiente azul-naranja en elementos destacados */
+.btn-primary,.btn-all,.login-btn,.cta-btn,
+button[class*="primary"],a[class*="cta"]{
+  background:linear-gradient(135deg,#0B5CFF,#FF6B00)!important;
+  border:none!important;color:#fff!important;font-weight:700!important;
+}
+
+/* Acentos verdes → azul Nexcore */
+.green,.text-green,[style*="#0B5CFF"],[style*="#0B5CFF"]{
+  color:#0B5CFF!important;
+}
+
+/* Pills y badges */
+.pill.on,.b-active,.b-green{
+  background:rgba(11,92,255,.12)!important;
+  color:#4A9DFF!important;
+  border-color:rgba(11,92,255,.35)!important;
+}
+
+/* KPIs top bar */
+.kpi::before,.k-g::before{
+  background:linear-gradient(90deg,transparent,#0B5CFF,#FF6B00,transparent)!important;
+}
+
+/* Nav activo */
+.nav-item.active,.nav-it.on{
+  background:rgba(11,92,255,.12)!important;
+  color:#4A9DFF!important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-thumb{background:rgba(11,92,255,.4)!important}
+</style>
 </head>
 <body>
 
@@ -273,11 +322,11 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="nav-inner">
     <a href="#" class="nav-logo">
       <svg class="nav-logo-icon" viewBox="0 0 34 34" fill="none">
-        <polygon points="17,2 29,9.5 29,24.5 17,32 5,24.5 5,9.5" fill="rgba(16,185,129,.08)" stroke="rgba(16,185,129,.5)" stroke-width="1.2"/>
-        <polygon points="17,6 25,11 25,23 17,28 9,23 9,11" fill="rgba(16,185,129,.06)" stroke="rgba(16,185,129,.3)" stroke-width="1"/>
-        <circle cx="17" cy="17" r="4.5" fill="#10B981"/>
+        <polygon points="17,2 29,9.5 29,24.5 17,32 5,24.5 5,9.5" fill="rgba(11,92,255,.08)" stroke="rgba(11,92,255,.5)" stroke-width="1.2"/>
+        <polygon points="17,6 25,11 25,23 17,28 9,23 9,11" fill="rgba(11,92,255,.06)" stroke="rgba(11,92,255,.3)" stroke-width="1"/>
+        <circle cx="17" cy="17" r="4.5" fill="#0B5CFF"/>
       </svg>
-      <div class="nav-brand">CONTABLE IA<span>COLOMBIA 2026</span></div>
+      <div class="nav-brand">NEXCORE IA<span>COLOMBIA 2026</span></div>
     </a>
     <div class="nav-links">
       <a href="#features">Funciones</a>
@@ -820,7 +869,7 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
           <div class="ci-icon">👨‍💻</div>
           <div class="ci-body">
             <strong>Desarrollador</strong>
-            <p>Ing. Julián Arias<br>Especialista en automatización contable Colombia</p>
+            <p>Nexcore IA<br>Especialista en automatización contable Colombia</p>
           </div>
         </div>
         <div class="ci-item">
@@ -834,10 +883,10 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
           <div class="ci-icon">🔒</div>
           <div class="ci-body">
             <strong>Propiedad intelectual</strong>
-            <p>Software registrado · Copyright © 2025-2026<br>Ing. Julián Arias · Todos los derechos reservados</p>
+            <p>Software registrado · Copyright © 2025-2026<br>Nexcore IA · Todos los derechos reservados</p>
           </div>
         </div>
-        <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:var(--r2);padding:20px;margin-top:8px">
+        <div style="background:rgba(11,92,255,.06);border:1px solid rgba(11,92,255,.15);border-radius:var(--r2);padding:20px;margin-top:8px">
           <div style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teal);margin-bottom:10px;letter-spacing:.06em">INCLUIDO EN LA DEMO</div>
           <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem;color:var(--mist)">
             <div>✓ Procesamiento de sus facturas DIAN reales</div>
@@ -858,10 +907,10 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
       <div>
         <div class="footer-brand">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <polygon points="11,1.5 19,6 19,16 11,20.5 3,16 3,6" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.5)" stroke-width=".8"/>
-            <circle cx="11" cy="11" r="3" fill="#10B981"/>
+            <polygon points="11,1.5 19,6 19,16 11,20.5 3,16 3,6" fill="rgba(11,92,255,.1)" stroke="rgba(11,92,255,.5)" stroke-width=".8"/>
+            <circle cx="11" cy="11" r="3" fill="#0B5CFF"/>
           </svg>
-          CONTABLE IA
+          NEXCORE IA
         </div>
         <p class="footer-desc">El software de automatización contable más completo de Colombia. Facturas DIAN procesadas automáticamente con retenciones 2026 exactas.</p>
         <div class="footer-badge">UVT 2026: $52.374 · DIAN UBL 2.1</div>
@@ -896,7 +945,7 @@ footer{background:var(--ink2);border-top:1px solid rgba(255,255,255,.06);padding
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">
-        <strong>Copyright © 2025-2026 Ing. Julián Arias.</strong> Todos los derechos reservados.<br>
+        <strong>Copyright © 2025-2026 Nexcore IA.</strong> Todos los derechos reservados.<br>
         Prohibida la reproducción sin autorización escrita. Software registrado ante la DNDA Colombia.<br>
         Normativa: Decreto 2418/2013 · Decreto 0572/2025 · Res. DIAN 000238/2025 · Acuerdo 816/2021 Bogotá D.C.
       </div>
