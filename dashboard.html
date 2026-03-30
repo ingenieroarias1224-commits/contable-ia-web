@@ -384,7 +384,7 @@ body{background:#060D1F!important}
     <div class="pill w"><div class="pdot"></div>2 PENDIENTES</div>
     <button id="themeBtn" onclick="toggleTheme()" style="background:rgba(11,92,255,.1);border:1px solid rgba(11,92,255,.3);color:#00CFFF;border-radius:20px;padding:4px 14px;font-size:.58rem;cursor:pointer;font-family:monospace;letter-spacing:1px;transition:all .2s">🌙 OSCURO</button>
     <div id="clk"></div>
-    <div class="user-badge" id="userBadge" onclick="doLogout()" title="Cerrar sesión">
+    <button onclick="window.location.href=window.location.pathname+'?action=chpass'" style="background:linear-gradient(135deg,rgba(11,92,255,.15),rgba(255,107,0,.1));border:1px solid rgba(11,92,255,.35);color:#00CFFF;border-radius:20px;padding:4px 14px;font-size:.58rem;cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-right:4px;transition:all .2s">🔐 CLAVE</button><div class="user-badge" id="userBadge" onclick="doLogout()" title="Cerrar sesión">
       <span id="userLabel">●</span>
       <span style="font-size:.55rem;color:var(--td)">SALIR</span>
     </div>
@@ -666,6 +666,109 @@ body{background:#060D1F!important}
 
 <!-- ══ CONFIGURACIÓN ══ -->
 <div id="tab-cfg" class="wrap" style="display:none">
+
+  <!-- ══ PANEL APARIENCIA ══ -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+
+    <!-- Tema claro/oscuro -->
+    <div class="card">
+      <div class="ct">🎨 Tema Visual</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:.62rem;color:var(--tm);margin-bottom:4px">Seleccione el tema del sistema</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div id="theme-dark-btn" onclick="setTheme('dark')" style="cursor:pointer;background:var(--bg4);border:2px solid var(--teal);border-radius:8px;padding:14px;text-align:center;transition:all .2s">
+            <div style="font-size:1.4rem;margin-bottom:6px">🌙</div>
+            <div style="font-size:.65rem;color:var(--teal);font-weight:700;letter-spacing:1px">OSCURO</div>
+            <div style="font-size:.55rem;color:var(--tm);margin-top:3px">Fondo navy</div>
+          </div>
+          <div id="theme-light-btn" onclick="setTheme('light')" style="cursor:pointer;background:var(--bg4);border:2px solid transparent;border-radius:8px;padding:14px;text-align:center;transition:all .2s">
+            <div style="font-size:1.4rem;margin-bottom:6px">☀️</div>
+            <div style="font-size:.65rem;color:var(--tm);font-weight:700;letter-spacing:1px">CLARO</div>
+            <div style="font-size:.55rem;color:var(--tm);margin-top:3px">Fondo blanco</div>
+          </div>
+        </div>
+        <!-- Slider deslizador -->
+        <div style="margin-top:8px">
+          <div style="font-size:.6rem;color:var(--tm);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Deslizador de tema</div>
+          <div style="position:relative;height:28px;background:linear-gradient(90deg,#060D1F 0%,#EEF2FF 100%);border-radius:20px;border:1px solid var(--bord);cursor:pointer" onclick="toggleThemeSlider(event)" id="themeSlider">
+            <div id="sliderThumb" style="position:absolute;top:3px;left:3px;width:22px;height:22px;background:linear-gradient(135deg,#0B5CFF,#FF6B00);border-radius:50%;transition:left .3s;box-shadow:0 2px 8px rgba(11,92,255,.4)"></div>
+            <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.55rem;color:rgba(255,255,255,.5);pointer-events:none">OSCURO</div>
+            <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.55rem;color:rgba(11,92,255,.5);pointer-events:none">CLARO</div>
+          </div>
+        </div>
+        <div id="theme-status" style="font-size:.6rem;color:var(--teal);font-family:'JetBrains Mono',monospace;text-align:center;padding:4px;background:var(--bg4);border-radius:5px">
+          🌙 Modo oscuro activo
+        </div>
+      </div>
+    </div>
+
+    <!-- Tipografía -->
+    <div class="card">
+      <div class="ct">🔤 Tipografía</div>
+      <div style="font-size:.62rem;color:var(--tm);margin-bottom:12px">Personalice la fuente y tamaño del sistema</div>
+
+      <!-- Selector de fuente -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:.6rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Fuente principal</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px" id="font-options">
+          <div class="font-opt active-font" onclick="setFont('Space Grotesk')" data-font="Space Grotesk" style="cursor:pointer;background:var(--bg4);border:1px solid var(--teal);border-radius:6px;padding:8px 10px;transition:all .2s">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Space Grotesk</div>
+            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Moderna · recomendada</div>
+          </div>
+          <div class="font-opt" onclick="setFont('Inter')" data-font="Inter" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
+            <div style="font-family:'Inter',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Inter</div>
+            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Profesional · limpia</div>
+          </div>
+          <div class="font-opt" onclick="setFont('Roboto')" data-font="Roboto" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
+            <div style="font-family:'Roboto',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Roboto</div>
+            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Google · estándar</div>
+          </div>
+          <div class="font-opt" onclick="setFont('Poppins')" data-font="Poppins" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
+            <div style="font-family:'Poppins',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Poppins</div>
+            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Redonda · amigable</div>
+          </div>
+          <div class="font-opt" onclick="setFont('Lato')" data-font="Lato" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
+            <div style="font-family:'Lato',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Lato</div>
+            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Elegante · serif</div>
+          </div>
+          <div class="font-opt" onclick="setFont('JetBrains Mono')" data-font="JetBrains Mono" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--txt);font-weight:600">JetBrains</div>
+            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Monospace · código</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tamaño de letra -->
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:.6rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px">Tamaño de letra</div>
+          <div id="font-size-label" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--teal);background:var(--bg4);padding:2px 10px;border-radius:10px">14px</div>
+        </div>
+        <input type="range" id="font-size-slider" min="12" max="18" value="14" step="1"
+          oninput="setFontSize(this.value)"
+          style="width:100%;accent-color:#0B5CFF;cursor:pointer">
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:.55rem;color:var(--tm)">12px · pequeño</span>
+          <span style="font-size:.55rem;color:var(--tm)">14px · normal</span>
+          <span style="font-size:.55rem;color:var(--tm)">18px · grande</span>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div style="margin-top:12px;background:var(--bg4);border-radius:6px;padding:10px;border:1px solid var(--bord)">
+        <div style="font-size:.55rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Vista previa</div>
+        <div id="font-preview" style="color:var(--txt)">
+          <div style="font-weight:700;margin-bottom:3px">Nexcore IA — Sistema Contable</div>
+          <div style="color:var(--tm)">Retefuente · ReteICA · Causaciones 2026</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--teal);margin-top:4px">UVT 2026: $52.374</div>
+        </div>
+      </div>
+
+      <button onclick="resetApariencia()" style="margin-top:10px;width:100%;background:rgba(11,92,255,.08);border:1px solid var(--bord);color:var(--tm);border-radius:6px;padding:7px;font-size:.65rem;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--bord)'">↺ Restaurar valores por defecto</button>
+    </div>
+
+  </div><!-- /apariencia grid -->
+
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
 
     <!-- IMAP -->
@@ -1925,6 +2028,110 @@ document.addEventListener('DOMContentLoaded', function() {
   var saved = localStorage.getItem('nxtTheme');
   if (saved === 'light') { darkMode = true; toggleTheme(); }
 });
+
+// ─── APARIENCIA: TEMA ────────────────────────────────────────────────────
+var currentTheme = localStorage.getItem('nxtTheme') || 'dark';
+var currentFont  = localStorage.getItem('nxtFont')  || 'Space Grotesk';
+var currentSize  = parseInt(localStorage.getItem('nxtSize') || '14');
+
+function setTheme(mode) {
+  currentTheme = mode;
+  localStorage.setItem('nxtTheme', mode);
+  applyTheme();
+}
+
+function toggleThemeSlider(e) {
+  var slider = document.getElementById('themeSlider');
+  var rect = slider.getBoundingClientRect();
+  var x = e.clientX - rect.left;
+  var pct = x / rect.width;
+  setTheme(pct > 0.5 ? 'light' : 'dark');
+}
+
+function applyTheme() {
+  var ls = document.getElementById('theme-light');
+  var db = document.getElementById('theme-dark-btn');
+  var lb = document.getElementById('theme-light-btn');
+  var st = document.getElementById('theme-status');
+  var thumb = document.getElementById('sliderThumb');
+  if (currentTheme === 'light') {
+    if(ls) ls.disabled = false;
+    document.body.style.background = '#EEF2FF';
+    if(db){ db.style.borderColor='transparent'; db.querySelector('div').style.color='var(--tm)'; }
+    if(lb){ lb.style.borderColor='#0B5CFF'; lb.querySelector('div').style.color='#0B5CFF'; }
+    if(st){ st.textContent='☀️ Modo claro activo'; st.style.color='#0B5CFF'; }
+    if(thumb){ thumb.style.left='calc(100% - 25px)'; }
+    var btn=document.getElementById('themeBtn');if(btn){btn.textContent='☀️ CLARO';btn.style.color='#0B5CFF';}
+  } else {
+    if(ls) ls.disabled = true;
+    document.body.style.background = '#060D1F';
+    if(db){ db.style.borderColor='var(--teal)'; db.querySelector('div').style.color='var(--teal)'; }
+    if(lb){ lb.style.borderColor='transparent'; lb.querySelector('div').style.color='var(--tm)'; }
+    if(st){ st.textContent='🌙 Modo oscuro activo'; st.style.color='var(--teal)'; }
+    if(thumb){ thumb.style.left='3px'; }
+    var btn=document.getElementById('themeBtn');if(btn){btn.textContent='🌙 OSCURO';btn.style.color='#00CFFF';}
+  }
+}
+
+// ─── APARIENCIA: FUENTE ──────────────────────────────────────────────────
+function setFont(fontName) {
+  currentFont = fontName;
+  localStorage.setItem('nxtFont', fontName);
+  applyFont();
+}
+
+function applyFont() {
+  // Load font from Google if not already loaded
+  var fonts = {'Space Grotesk':'Space+Grotesk:wght@400;500;600;700',
+               'Inter':'Inter:wght@300;400;500;600',
+               'Roboto':'Roboto:wght@300;400;500;700',
+               'Poppins':'Poppins:wght@300;400;500;600;700',
+               'Lato':'Lato:wght@300;400;700',
+               'JetBrains Mono':'JetBrains+Mono:wght@400;500'};
+  var existing = document.getElementById('dynamic-font');
+  if (!existing) { existing = document.createElement('link'); existing.id='dynamic-font'; existing.rel='stylesheet'; document.head.appendChild(existing); }
+  if (fonts[currentFont]) existing.href = 'https://fonts.googleapis.com/css2?family=' + fonts[currentFont] + '&display=swap';
+  document.body.style.fontFamily = "'" + currentFont + "', sans-serif";
+  // Update font option buttons
+  document.querySelectorAll('.font-opt').forEach(function(el) {
+    el.style.borderColor = el.dataset.font === currentFont ? 'var(--teal)' : 'var(--bord)';
+  });
+  // Update preview
+  var prev = document.getElementById('font-preview');
+  if(prev) prev.style.fontFamily = "'" + currentFont + "', sans-serif";
+}
+
+// ─── APARIENCIA: TAMAÑO ──────────────────────────────────────────────────
+function setFontSize(size) {
+  currentSize = parseInt(size);
+  localStorage.setItem('nxtSize', size);
+  applyFontSize();
+}
+
+function applyFontSize() {
+  document.documentElement.style.fontSize = currentSize + 'px';
+  var lbl = document.getElementById('font-size-label');
+  if(lbl) lbl.textContent = currentSize + 'px';
+  var slider = document.getElementById('font-size-slider');
+  if(slider) slider.value = currentSize;
+}
+
+function resetApariencia() {
+  currentTheme = 'dark'; currentFont = 'Space Grotesk'; currentSize = 14;
+  localStorage.removeItem('nxtTheme'); localStorage.removeItem('nxtFont'); localStorage.removeItem('nxtSize');
+  applyTheme(); applyFont(); applyFontSize();
+}
+
+// ─── INIT APARIENCIA ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  // Restore saved preferences
+  applyTheme();
+  applyFont();
+  applyFontSize();
+  // Remove old theme button from header if exists (now in settings panel)
+  // Keep it but sync state
+});
+
 </script>
 </body>
 </html>
