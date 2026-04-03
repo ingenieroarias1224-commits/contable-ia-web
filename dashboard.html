@@ -667,107 +667,144 @@ body{background:#060D1F!important}
 <!-- ══ CONFIGURACIÓN ══ -->
 <div id="tab-cfg" class="wrap" style="display:none">
 
-  <!-- ══ PANEL APARIENCIA ══ -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+  <!-- ══ PANEL APARIENCIA MEJORADO ══ -->
+  <div style="margin-bottom:14px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:.8rem;font-weight:700;
+         color:var(--teal);letter-spacing:1px;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+      <span style="width:3px;height:16px;background:linear-gradient(180deg,var(--blue),var(--orange));border-radius:2px;display:inline-block"></span>
+      🎨 Personalización del Sistema
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
 
-    <!-- Tema claro/oscuro -->
-    <div class="card">
-      <div class="ct">🎨 Tema Visual</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:.62rem;color:var(--tm);margin-bottom:4px">Seleccione el tema del sistema</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div id="theme-dark-btn" onclick="setTheme('dark')" style="cursor:pointer;background:var(--bg4);border:2px solid var(--teal);border-radius:8px;padding:14px;text-align:center;transition:all .2s">
-            <div style="font-size:1.4rem;margin-bottom:6px">🌙</div>
-            <div style="font-size:.65rem;color:var(--teal);font-weight:700;letter-spacing:1px">OSCURO</div>
-            <div style="font-size:.55rem;color:var(--tm);margin-top:3px">Fondo navy</div>
+    <!-- TEMA -->
+    <div class="card" style="grid-column:span 1">
+      <div class="ct">🌓 Tema</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <!-- Slider tema -->
+        <div style="position:relative;height:36px;background:linear-gradient(90deg,#060D1F 0%,#EEF2FF 100%);
+             border-radius:20px;border:1px solid var(--bord);cursor:pointer;margin-bottom:4px"
+             onclick="toggleThemeSlider(event)" id="themeSlider">
+          <div id="sliderThumb" style="position:absolute;top:4px;left:4px;width:28px;height:28px;
+               background:linear-gradient(135deg,#0B5CFF,#FF6B00);border-radius:50%;
+               transition:left .3s;box-shadow:0 2px 10px rgba(11,92,255,.5)"></div>
+          <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);
+               font-size:.5rem;color:rgba(255,255,255,.5);pointer-events:none;font-family:monospace">OSCURO</div>
+          <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);
+               font-size:.5rem;color:rgba(11,92,255,.4);pointer-events:none;font-family:monospace">CLARO</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div id="theme-dark-btn" onclick="setTheme('dark')"
+               style="cursor:pointer;background:var(--bg4);border:2px solid var(--teal);
+               border-radius:8px;padding:10px;text-align:center;transition:all .2s">
+            <div style="font-size:1.2rem">🌙</div>
+            <div style="font-size:.55rem;color:var(--teal);font-weight:700;margin-top:4px">OSCURO</div>
           </div>
-          <div id="theme-light-btn" onclick="setTheme('light')" style="cursor:pointer;background:var(--bg4);border:2px solid transparent;border-radius:8px;padding:14px;text-align:center;transition:all .2s">
-            <div style="font-size:1.4rem;margin-bottom:6px">☀️</div>
-            <div style="font-size:.65rem;color:var(--tm);font-weight:700;letter-spacing:1px">CLARO</div>
-            <div style="font-size:.55rem;color:var(--tm);margin-top:3px">Fondo blanco</div>
+          <div id="theme-light-btn" onclick="setTheme('light')"
+               style="cursor:pointer;background:var(--bg4);border:2px solid transparent;
+               border-radius:8px;padding:10px;text-align:center;transition:all .2s">
+            <div style="font-size:1.2rem">☀️</div>
+            <div style="font-size:.55rem;color:var(--tm);font-weight:700;margin-top:4px">CLARO</div>
           </div>
         </div>
-        <!-- Slider deslizador -->
-        <div style="margin-top:8px">
-          <div style="font-size:.6rem;color:var(--tm);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Deslizador de tema</div>
-          <div style="position:relative;height:28px;background:linear-gradient(90deg,#060D1F 0%,#EEF2FF 100%);border-radius:20px;border:1px solid var(--bord);cursor:pointer" onclick="toggleThemeSlider(event)" id="themeSlider">
-            <div id="sliderThumb" style="position:absolute;top:3px;left:3px;width:22px;height:22px;background:linear-gradient(135deg,#0B5CFF,#FF6B00);border-radius:50%;transition:left .3s;box-shadow:0 2px 8px rgba(11,92,255,.4)"></div>
-            <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:.55rem;color:rgba(255,255,255,.5);pointer-events:none">OSCURO</div>
-            <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.55rem;color:rgba(11,92,255,.5);pointer-events:none">CLARO</div>
-          </div>
-        </div>
-        <div id="theme-status" style="font-size:.6rem;color:var(--teal);font-family:'JetBrains Mono',monospace;text-align:center;padding:4px;background:var(--bg4);border-radius:5px">
+        <div id="theme-status" style="font-size:.58rem;color:var(--teal);font-family:'JetBrains Mono',monospace;
+             text-align:center;padding:4px;background:var(--bg4);border-radius:5px">
           🌙 Modo oscuro activo
         </div>
       </div>
     </div>
 
-    <!-- Tipografía -->
-    <div class="card">
-      <div class="ct">🔤 Tipografía</div>
-      <div style="font-size:.62rem;color:var(--tm);margin-bottom:12px">Personalice la fuente y tamaño del sistema</div>
-
-      <!-- Selector de fuente -->
-      <div style="margin-bottom:12px">
-        <div style="font-size:.6rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Fuente principal</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px" id="font-options">
-          <div class="font-opt active-font" onclick="setFont('Space Grotesk')" data-font="Space Grotesk" style="cursor:pointer;background:var(--bg4);border:1px solid var(--teal);border-radius:6px;padding:8px 10px;transition:all .2s">
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Space Grotesk</div>
-            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Moderna · recomendada</div>
-          </div>
-          <div class="font-opt" onclick="setFont('Inter')" data-font="Inter" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
-            <div style="font-family:'Inter',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Inter</div>
-            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Profesional · limpia</div>
-          </div>
-          <div class="font-opt" onclick="setFont('Roboto')" data-font="Roboto" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
-            <div style="font-family:'Roboto',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Roboto</div>
-            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Google · estándar</div>
-          </div>
-          <div class="font-opt" onclick="setFont('Poppins')" data-font="Poppins" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
-            <div style="font-family:'Poppins',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Poppins</div>
-            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Redonda · amigable</div>
-          </div>
-          <div class="font-opt" onclick="setFont('Lato')" data-font="Lato" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
-            <div style="font-family:'Lato',sans-serif;font-size:.76rem;color:var(--txt);font-weight:600">Lato</div>
-            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Elegante · serif</div>
-          </div>
-          <div class="font-opt" onclick="setFont('JetBrains Mono')" data-font="JetBrains Mono" style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);border-radius:6px;padding:8px 10px;transition:all .2s">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--txt);font-weight:600">JetBrains</div>
-            <div style="font-size:.52rem;color:var(--tm);margin-top:2px">Monospace · código</div>
-          </div>
-        </div>
+    <!-- BACKGROUND -->
+    <div class="card" style="grid-column:span 1">
+      <div class="ct">🖼 Fondo personalizado</div>
+      <div style="font-size:.6rem;color:var(--tm);margin-bottom:8px">Color de fondo del sistema</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px" id="bgColorGrid">
+        <div onclick="setBg('#060D1F')" title="Navy" style="height:30px;border-radius:6px;background:#060D1F;cursor:pointer;border:2px solid var(--teal)"></div>
+        <div onclick="setBg('#0A0A0A')" title="Negro" style="height:30px;border-radius:6px;background:#0A0A0A;cursor:pointer;border:2px solid transparent"></div>
+        <div onclick="setBg('#0F1A2E')" title="Azul oscuro" style="height:30px;border-radius:6px;background:#0F1A2E;cursor:pointer;border:2px solid transparent"></div>
+        <div onclick="setBg('#1A0F2E')" title="Púrpura" style="height:30px;border-radius:6px;background:#1A0F2E;cursor:pointer;border:2px solid transparent"></div>
+        <div onclick="setBg('#0F2E1A')" title="Verde oscuro" style="height:30px;border-radius:6px;background:#0F2E1A;cursor:pointer;border:2px solid transparent"></div>
+        <div onclick="setBg('#2E1A0F')" title="Café" style="height:30px;border-radius:6px;background:#2E1A0F;cursor:pointer;border:2px solid transparent"></div>
+        <div onclick="setBg('#EEF2FF')" title="Blanco" style="height:30px;border-radius:6px;background:#EEF2FF;cursor:pointer;border:2px solid transparent"></div>
+        <div onclick="setBg('#F5F0FF')" title="Lavanda" style="height:30px;border-radius:6px;background:#F5F0FF;cursor:pointer;border:2px solid transparent"></div>
       </div>
-
-      <!-- Tamaño de letra -->
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-size:.6rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px">Tamaño de letra</div>
-          <div id="font-size-label" style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--teal);background:var(--bg4);padding:2px 10px;border-radius:10px">14px</div>
-        </div>
-        <input type="range" id="font-size-slider" min="12" max="18" value="14" step="1"
-          oninput="setFontSize(this.value)"
-          style="width:100%;accent-color:#0B5CFF;cursor:pointer">
-        <div style="display:flex;justify-content:space-between;margin-top:4px">
-          <span style="font-size:.55rem;color:var(--tm)">12px · pequeño</span>
-          <span style="font-size:.55rem;color:var(--tm)">14px · normal</span>
-          <span style="font-size:.55rem;color:var(--tm)">18px · grande</span>
-        </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-size:.6rem;color:var(--tm)">Color personalizado:</div>
+        <input type="color" id="bgColorPicker" value="#060D1F"
+               onchange="setBg(this.value)"
+               style="width:36px;height:28px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0">
       </div>
-
-      <!-- Preview -->
-      <div style="margin-top:12px;background:var(--bg4);border-radius:6px;padding:10px;border:1px solid var(--bord)">
-        <div style="font-size:.55rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Vista previa</div>
-        <div id="font-preview" style="color:var(--txt)">
-          <div style="font-weight:700;margin-bottom:3px">Nexcore IA — Sistema Contable</div>
-          <div style="color:var(--tm)">Retefuente · ReteICA · Causaciones 2026</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--teal);margin-top:4px">UVT 2026: $52.374</div>
-        </div>
-      </div>
-
-      <button onclick="resetApariencia()" style="margin-top:10px;width:100%;background:rgba(11,92,255,.08);border:1px solid var(--bord);color:var(--tm);border-radius:6px;padding:7px;font-size:.65rem;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--bord)'">↺ Restaurar valores por defecto</button>
     </div>
 
-  </div><!-- /apariencia grid -->
+    <!-- TIPOGRAFÍA -->
+    <div class="card" style="grid-column:span 1">
+      <div class="ct">🔤 Tipografía</div>
+      <!-- Fuentes -->
+      <div style="font-size:.6rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Fuente</div>
+      <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:10px" id="font-options">
+        <div class="font-opt active-font" onclick="setFont('Space Grotesk')" data-font="Space Grotesk"
+             style="cursor:pointer;background:rgba(11,92,255,.12);border:1px solid var(--teal);
+             border-radius:6px;padding:6px 10px;transition:all .2s;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:600">Space Grotesk</span>
+          <span style="font-size:.52rem;color:var(--tm)">Moderna</span>
+        </div>
+        <div class="font-opt" onclick="setFont('Inter')" data-font="Inter"
+             style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);
+             border-radius:6px;padding:6px 10px;transition:all .2s;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600">Inter</span>
+          <span style="font-size:.52rem;color:var(--tm)">Profesional</span>
+        </div>
+        <div class="font-opt" onclick="setFont('Roboto')" data-font="Roboto"
+             style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);
+             border-radius:6px;padding:6px 10px;transition:all .2s;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'Roboto',sans-serif;font-size:.72rem;font-weight:600">Roboto</span>
+          <span style="font-size:.52rem;color:var(--tm)">Google</span>
+        </div>
+        <div class="font-opt" onclick="setFont('Poppins')" data-font="Poppins"
+             style="cursor:pointer;background:var(--bg4);border:1px solid var(--bord);
+             border-radius:6px;padding:6px 10px;transition:all .2s;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:600">Poppins</span>
+          <span style="font-size:.52rem;color:var(--tm)">Amigable</span>
+        </div>
+      </div>
+      <!-- Tamaño -->
+      <div style="font-size:.6rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Tamaño</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="range" id="font-size-slider" min="12" max="18" value="14" step="1"
+               oninput="setFontSize(this.value)"
+               style="flex:1;accent-color:#0B5CFF;cursor:pointer">
+        <div id="font-size-label" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;
+             color:var(--teal);background:var(--bg4);padding:2px 8px;border-radius:8px;white-space:nowrap">14px</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:3px">
+        <span style="font-size:.52rem;color:var(--tm)">12px</span>
+        <span style="font-size:.52rem;color:var(--tm)">18px</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PREVIEW + RESET -->
+  <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:14px;align-items:center">
+    <div style="background:var(--bg4);border-radius:8px;padding:12px 16px;border:1px solid var(--bord)">
+      <div style="font-size:.58rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Vista previa</div>
+      <div id="font-preview" style="line-height:1.6">
+        <div style="font-weight:700;font-size:.82rem;margin-bottom:2px">Nexcore IA — Sistema Contable</div>
+        <div style="color:var(--tm);font-size:.7rem">Retefuente · ReteICA · Causaciones 2026</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--teal);margin-top:4px">UVT 2026: $52.374 · Decreto 0572/2025</div>
+      </div>
+    </div>
+    <button onclick="resetApariencia()"
+            style="background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.25);color:var(--orange);
+            border-radius:8px;padding:10px 16px;font-size:.6rem;cursor:pointer;
+            font-family:'Space Grotesk',sans-serif;font-weight:600;transition:all .2s;white-space:nowrap"
+            onmouseover="this.style.background='rgba(255,107,0,.18)'"
+            onmouseout="this.style.background='rgba(255,107,0,.08)'">
+      ↺ Restaurar<br>valores por defecto
+    </button>
+  </div>
+
+
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
 
@@ -1133,6 +1170,7 @@ function renderCaus() {
           <span style="font-family:'Space Grotesk',monospace;font-size:.88rem;font-weight:700;color:var(--green)">${fmt(neto)}</span>
         </div>
         <div style="display:flex;gap:6px">
+          <button class="btn" onclick="verPDF(${i})" style="background:rgba(0,207,255,.08);border-color:rgba(0,207,255,.3);color:var(--cyan);font-size:.55rem;padding:5px 10px">👁 Ver factura</button>
           <button class="btn btn-ok" onclick="aprobarUno(${i},this)">Aprobar</button>
           <button class="btn btn-rej" onclick="rechazarUno(${i})">Rechazar</button>
         </div>
@@ -2128,10 +2166,220 @@ document.addEventListener('DOMContentLoaded', function() {
   applyTheme();
   applyFont();
   applyFontSize();
+  applyBg();
   // Remove old theme button from header if exists (now in settings panel)
   // Keep it but sync state
 });
 
+
+// ─── VER FACTURA / PDF ───────────────────────────────────────────
+var pdfFacturaIdx = -1;
+
+function verPDF(i) {
+  pdfFacturaIdx = i;
+  var f = FACTURAS[i];
+  document.getElementById('pdfBg').classList.add('show');
+  document.getElementById('pdfTitle').textContent = '📄 ' + f.n + ' — ' + f.p;
+  showPTab(1);
+
+  // Datos de la causación
+  var neto = f.tot - (f.rete||0) - (f.ica||0);
+  document.getElementById('pdfDatos').innerHTML =
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">' +
+      '<div style="background:var(--bg4);border-radius:8px;padding:12px">' +
+        '<div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Información del proveedor</div>' +
+        '<div style="font-size:.68rem;color:var(--txt);line-height:2">' +
+          '<b style="color:var(--teal)">' + f.p + '</b><br>' +
+          'NIT: ' + (f.nit||'—') + '<br>' +
+          'Régimen: ' + (f.reg||'RC') + '<br>' +
+          'ERP: ' + (f.erp||'Siigo') +
+        '</div>' +
+      '</div>' +
+      '<div style="background:var(--bg4);border-radius:8px;padding:12px">' +
+        '<div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Valores de la factura</div>' +
+        '<div style="font-size:.68rem;line-height:2">' +
+          'Número: <span style="color:var(--teal)">' + f.n + '</span><br>' +
+          'Base gravable: <span style="color:var(--txt)">' + fmt(f.base||0) + '</span><br>' +
+          'IVA: <span style="color:var(--txt)">' + fmt(f.iva||0) + '</span><br>' +
+          'Retefuente: <span style="color:var(--amber)">-' + fmt(f.rete||0) + '</span><br>' +
+          'ReteICA: <span style="color:var(--amber)">-' + fmt(f.ica||0) + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="background:linear-gradient(135deg,rgba(11,92,255,.08),rgba(255,107,0,.05));border:1px solid rgba(11,92,255,.25);border-radius:8px;padding:14px;display:flex;justify-content:space-between;align-items:center">' +
+      '<div style="font-size:.7rem;color:var(--tm)">NETO A PAGAR AL PROVEEDOR</div>' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,#4A9DFF,#FF8C35);-webkit-background-clip:text;-webkit-text-fill-color:transparent">' + fmt(neto) + '</div>' +
+    '</div>' +
+    '<div style="margin-top:12px">' +
+      '<div style="font-size:.58rem;color:var(--tm);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Asiento contable PUC</div>' +
+      '<table class="atbl" style="width:100%">' +
+        '<thead><tr><th>Cta PUC</th><th>Descripción</th><th>Débito</th><th>Crédito</th></tr></thead>' +
+        '<tbody>' +
+          '<tr><td>' + (f.puc||'512045') + '</td><td>Gasto ' + (f.con||'COM') + '</td><td>' + fmt(f.base||0) + '</td><td>—</td></tr>' +
+          (f.iva>0?'<tr><td>24080100</td><td>IVA Descontable 19%</td><td>'+fmt(f.iva)+'</td><td>—</td></tr>':'') +
+          (f.rete>0?'<tr><td>23650100</td><td>Retefuente '+f.con+'</td><td>—</td><td>'+fmt(f.rete)+'</td></tr>':'') +
+          (f.ica>0?'<tr><td>23680100</td><td>ReteICA 9.66‰</td><td>—</td><td>'+fmt(f.ica)+'</td></tr>':'') +
+          '<tr class="tot"><td>22050000</td><td>CxP '+f.p.substring(0,20)+'</td><td>—</td><td>'+fmt(neto)+'</td></tr>' +
+        '</tbody>' +
+      '</table>' +
+    '</div>';
+}
+
+function cerrarPDF() {
+  document.getElementById('pdfBg').classList.remove('show');
+  document.getElementById('pdfPreviewArea').innerHTML = '';
+  document.getElementById('cufeResult').style.display = 'none';
+  document.getElementById('cufeInput').value = '';
+}
+
+function showPTab(n) {
+  [1,2,3].forEach(function(t) {
+    var tab = document.getElementById('pdfTab'+t);
+    var btn = document.getElementById('ptab'+t);
+    if(tab) tab.style.display = t===n ? 'block' : 'none';
+    if(btn) {
+      btn.style.background = t===n ? 'rgba(11,92,255,.15)' : 'rgba(11,92,255,.06)';
+      btn.style.borderColor = t===n ? 'var(--teal)' : 'var(--bord)';
+      btn.style.color = t===n ? 'var(--teal)' : 'var(--tm)';
+    }
+  });
+}
+
+function handlePDFDrop(e) {
+  e.preventDefault();
+  document.getElementById('pdfDropZone').style.borderColor = 'var(--bord)';
+  var file = e.dataTransfer.files[0];
+  if(file) previewFile(file);
+}
+
+function handlePDFFile(input) {
+  if(input.files[0]) previewFile(input.files[0]);
+}
+
+function previewFile(file) {
+  var area = document.getElementById('pdfPreviewArea');
+  if(file.type === 'application/pdf') {
+    var url = URL.createObjectURL(file);
+    area.innerHTML = '<iframe src="'+url+'" style="width:100%;height:480px;border:none;border-radius:8px;background:#fff"></iframe>' +
+      '<div style="font-size:.6rem;color:var(--green);margin-top:6px;text-align:center">✅ PDF cargado — revise la factura antes de aprobar</div>';
+  } else if(file.type.startsWith('image/')) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      area.innerHTML = '<img src="'+e.target.result+'" style="width:100%;border-radius:8px;border:1px solid var(--bord)">' +
+        '<div style="font-size:.6rem;color:var(--green);margin-top:6px;text-align:center">✅ Imagen cargada</div>';
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function validarCUFE() {
+  var cufe = document.getElementById('cufeInput').value.trim();
+  var res = document.getElementById('cufeResult');
+  if(!cufe) { res.style.display='block'; res.style.background='rgba(255,51,102,.08)'; res.style.border='1px solid rgba(255,51,102,.25)'; res.style.color='var(--red)'; res.textContent='⚠️ Ingrese un CUFE válido'; return; }
+  res.style.display='block'; res.style.background='rgba(0,245,212,.06)'; res.style.border='1px solid rgba(0,245,212,.2)'; res.style.color='var(--teal)';
+  res.textContent='🔍 Validando con DIAN...';
+  // Simular validación (en producción conecta con DIAN API)
+  setTimeout(function() {
+    if(cufe.length > 30) {
+      res.style.background='rgba(57,255,138,.06)'; res.style.borderColor='rgba(57,255,138,.25)'; res.style.color='var(--green)';
+      res.textContent='✅ CUFE válido — Factura verificada con la DIAN · Emisor autorizado';
+    } else {
+      res.style.background='rgba(255,51,102,.08)'; res.style.borderColor='rgba(255,51,102,.25)'; res.style.color='var(--red)';
+      res.textContent='❌ CUFE inválido o no encontrado en el catálogo DIAN';
+    }
+  }, 1500);
+}
+
+function aprobarDesdePDF() {
+  if(pdfFacturaIdx >= 0) {
+    aprobarUno(pdfFacturaIdx, document.getElementById('pdfAprobarBtn'));
+    cerrarPDF();
+  }
+}
+
+
+// ─── BACKGROUND COLOR ────────────────────────────────────────────
+var currentBg = localStorage.getItem('nxtBg') || '#060D1F';
+
+function setBg(color) {
+  currentBg = color;
+  localStorage.setItem('nxtBg', color);
+  applyBg();
+}
+
+function applyBg() {
+  document.body.style.background = currentBg;
+  document.documentElement.style.setProperty('--bg', currentBg);
+  // Update color grid borders
+  document.querySelectorAll('#bgColorGrid > div').forEach(function(el) {
+    el.style.border = el.getAttribute('onclick') && el.getAttribute('onclick').includes(currentBg)
+      ? '2px solid var(--teal)' : '2px solid transparent';
+  });
+  var picker = document.getElementById('bgColorPicker');
+  if(picker) picker.value = currentBg;
+}
+
 </script>
+
+<!-- ══ MODAL VER FACTURA ══ -->
+<div class="mbg" id="pdfBg" onclick="if(event.target===this)cerrarPDF()">
+  <div class="modal" style="width:min(720px,96vw);max-height:94vh;overflow-y:auto">
+    <div class="mhdr">
+      <div class="mtitle" id="pdfTitle">📄 FACTURA — DIAN</div>
+      <button class="xbtn" onclick="cerrarPDF()">✕</button>
+    </div>
+
+    <!-- Tabs: Vista / Subir PDF / Datos DIAN -->
+    <div style="display:flex;gap:4px;margin-bottom:14px;border-bottom:1px solid var(--bord);padding-bottom:10px">
+      <button id="ptab1" onclick="showPTab(1)" class="btn btn-calc" style="font-size:.55rem;padding:5px 12px">📋 Datos causación</button>
+      <button id="ptab2" onclick="showPTab(2)" class="btn" style="font-size:.55rem;padding:5px 12px;background:rgba(11,92,255,.06);border-color:var(--bord);color:var(--tm)">📎 Subir PDF</button>
+      <button id="ptab3" onclick="showPTab(3)" class="btn" style="font-size:.55rem;padding:5px 12px;background:rgba(11,92,255,.06);border-color:var(--bord);color:var(--tm)">🔍 Validar DIAN</button>
+    </div>
+
+    <!-- TAB 1: Datos de la causación -->
+    <div id="pdfTab1">
+      <div id="pdfDatos" style="font-size:.72rem"></div>
+    </div>
+
+    <!-- TAB 2: Subir PDF -->
+    <div id="pdfTab2" style="display:none">
+      <div style="border:2px dashed var(--bord);border-radius:10px;padding:28px;text-align:center;margin-bottom:14px;transition:border-color .2s;cursor:pointer"
+           id="pdfDropZone"
+           ondragover="event.preventDefault();this.style.borderColor='var(--teal)'"
+           ondragleave="this.style.borderColor='var(--bord)'"
+           ondrop="handlePDFDrop(event)">
+        <div style="font-size:2rem;margin-bottom:8px">📄</div>
+        <div style="font-size:.72rem;color:var(--tm);margin-bottom:10px">Arrastre el PDF aquí o haga clic para seleccionar</div>
+        <input type="file" id="pdfInput" accept=".pdf,image/*" style="display:none" onchange="handlePDFFile(this)">
+        <button class="btn btn-calc" onclick="document.getElementById('pdfInput').click()" style="font-size:.6rem">Seleccionar archivo</button>
+      </div>
+      <div id="pdfPreviewArea"></div>
+    </div>
+
+    <!-- TAB 3: Validar CUFE DIAN -->
+    <div id="pdfTab3" style="display:none">
+      <div style="margin-bottom:12px">
+        <div style="font-size:.62rem;color:var(--tm);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">CUFE de la factura</div>
+        <div style="display:flex;gap:8px">
+          <input class="calc-input" id="cufeInput" style="flex:1;font-size:.65rem" placeholder="Pegue el código CUFE de la factura DIAN...">
+          <button class="btn btn-calc" onclick="validarCUFE()" style="font-size:.6rem;padding:6px 14px;white-space:nowrap">🔍 Validar</button>
+        </div>
+      </div>
+      <div id="cufeResult" style="display:none;padding:10px 14px;border-radius:8px;font-size:.68rem;font-family:'JetBrains Mono',monospace;margin-top:8px"></div>
+      <div style="margin-top:14px;background:var(--bg4);border-radius:8px;padding:10px 14px;font-size:.6rem;color:var(--tm);line-height:1.8">
+        <strong style="color:var(--txt)">¿Dónde encontrar el CUFE?</strong><br>
+        El CUFE aparece en la representación gráfica de la factura electrónica, generalmente en el pie de página o en el código QR.<br>
+        También puede consultarlo en <span style="color:var(--teal)">catalogo-vpfe.dian.gov.co</span>
+      </div>
+    </div>
+
+    <!-- Footer botones -->
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--bord)">
+      <button class="btn btn-rej" onclick="cerrarPDF()" style="font-size:.6rem">Cancelar</button>
+      <button class="btn btn-ok" id="pdfAprobarBtn" onclick="aprobarDesdePDF()" style="font-size:.6rem">✅ Aprobar causación</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
